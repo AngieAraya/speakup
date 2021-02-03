@@ -1,11 +1,11 @@
 import React , { useRef, useState }  from 'react'
 import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 
 
-export default function Signup() {
+export default function SignupForm() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()

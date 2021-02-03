@@ -1,11 +1,11 @@
-import React , { useEffect, useRef, useState }  from 'react'
+import React , { useRef, useState }  from 'react'
 import { Form, Button, Card, Alert } from "react-bootstrap"
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import LoginFacebook from './LoginFacebook'
+// import LoginFacebook from './LoginFacebook'
 // import firebase from "firebase"
 // import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
-import LoginGoogle from './LoginGoogle'
+// import LoginGoogle from './LoginGoogle'
 
 
 export default function Login() {
@@ -71,8 +71,8 @@ export default function Login() {
               Log in
             </Button>
         </Form>
-        <LoginGoogle/>
-        <LoginFacebook/>
+        {/* <LoginGoogle/>
+        <LoginFacebook/> */}
         {/* {isSignedIn ? (
           // <span>
           //   <div>Signed In!</div>

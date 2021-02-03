@@ -22,7 +22,8 @@ export default function UpdateProfile() {
     setError("")
 
     if(emailRef.current.value !== currentUser.email){
-      promises.push(emailRef.current.value)
+      promises.push(updateEmail(emailRef.current.value))
+
     }
 
     if (passwordRef.current.value) {
@@ -58,14 +59,14 @@ export default function UpdateProfile() {
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required placeholder="Leave blank to keep the same" />
+              <Form.Control type="password" ref={passwordRef} placeholder="Leave blank to keep the same" />
             </Form.Group>
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required placeholder="Leave blank to keep the same" />
+              <Form.Control type="password" ref={passwordConfirmRef} placeholder="Leave blank to keep the same" />
             </Form.Group>
             <Button disabled={loading} className="w-100" type="submit">
-              Sign Up
+              Update 
             </Button>
           </Form>
         </Card.Body>
