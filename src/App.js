@@ -11,6 +11,7 @@ import SignupPage from "./Page/SignupPage";
 import LoginPage from "./Page/LoginPage";
 import UpdateProfilePage from "./Page/UpdateProfilePage";
 import ForgotPasswordPage from "./Page/ForgotPasswordPage";
+import StartPage from "./Page/StartPage";
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
           <PrivateRoute path="/update-profile" component={UpdateProfilePage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/start" component={StartPage} />
           <Route path="/forgot-password" component={ForgotPasswordPage} />
+          {/* <Route path="/Start" component={ForgotPasswordPage} /> */}
         </Switch>
       </div>
     </Container>

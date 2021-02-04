@@ -16,27 +16,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const history = useHistory()
 
-  // const [isSignedIn, setIsSignedIn] = useState(false);
-
-  // const uiConfig = {
-  //   signInFlow: "popup",
-  //   signInOptions: [
-  //     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-  //     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-
-  //   ],
-  //   callbacks: {
-  //     signInSuccess: () => false
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     setIsSignedIn(!!user)
-  //     console.log("user", user)
-  //   })
-  // }, [])
-
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -83,7 +62,7 @@ export default function Login() {
           //     src={firebase.auth().currentUser.photoURL}
           //   />
           // </span>
-          <h1>jesper</h1>
+          <h1>hej</h1>
         ) : (
           <StyledFirebaseAuth
             uiConfig={uiConfig}
