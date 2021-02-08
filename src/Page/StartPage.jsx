@@ -8,7 +8,6 @@ export default function StartPage() {
   const [loading, setLoading ] = useState(false)
 
   const ref = firebase.firestore().collection("posts")
-  console.log(ref);
 
   const getPosts = () => {
     setLoading(true)
@@ -31,13 +30,10 @@ export default function StartPage() {
     return <h1>Loading...</h1>
   }
 
-
-
-
   return (
     <div>
       <h3>START PAGE</h3>
-      <button onClick={()=> history.push("/login")} > Log IN</button>
+      {/* <button onClick={()=> history.push("/login")} > Log IN</button> */}
       {post.map((post) => (
         <div key={post.id}>
           <h2>{post.title}</h2>

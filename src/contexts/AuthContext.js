@@ -37,22 +37,37 @@ export  function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
 
   }
-  
-  useEffect(() => {
-  // let isUnmount = false;
 
-    // if(!isUnmount){
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setCurrentUser(user);
+        
+  //       // setState({
+  //         //   currentUser: user,
+  //         //   isLoggedIn: true
+  //         // });
+  //       } else {
+  //       setCurrentUser(null);
+  //       // setState({
+  //       //   currentUser: null,
+  //       //   isLoggedIn: false
+  //       // });
+  //     }
+  //     setLoading(false);
+  //   });
+
+  //   // Cleanup subscription on unmount
+  //   return () => unsubscribe();
+  // }, []);
+
+  useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged(user => {
+        console.log('hej');
         setCurrentUser(user);
         setLoading(false);
       })
       return unsubscribe;
-    // }
-
-    // return () => {
-    //   isUnmount = true; 
-    // } 
-
   }, [])
 
   const value = {

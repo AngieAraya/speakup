@@ -9,13 +9,14 @@ export default function SignupForm() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const { signup, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("tes0", currentUser);
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
@@ -25,16 +26,24 @@ export default function SignupForm() {
       setError("");
       setLoading(true);
       await signup( emailRef.current.value, passwordRef.current.value);
+      console.log("tes1", currentUser);
+      setLoading(false);
+      history.push("/")
+      
       // const user = await signup( emailRef.current.value, passwordRef.current.value);
       // generateUserDocument(user.user);
-
-
-      history.push("/");
+      
     } catch {
+      console.log("tes2", currentUser);
       setError("Failed to create an account");
+      setLoading(false);
     }
+    console.log("tes3", currentUser);
+    // if(sucessLogin){
+    //   console.log('currenttest');
+    //   history.push("/");
+    // }
 
-    setLoading(false);
   };
 
   // const generateUserDocument = async (user) => {

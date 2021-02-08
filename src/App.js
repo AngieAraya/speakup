@@ -12,17 +12,21 @@ import LoginPage from "./Page/LoginPage";
 import UpdateProfilePage from "./Page/UpdateProfilePage";
 import ForgotPasswordPage from "./Page/ForgotPasswordPage";
 import StartPage from "./Page/StartPage";
+import Navbar from "./NavBar/Navbar";
+import AboutPage from "./Page/AboutPage";
 
 function App() {
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="w-100" style={{ maxWidth: "400px" }}>
+    // <Container
+    //   className="d-flex align-items-center justify-content-center"
+    //   style={{ minHeight: "100vh" }}
+    // >
+      <div>
+        <Navbar/>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute path="/update-profile" component={UpdateProfilePage} />
+          <Route path="/about" component={AboutPage} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/start" component={StartPage} />
@@ -30,7 +34,7 @@ function App() {
           {/* <Route path="/Start" component={ForgotPasswordPage} /> */}
         </Switch>
       </div>
-    </Container>
+    // </Container>
   );
 }
 
