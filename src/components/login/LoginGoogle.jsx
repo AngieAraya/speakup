@@ -46,7 +46,7 @@
 //       if (user) {
 //         // console.log("User Signed in");
 //         // console.log(user.displayName + '\n' + user.email);
-//         history.push("/")
+//         history.push("/profile")
 //         setIsLoggedIn(true)
 //         setName(user.displayName)
 //         setPhoto(user.photoURL)

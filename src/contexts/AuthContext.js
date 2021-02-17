@@ -1,88 +1,138 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { auth } from "../firebase"
+import React, { useContext, useState, useEffect } from "react";
+import { auth, firestore } from "../firebase";
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext();
 
 export function useAuth() {
-  return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
-export  function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState()
-  const [loading, setLoading] = useState(true)
+export function AuthProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState();
+  const [userDetail, setUserDetail] = useState();
+  const [loading, setLoading] = useState(true);
 
-  function signup(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
-    // console.log('response', response);
+  const saveUserToDB = async (user, name) => {
+    const db = await firestore;
+    return db
+      .collection("users")
+      .doc(user.uid.toString())
+      .set({
+        id: user.uid.toString(),
+        name,
+        email: user.email,
+      })
+      .then(() => {
+        // console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
+
+  function signup(email, password, userName) {
+    return auth.createUserWithEmailAndPassword(email, password).then((res) => {
+      saveUserToDB(res.user, userName);
+      return res.user;
+    });
   }
 
   function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+    return auth.signInWithEmailAndPassword(email, password);
   }
 
-  function logout(){
-    return auth.signOut()
+  function logout() {
+    return auth.signOut();
   }
 
   function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email)
+    return auth.sendPasswordResetEmail(email);
   }
+
+  // const updateUserEmailToDB = async (email) => {
+  //   console.log("em", email);
+  //   const db = await firestore;
+  //   return db
+  //     .collection("users")
+  //     .doc(currentUser.uid.toString())
+  //     .update({
+  //       email
+  //     })
+  //     .then(() => {
+  //       console.log("Document successfully written!");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error writing document: ", error);
+  //     });
+  // };
 
   function updateEmail(email) {
     return currentUser.updateEmail(email)
+      // updateUserEmailToDB(email)
     
   }
 
   function updatePassword(password) {
-    return currentUser.updatePassword(password)
-
+    return currentUser.updatePassword(password);
   }
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       setCurrentUser(user);
-        
-  //       // setState({
-  //         //   currentUser: user,
-  //         //   isLoggedIn: true
-  //         // });
-  //       } else {
-  //       setCurrentUser(null);
-  //       // setState({
-  //       //   currentUser: null,
-  //       //   isLoggedIn: false
-  //       // });
-  //     }
-  //     setLoading(false);
-  //   });
+  function deleteUser() {
+    return currentUser.delete().then(()=> {
+      setCurrentUser(null);
+    })
+  }
 
-  //   // Cleanup subscription on unmount
-  //   return () => unsubscribe();
-  // }, []);
+  const getUserData = async (user) => {
+    //Här är endast för att displaya info om min user som är inloggad
+    if (user) {
+      setLoading(false);
+      await firestore
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = {
+              email: doc.data().email,
+              name: doc.data().name,
+              uid: user.uid,
+            };
+            setUserDetail(userData);
+          } else {
+            console.log("No such document!");
+          }
+        });
+    } else {
+      setCurrentUser(null);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged(user => {
-        console.log('hej');
-        setCurrentUser(user);
-        setLoading(false);
-      })
-      return unsubscribe;
-  }, [])
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // console.log("user", user);
+      setCurrentUser(user);
+      setLoading(false);
+      getUserData(user);
+    });
+    return unsubscribe;
+  }, []);
 
   const value = {
     currentUser,
+    userDetail,
     login,
     signup,
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
-  }
+    updatePassword,
+    deleteUser,
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }

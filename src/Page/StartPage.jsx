@@ -1,47 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import firebase from '../firebase'
+ import React from "react";
+import Header from "../components/Header";
+import Posts from "../components/Posts";
+import {Container} from "../components/styles/StartPageStyle"
+// import { useHistory } from "react-router-dom";
+// import { firestore } from "../firebase";
+// import { Link } from "react-router-dom";
 
 export default function StartPage() {
-  const history = useHistory()
-  const [post, setPost ] = useState([])
-  const [loading, setLoading ] = useState(false)
+  // const history = useHistory();
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  const ref = firebase.firestore().collection("posts")
+  // // .collection("posts")
+  // // .doc(currentUser.uid.toString())
+  // // .collection("userPosts").doc(autoID)
 
-  const getPosts = () => {
-    setLoading(true)
-    ref.onSnapshot((querySnapshot) => {
-      const items = []
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data())
-      })
-      setPost(items)
-      setLoading(false)
-    })
-  }
+  // const getPosts = () => {
+  //   setLoading(true);
+  //   // firestore.collection("posts").doc("IqmEAgmuwqPZeluYETfYY25t7gm1").collection("userPosts").onSnapshot((querySnapshot) => {
+  //   firestore.collection("posts").onSnapshot((querySnapshot) => {
+  //     const items = [];
+  //     querySnapshot.forEach((doc) => {
+  //       items.push(doc.data());
+  //     });
+  //     setPosts(items);
+  //     setLoading(false);
+  //   });
+  // };
 
-  useEffect(() => {
-    getPosts()
-  
-  }, [])
+  // useEffect(() => {
+  //   getPosts();
+  // }, []);
 
-  if(loading){
-    return <h1>Loading...</h1>
-  }
-
+  // if (loading) {
+  //   return <h1>Loading...</h1>;
+  // }
   return (
-    <div>
+    <Container>
+      <Header/>
       <h3>START PAGE</h3>
-      {/* <button onClick={()=> history.push("/login")} > Log IN</button> */}
-      {post.map((post) => (
-        <div key={post.id}>
+      <Posts/>
+      {/* {posts.map((post, index) => (
+        <div key={index}>
           <h2>{post.title}</h2>
           <h3>{post.description}</h3>
           <p>{post.text}</p>
+          <Link to={`/detail/${post.id}`}>Go to detail page</Link>
         </div>
-      ))}
-      
-    </div>
-  )
+      ))} */}
+    </Container>
+  );
 }

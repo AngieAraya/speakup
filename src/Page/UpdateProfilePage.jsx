@@ -5,7 +5,7 @@ export default function UpdateProfilePage() {
   return (
     <div>
       <UpdateProfile/>
-      
+
     </div>
   )
 }
