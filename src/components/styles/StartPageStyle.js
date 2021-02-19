@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: #533a56;
+  text-align: center;
 `;
 
 export const Paragraph = styled.p`

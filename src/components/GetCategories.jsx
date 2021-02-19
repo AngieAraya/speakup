@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import {PostWrapper, Paragraph} from "../components/styles/StartPageStyle"
 import { firestore } from "../firebase";
 import { Link } from "react-router-dom";
 
-export default function Posts() {
-  const [posts, setPosts] = useState([]);
+export default function GetCategories({radio}) {
+ const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  
-  const getPosts = () => {
+    
+  const handleGetCategory = () => {
     setLoading(true);
-    // firestore.collection("posts").doc("IqmEAgmuwqPZeluYETfYY25t7gm1").collection("userPosts").onSnapshot((querySnapshot) => {
-      firestore.collection("posts").onSnapshot((querySnapshot) => {
+    console.log(radio); 
+    firestore
+      .collection("posts")
+      .where("category", "==", radio)
+      .get()
+      .then((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
-          // items.push(doc.data());
+          console.log(doc.data());
           items.push({ collectionId: doc.id, value: doc.data() });
         });
         setPosts(items);
         setLoading(false);
+            })
+      .catch((error) => {
+        console.log("Error getting documents DASHBOARD: ", error);
       });
-    };
-    
-    useEffect(() => {
-      getPosts();
-    }, []);
-    
-    if (loading) {
-      return <h1>Loading...</h1>;
-    }
-    
-    return (
-      <>
-      {posts.map((post) => (
+  };
+
+  useEffect(()=> {
+    handleGetCategory()
+  },[radio])
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  return (
+    <>
+    <h1>{radio}</h1>
+    {posts.map((post) => (
         <PostWrapper key={post.collectionId}>
           <h1>{post.value.title}</h1>
           <h4>{post.collectionId}</h4>
@@ -41,6 +49,8 @@ export default function Posts() {
           <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
         </PostWrapper>
       ))}
+      
+      
     </>
-  );
+  )
 }

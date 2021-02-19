@@ -1,4 +1,3 @@
-import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Form = styled.form`
@@ -22,7 +21,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 60vh;
+  height: 80vh;
 `;
 export const Input = styled.input`
   border-radius: 6px;

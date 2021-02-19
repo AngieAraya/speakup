@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [userDetail, setUserDetail] = useState();
+  const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
 
   const saveUserToDB = async (user, name) => {
@@ -67,9 +67,8 @@ export function AuthProvider({ children }) {
   // };
 
   function updateEmail(email) {
-    return currentUser.updateEmail(email)
-      // updateUserEmailToDB(email)
-    
+    return currentUser.updateEmail(email);
+    // updateUserEmailToDB(email)
   }
 
   function updatePassword(password) {
@@ -77,9 +76,12 @@ export function AuthProvider({ children }) {
   }
 
   function deleteUser() {
-    return currentUser.delete().then(()=> {
-      setCurrentUser(null);
-    })
+    return currentUser.delete();
+    //   return firestore.collection("users").doc().delete().then(() => {
+    //     console.log("Document successfully deleted!");
+    // }).catch((error) => {
+    //     console.error("Error removing document: ", error);
+    // });
   }
 
   const getUserData = async (user) => {
@@ -99,7 +101,7 @@ export function AuthProvider({ children }) {
             };
             setUserDetail(userData);
           } else {
-            console.log("No such document!");
+            console.log("No such docummment!");
           }
         });
     } else {
@@ -110,7 +112,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      // console.log("user", user);
+      console.log("user", user);
       setCurrentUser(user);
       setLoading(false);
       getUserData(user);

@@ -2,7 +2,6 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import SignupPage from "./Page/SignupPage";
 import LoginPage from "./Page/LoginPage";
-import UpdateProfilePage from "./Page/UpdateProfilePage";
 import ForgotPasswordPage from "./Page/ForgotPasswordPage";
 import StartPage from "./Page/StartPage";
 import Navbar from "./components/NavBar/Navbar";
@@ -11,6 +10,7 @@ import CreatePostPage from "./Page/CreatePostPage";
 import DetailPostPage from "./Page/DetailPostPage";
 import ProfilePage from "./Page/ProfilePage";
 import UpdatePostPage from "./Page/UpdatePostPage";
+
 
 function App() {
   return (
@@ -21,7 +21,6 @@ function App() {
           <PrivateRoute exact path="/update-post/:id" component={UpdatePostPage} />
           <PrivateRoute exact path="/create-post" component={CreatePostPage} />
           <PrivateRoute exact path="/profile" component={ProfilePage} />
-          <PrivateRoute path="/update-profile" component={UpdateProfilePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/detail/:id" component={DetailPostPage} />
           <Route path="/signup" component={SignupPage} />

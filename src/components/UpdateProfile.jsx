@@ -1,19 +1,36 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
+import { Container, Form, Input, Button, Header } from "./styles/FormStyle";
+import { LinkDiv } from "../components/styles/ProfilePageStyle";
+import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { firestore } from "../firebase";
 
-export default function UpdateProfile() {
+
+export default function UpdateProfile({setShowModal}) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { currentUser, updatePassword, updateEmail } = useAuth();
+  const { currentUser, userDetail, updatePassword, updateEmail, setUserDetail} = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  console.log("update", currentUser.email);
+  const UpdateUserToDB = () => {
+    firestore
+    .collection("users")
+    .doc(userDetail.uid)
+    .update({
+      email: emailRef.current.value, 
+    })
+    // setUserDetail({...userDetail, email:emailRef.current.value})
+    .then(() => {
+      console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+      console.error("Error updating document: ", error);
+    });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,13 +43,15 @@ export default function UpdateProfile() {
 
     if (emailRef.current.value !== currentUser.email) {
       promises.push(updateEmail(emailRef.current.value));
-      
     }
 
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value));
     }
     Promise.all(promises)
+      .then(() => {
+        UpdateUserToDB()
+      })
       .then(() => {
         setLoading(false);
         history.push("/profile");
@@ -47,45 +66,39 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Update Profile</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                ref={emailRef}
-                required
-                defaultValue={currentUser.email}
-              />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordRef}
-                placeholder="Leave blank to keep the same"
-              />
-            </Form.Group>
-            <Form.Group id="password-confirm">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                type="password"
-                ref={passwordConfirmRef}
-                placeholder="Leave blank to keep the same"
-              />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Update
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        <Link to="/profile">Cancel</Link>
-      </div>
+      <Container>
+        <Header>Update Profile</Header>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Form onSubmit={handleSubmit}>
+          <label>Email</label>
+          <Input
+            type="email"
+            ref={emailRef}
+            required
+            defaultValue={currentUser.email}
+          />
+          <label>Password</label>
+          <Input
+            type="password"
+            ref={passwordRef}
+            placeholder="Leave blank to keep the same"
+          />
+          <label>Password Confirmation</label>
+          <Input
+            type="password"
+            ref={passwordConfirmRef}
+            placeholder="Leave blank to keep the same"
+          />
+
+          <Button disabled={loading} type="submit">
+            Update
+          </Button>
+        </Form>
+        <LinkDiv>
+        <Button onClick={()=> setShowModal(false)}>Cancel</Button>
+          {/* <CancelLink to="/profile">Cancel</CancelLink> */}
+        </LinkDiv>
+      </Container>
     </>
   );
 }

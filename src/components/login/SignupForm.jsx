@@ -4,14 +4,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import {
   Form, Container, Input, Button, Header, TextCenter
-} from "../styles/SignupFormStyle";
+} from "../styles/FormStyle";
 
 export default function SignupForm() {
   const [name, setName] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup, currentUser } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -26,9 +26,7 @@ export default function SignupForm() {
     try {
       setError("");
       setLoading(true);
-      // await signup( emailRef.current.value, passwordRef.current.value);
       await signup(emailRef.current.value, passwordRef.current.value, name);
-      // generateUserDocument(user.user);
       setLoading(false);
       history.push("/profile");
     } catch {

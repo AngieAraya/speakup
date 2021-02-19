@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Container, Input, Button, Header, TextCenter } from "../styles/SignupFormStyle";
+import { Form, Container, Input, Button, Header, TextCenter } from "../styles/FormStyle";
 // import LoginFacebook from './LoginFacebook'
 // import firebase from "firebase"
 // import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
@@ -44,7 +44,7 @@ export default function Login() {
             required
             placeholder="Password"
           />
-          <Button disabled={loading} className="w-100" type="submit">
+          <Button disabled={loading} type="submit">
             Log in
           </Button>
         </Form>

@@ -9,7 +9,6 @@ export default function DeletePost({id, setDeleted}) {
 
   const handleDelete = () => {
     console.log(id);
-
     firestore.collection("posts").doc(id).delete().then(() => {
       console.log("Document successfully deleted!");
       setDeleted(true)

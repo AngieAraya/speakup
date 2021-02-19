@@ -5,7 +5,11 @@ import {
   Input,
   Button,
   Header,
-} from "./styles/SignupFormStyle";
+} from "./styles/FormStyle";
+import {
+  LinkDiv,
+  CancelLink,
+} from "../components/styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { useHistory } from "react-router-dom";
@@ -13,6 +17,7 @@ import { useHistory } from "react-router-dom";
 export default function UpdatePost({ id }) {
   console.log("upd", id);
   const [postDetail, setPostDetail] = useState(null);
+  const [category, setCategory] = useState("");
   const titleRef = useRef();
   const textRef = useRef();
   const history = useHistory()
@@ -22,6 +27,7 @@ export default function UpdatePost({ id }) {
   if (postDetail) {
     console.log(postDetail);
   }
+  
   const getPost = () => {
     firestore
       .collection("posts")
@@ -54,6 +60,7 @@ export default function UpdatePost({ id }) {
     .update({
       title: titleRef.current.value,
       text: textRef.current.value,
+      category,
     })
     .then(() => {
       history.push("/profile")
@@ -71,7 +78,7 @@ export default function UpdatePost({ id }) {
       <Container>
         <Header>Uppdatera Post</Header>
         {error && <Alert variant="danger">{error}</Alert>}
-        {postDetail && (
+        {postDetail && 
           <Form onSubmit={handlePostUpdate}>
             <label>Title</label>
             <Input
@@ -82,11 +89,24 @@ export default function UpdatePost({ id }) {
             />
             <label>Text</label>
             <Input type="text" ref={textRef} defaultValue={postDetail.text} />
+            <label>Välj kategori:</label>
+          <select defaultValue={postDetail.category} onChange={(e) => {
+            const selectCategory = e.target.value
+            setCategory(selectCategory)
+          }}>
+            <option value="Familj">Familj</option>
+            <option value="Rån">Rån</option>
+            <option value="Misshandel">Misshandel</option>
+          </select>
             <Button disabled={loading} required type="submit">
               uppdatera
             </Button>
+
           </Form>
-        )}
+        }
+         <LinkDiv> 
+        <CancelLink to="/profile">Cancel</CancelLink>
+        </LinkDiv>
       </Container>
     </>
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
+import { Container, PostWrapper, Headline, Category } from "../components/styles/DetailPageStyle"
 
 export default function DetailPostPage(props) {
   const id = props.match.params.id;
@@ -44,16 +45,15 @@ export default function DetailPostPage(props) {
   }, []);
 
   return (
-    <div>
-      detail
+    <Container>
       {postDetail &&
-          <div key={id}>
-            <h2>{postDetail.title}</h2>
-            <h3>{postDetail.description}</h3>
+          <PostWrapper key={id}>
+            <Category>Kategory: {postDetail.category}</Category>
+            <Headline>{postDetail.title}</Headline>
             <p>{postDetail.text}</p>
             {/* <p>{postDetail.date.seconds}</p> */}
-          </div>
+          </PostWrapper>
        }
-    </div>
+    </Container>
   );
 }

@@ -8,6 +8,41 @@ export const Container = styled.div`
   justify-content: center;
   margin: 30px;
 `;
+
+export const UserDetaiContainer = styled.div`
+  margin: 40px;
+`;
+
+export const TextInput = styled.input`
+border-radius: 6px;
+border: 1px solid purple;
+width: 70%;
+min-height: 300px;
+padding: 5px;
+margin: 9px;
+`;
+
+export const DashboardContainer = styled.div`
+  margin: 50px;
+`;
+export const LinkDiv = styled.div`
+  text-align: center;
+`;
+
+export const ProfileImg = styled.img`
+height: 170px;
+border-radius: 50%;
+margin-right: 30px;
+`;
+
+export const UserDetailWrapper = styled.div`
+display: flex;
+justify-content: start;
+align-items: center;
+}
+`;
+
+
 export const PostContainer = styled.div`
   // background: pink;
   display: flex;
@@ -59,28 +94,35 @@ export const Buttonwraper = styled.div`
     color: white;
 }
 `;
-  export const ButtonAdd = styled(Button)`
-  background-color: green;
-  &:hover {
-    background-color: darkgreen;
-  }
-`;
 
 export const UpdateLink = styled(Link)`
 letter-spacing: 1px;
 padding: 3px 55px;
 border: none;
 border-radius: 10px;
-background-color: rgb(94 60 128);
+background-color: #38a1bd;
 color: rgb(255, 255, 255);
 cursor: pointer;
 transition: all 0.3s ease 0s;
 box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
 &:hover {
   transition: all 0.2s ease-in-out;
-  background-color: rgb(141 75 206);
+  background-color: #06b9e8;
   color: white;
   text-decoration: none;
+}
+`;
 
+
+export const CreateNewPostLink = styled(UpdateLink)`
+background-color: #38a1bd;
+&:hover {
+  background-color: #06b9e8;
+}
+`;
+export const CancelLink = styled(CreateNewPostLink)`
+background-color: #38a1bd;
+&:hover {
+  background-color: #06b9e8;
 }
 `;

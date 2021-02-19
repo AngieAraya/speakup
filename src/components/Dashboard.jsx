@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   Postwrapper,
   PostContainer,
-  Button,
   Buttonwraper,
   UpdateLink,
-  ButtonAdd,
+  LinkDiv,
+  DashboardContainer,
+  CreateNewPostLink,
 } from "../components/styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
@@ -15,13 +16,11 @@ import DeletePost from "./DeletePost";
 
 export default function Dashboard() {
   const [error, setError] = useState("");
-  const { currentUser, deleteUser } = useAuth();
+  const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const history = useHistory();
-
-  // console.log("nåt nt", posts);
 
   const getPosts = () => {
     firestore
@@ -58,74 +57,41 @@ export default function Dashboard() {
   // }
   useEffect(() => {
     getPosts();
+    setDeleted(false)
   }, [deleted]);
 
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
-  const handleDelete = () => {
-    console.log("delete"); 
-    deleteUser()
-  }
-
-  // const updateData = (id) => {
-  //   console.log("id 2", id);
-  //   firestore.collection("posts").doc(id).update({
-  //       title: "uppd",
-  //     })
-  //     .then(() => {
-  //       console.log("Document successfully updated!");
-  //     })
-  //     .catch((error) => {
-  //       // The document probably doesn't exist.
-  //       console.error("Error updating document: ", error);
-  //     });
-  // };
-
-  // const handleUpdate = (id) => {
-  //   // console.log("handle updte", id);
-  //   firestore
-  //     .collection("posts")
-  //     .doc(id)
-  //     .update({
-  //       title: " Girl",
-  //     })
-  //     .then(() => {
-  //       console.log("Document successfully updated!");
-  //     })
-  //     .catch((error) => {
-  //       // The document probably doesn't exist.
-  //       console.error("Error updating document: ", error);
-  //     });
-  // };
-
   return (
-    <div>
+    <DashboardContainer>
       {error && <Alert variant="danger">{error}</Alert>}
-      <button onClick={() => handleDelete()}>Delete Account</button>
-      <UpdateLink to="/update-profile">Update Profile</UpdateLink>
-         <ButtonAdd onClick={() => history.push("/create-post")}>
-              skapa inlägg
-            </ButtonAdd>
-      {posts && posts.map((post) => (
-        <PostContainer key={post.collectionId}>
-          <Postwrapper>
-            <h2>{post.value.title}</h2>
-            <h5>{post.value.description}</h5>
-            <p>{post.value.text.substring(0, 300) + `...`}</p>
-            <p>{post.collectionId}</p>
-            <Link to={`/detail/${post.collectionId}`}>Gå vidare till sidan</Link>
-          </Postwrapper>
-          <Buttonwraper>
-            {/* <Button onClick={() => handleUpdate(post.collectionId)}>
-              Uppdatera
-            </Button> */}
-             <UpdateLink to={`/update-post/${post.collectionId}`}>Modifiera</UpdateLink>
-            <DeletePost id={post.collectionId} setDeleted={setDeleted} />
-          </Buttonwraper>
-        </PostContainer>
-      ))}
-    </div>
+      <LinkDiv> 
+      <CreateNewPostLink to="/create-post">
+        skapa inlägg
+      </CreateNewPostLink>
+      </LinkDiv>
+      {posts &&
+        posts.map((post) => (
+          <PostContainer key={post.collectionId}>
+            <Postwrapper>
+              <h2>{post.value.title}</h2>
+              <h5>{post.value.description}</h5>
+              <p>{post.value.text.substring(0, 300) + `...`}</p>
+              <p>{post.collectionId}</p>
+              <Link to={`/detail/${post.collectionId}`}>
+                Gå vidare till sidan
+              </Link>
+            </Postwrapper>
+            <Buttonwraper>
+              <UpdateLink to={`/update-post/${post.collectionId}`}>
+                Modifiera
+              </UpdateLink>
+              <DeletePost id={post.collectionId} setDeleted={setDeleted} />
+            </Buttonwraper>
+          </PostContainer>
+        ))}
+    </DashboardContainer>
   );
 }
