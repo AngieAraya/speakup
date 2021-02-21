@@ -13,6 +13,7 @@ export default function Posts() {
       firestore.collection("posts").onSnapshot((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
+          console.log(doc.data().anonymousPost);
           // items.push(doc.data());
           items.push({ collectionId: doc.id, value: doc.data() });
         });
@@ -20,7 +21,7 @@ export default function Posts() {
         setLoading(false);
       });
     };
-    
+
     useEffect(() => {
       getPosts();
     }, []);
@@ -36,7 +37,7 @@ export default function Posts() {
           <h1>{post.value.title}</h1>
           <h4>{post.collectionId}</h4>
           <h4>Kategori {post.value.category}</h4>
-          <h5>Skriven av: {post.value.name}</h5>
+          <h5>Skriven av: {post.value.anonymousPost ? <span>Anonym</span> : <span>{post.value.name}</span>}</h5>
           <Paragraph>{post.value.text}</Paragraph>
           <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
         </PostWrapper>

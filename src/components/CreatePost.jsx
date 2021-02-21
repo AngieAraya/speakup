@@ -25,15 +25,13 @@ export default function CreatePost() {
   const [category, setCategory] = useState("Familj");
   const [checkbox, setCheckBox] = useState(false);
   const history = useHistory();
-  console.log(checkbox);
-  console.log(category);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     savePostToDB(titleRef.current.value, textRef.current.value);
   };
 
-  const checkCheckBox = () => {
+  const toggleCheckbox = () => {
     setCheckBox(prev => !prev);
   };
 
@@ -48,7 +46,7 @@ export default function CreatePost() {
         title,
         text,
         category,
-        // date: db.Timestamp.fromDate(new Date()),
+        date: new Date(),
         userId: currentUser.uid,
         name: userDetail.name,
         anonymousPost: checkbox,
@@ -72,7 +70,6 @@ export default function CreatePost() {
           <label>Title</label>
           <Input type="text" ref={titleRef} required />
           <label>Text</label>
-          {/* <Input type="textarea" ref={textRef} required /> */}
           <TextInput type="text" ref={textRef} required ></TextInput>
           <label>Välj kategori:</label>
           <select onChange={(e) => {
@@ -84,9 +81,9 @@ export default function CreatePost() {
             <option value="Misshandel">Misshandel</option>
           </select>
           <label>Jag vill vara Anonym</label>
-          <input type="checkbox" onClick={checkCheckBox}/>
+          <input type="checkbox" onClick={toggleCheckbox}/>
           <Button disabled={loading} type="submit">
-            Lägg upp
+            Publicera
           </Button>
         </Form>
         <LinkDiv> 

@@ -1,59 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
-import { Container, PostWrapper, Headline, Category } from "../components/styles/DetailPageStyle"
+import {
+  PostWrapper,
+  Headline,
+  Category,
+} from "../components/styles/DetailPageStyle";
+import { Container, Button } from "../components/styles/GeneralStyle";
+import { useAuth } from "../contexts/AuthContext";
+import PostComment from "../components/PostComment";
+import CreateComment from "../components/CreateComment";
 
 export default function DetailPostPage(props) {
-  const id = props.match.params.id;
+  const { currentUser } = useAuth();
+  const postId = props.match.params.id;
   const [postDetail, setPostDetail] = useState(null);
-  console.log("post detail", postDetail);
+  const [showForm, setShowForm] = useState(false);
+  const [reloadComment, setReloadComment] = useState(false);
 
   const getPost = () => {
-      firestore.collection("posts").doc(id)
+    firestore
+      .collection("posts")
+      .doc(postId)
       .get()
       .then((doc) => {
         if (doc.exists) {
-          setPostDetail(doc.data())
-      } else {
+          setPostDetail(doc.data());
+        } else {
           console.log("No such document!");
-      }
-    }).catch((error) => {
+        }
+      })
+      .catch((error) => {
         console.log("Error getting document:", error);
       });
-    }
-  //   console.log("detail ID TEST", id);
-  //   firestore
-  //     .collection("posts").where("id", "==", id)
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       console.log(querySnapshot.data());
-  //       // const items = [];
-  //       // querySnapshot.forEach((doc) => {
-  //       //   console.log("doc", doc.data());
-  //       // //   items.push(doc.data());
-  //       // });
-  //       // // console.log(items);
-  //       // setPostDetail(items);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error getting documents DASHBOARD: ", error);
-  //     });
-  // }
-
+  };
 
   useEffect(() => {
     getPost();
   }, []);
 
+  const toggleCommentForm = () => {
+    setShowForm((prev) => !prev);
+  };
+
   return (
     <Container>
-      {postDetail &&
-          <PostWrapper key={id}>
-            <Category>Kategory: {postDetail.category}</Category>
-            <Headline>{postDetail.title}</Headline>
-            <p>{postDetail.text}</p>
-            {/* <p>{postDetail.date.seconds}</p> */}
-          </PostWrapper>
-       }
+      {postDetail && (
+        <PostWrapper key={postId}>
+          <Category>Kategory: {postDetail.category}</Category>
+          <Headline>{postDetail.title}</Headline>
+          <p>{postDetail.text}</p>
+          {/* <p>{postDetail.date.seconds}</p> */}
+        </PostWrapper>
+      )}
+      {currentUser && (
+        <Button onClick={toggleCommentForm}>Lämna en komentar</Button>
+      )}
+      {showForm && <CreateComment postId={postId} setShowForm={setShowForm}/>}
+      <h3>Kommentarer</h3>
+      <PostComment postId={postId}/>
     </Container>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from "../components/styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import DeletePost from "./DeletePost";
 
@@ -20,7 +20,6 @@ export default function Dashboard() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const history = useHistory();
 
   const getPosts = () => {
     firestore
@@ -33,7 +32,6 @@ export default function Dashboard() {
           // items.push(doc.data());
           // items.push(doc.id)
           items.push({ collectionId: doc.id, value: doc.data() });
-          // console.log("document id", doc.id);
         });
         setPosts(items);
       })

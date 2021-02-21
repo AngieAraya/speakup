@@ -17,17 +17,17 @@ import { useHistory } from "react-router-dom";
 export default function UpdatePost({ id }) {
   console.log("upd", id);
   const [postDetail, setPostDetail] = useState(null);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("familj");
+  const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
   const textRef = useRef();
   const history = useHistory()
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  // if (postDetail) {
+  //   console.log(postDetail);
+  // }
 
-  if (postDetail) {
-    console.log(postDetail);
-  }
-  
   const getPost = () => {
     firestore
       .collection("posts")
@@ -46,7 +46,6 @@ export default function UpdatePost({ id }) {
   };
 
   useEffect(() => {
-    console.log("effecr");
     getPost();
   }, []);
   
@@ -61,6 +60,7 @@ export default function UpdatePost({ id }) {
       title: titleRef.current.value,
       text: textRef.current.value,
       category,
+      anonymousPost: checkbox,
     })
     .then(() => {
       history.push("/profile")
@@ -72,6 +72,9 @@ export default function UpdatePost({ id }) {
     });
   };
 
+  const toggleCheckbox = () => {
+    setCheckBox(prev => !prev);
+  };
 
   return (
     <>
@@ -98,6 +101,8 @@ export default function UpdatePost({ id }) {
             <option value="Rån">Rån</option>
             <option value="Misshandel">Misshandel</option>
           </select>
+          <label>Jag vill vara Anonym</label>
+          <input type="checkbox" onClick={toggleCheckbox}/>
             <Button disabled={loading} required type="submit">
               uppdatera
             </Button>
