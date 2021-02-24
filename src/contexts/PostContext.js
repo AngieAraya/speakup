@@ -14,10 +14,52 @@ export function PostProvider({ children }) {
   //obs lägg till loading!! ?
   // const [loading, setLoading] = useState(true);
 
+const getPostFromDb = async (postId) =>{
+  const db = await firestore
+  return db
+  .collection("posts")
+  .doc(postId)
+  .get()
+  .then((doc) => {
+    if (doc.exists) {
+      return doc.data();
+    } else {
+      console.log("No such document!");
+    }
+  })
+  .catch((error) => {
+    console.log("Error getting document:", error);
+  });
+}
 
-
-
-
+const getCommentsFromDB = async (postId) => {
+  const db = await firestore;
+  return db
+    .collection("posts")
+    .doc(postId)
+    .collection("comment")
+    .orderBy("date","desc")
+    .get()
+    .then((snapShot) => {
+        let items = [];
+        snapShot.docs.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setComments(items);
+        // setComments(items);
+      })
+    // .then((snapShot) => {
+    //   let items = [];
+    //   snapShot.docs.forEach((doc) => {
+    //     items.push({ commentId: doc.id, value: doc.data() });
+    //   });
+    //   return items;
+    //   // setComments(items);
+    // })
+    .catch((error) => {
+      console.log("Error getting documents DASHBOARD: ", error);
+    });
+};
 
 
   // useEffect(() => {
@@ -31,6 +73,8 @@ export function PostProvider({ children }) {
   // }, []);
 
   const value = {
+    getPostFromDb,
+    getCommentsFromDB,
     comments, 
     setComments,
     posts,

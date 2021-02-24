@@ -9,37 +9,39 @@ import {
 import { Button } from "../components/styles/GeneralStyle";
 import { useAuth } from "../contexts/AuthContext";
 import moment from 'moment';
-import PostComment from "../components/PostComment";
+import PostComment from "../components/PostComments";
 import CreateComment from "../components/CreateComment";
+import { usePost } from "../contexts/PostContext";
 
 export default function DetailPostPage(props) {
   const { currentUser } = useAuth();
+  const { getPostFromDb } = usePost();
   const postId = props.match.params.id;
   const [postDetail, setPostDetail] = useState(null);
   const [showForm, setShowForm] = useState(false);
   // const [comments, setComments] = useState([]);
 
-  console.log(postId);
-
-  const getPost = () => {
-    firestore
-      .collection("posts")
-      .doc(postId)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setPostDetail(doc.data());
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-  };
+  // const getPost = () => {
+  //   firestore
+  //     .collection("posts")
+  //     .doc(postId)
+  //     .get()
+  //     .then((doc) => {
+  //       if (doc.exists) {
+  //         setPostDetail(doc.data());
+  //       } else {
+  //         console.log("No such document!");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting document:", error);
+  //     });
+  // };
 
   useEffect(() => {
-    getPost();
+    getPostFromDb(postId).then(res =>{
+     setPostDetail(res);
+    })
   }, []);
 
   const toggleCommentForm = () => {

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { firestore } from "../firebase";
-import moment from "moment";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import DeleteComment from "./DeleteComment";
 import {
   CommentWrapper,
   CommentContainer,
@@ -9,65 +8,39 @@ import {
   CommentedBy,
   Left,
 } from "./styles/DetailPageStyle";
-import DeleteComment from "./DeleteComment";
-import { usePost } from "../contexts/PostContext";
+import UpdateComment from "./UpdateComment";
 
-export default function PostComment({ postId }) {
+export default function PostComment({comment, postId}) {
   const { userDetail } = useAuth();
-  const { comments, setComments } = usePost();  
-
-  const getCommentsFromDB = async () => {
-    const db = await firestore;
-    return db
-      .collection("posts")
-      .doc(postId)
-      .collection("comment")
-      .get()
-      .then((doc) => {
-        const items = [];
-        doc.forEach((doc) => {
-          console.log("doc", doc.data());
-          items.push({ commentId: doc.id, value: doc.data() });
-        });
-        setComments(items);
-      })
-      .catch((error) => {
-        console.log("Error getting documents DASHBOARD: ", error);
-      });
-  };
-
-  useEffect(() => {
-    getCommentsFromDB();
-  }, []);
+  const [ showModal, setShowModal ] = useState(false)
 
   return (
-    <CommentContainer>
-      {comments && comments.map((comment) => (
-        <CommentWrapper key={comment.commentId}>
+    <div>
+      <CommentWrapper>
+        <Wrapper>
+          <CommentedBy>
+            {comment.anonymousPost ? (
+              <span>Anonym</span>
+            ) : (
+              <span>{comment.name}</span>
+            )}
+          </CommentedBy>
+          <p>{comment.text}</p>
+        </Wrapper>
+        {userDetail.uid == comment.userId && (
           <Left>
-            <div>
-            {/* <span>{moment(comment.value.date.toDate()).startOf("minutes").fromNow()}</span> */}
-              {/* {new Date(comment.value.date.seconds * 1000).toLocaleDateString()} */}
-            </div>
+            <button onClick={() => setShowModal(true)}>Modifiera</button>
+            <DeleteComment postId={postId} docId={comment.docId} />
+            {showModal ? (
+              <UpdateComment
+                postId={postId}
+                comment={comment}
+                setShowModal={setShowModal}
+              />
+            ) : null}
           </Left>
-          <Wrapper>
-            <CommentedBy>
-              {comment.value.anonymousPost ? (
-                <span>Anonym</span>
-              ) : (
-                <span>{comment.value.name}</span>
-              )}
-            </CommentedBy>
-            <p>{comment.value.text}</p>
-          </Wrapper>
-          {userDetail.uid == comment.value.userId && (
-            <Left>
-              <button>Modifiera</button>
-              <DeleteComment postId={postId} commentId={comment.commentId} />
-            </Left>
-          )}
-        </CommentWrapper>
-      ))}
-    </CommentContainer>
+        )}
+      </CommentWrapper>
+    </div>
   );
 }

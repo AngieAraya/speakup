@@ -41,20 +41,25 @@ export default function CreateComment({ postId, setShowForm }) {
         anonymousPost: checkbox,
         id,
       })
-      .then((docRef) => {
-        setComments((prev) => [
-          ...prev,
-          {
-            commentId: docRef.id,
-            value: {
-              text,
-              date,
-              userId: currentUser.uid,
-              name: userDetail.name,
-              anonymousPost: checkbox,
-            },
-          },
-        ]);
+      .then((doc) => {
+      db.collection("posts")
+      .doc(postId)
+      .collection("comment").doc(doc.id).update({
+        docId: doc.id
+       })
+        // setComments((prev) => [
+        //   ...prev,
+        //   {
+        //     commentId: doc.id,
+        //     value: {
+        //       text,
+        //       date,
+        //       userId: currentUser.uid,
+        //       name: userDetail.name,
+        //       anonymousPost: checkbox,
+        //     },
+        //   },
+        // ]);
 
         console.log("Document successfully written!");
       })
