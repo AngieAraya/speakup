@@ -11,6 +11,7 @@ import {
   CancelLink,
   TextInput,
 } from "../components/styles/ProfilePageStyle";
+import moment from 'moment';
 import { Alert } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -26,6 +27,7 @@ export default function CreatePost() {
   const [checkbox, setCheckBox] = useState(false);
   const history = useHistory();
 
+  console.log("date createpost moment", moment().format());
   const handleSubmit = (e) => {
     e.preventDefault();
     savePostToDB(titleRef.current.value, textRef.current.value);
@@ -36,7 +38,6 @@ export default function CreatePost() {
   };
 
   const savePostToDB = async (title, text) => {
-    console.log("ok", checkbox);
     const db = await firestore;
     let id = Math.floor(Math.random() * 1000000);
     return db

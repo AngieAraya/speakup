@@ -11,6 +11,9 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
+  // const [post, setPost] = useState({});
+  // const [posts, setPosts] = useState([]);
+  // const [comments, setComments] = useState([]);
 
   const saveUserToDB = async (user, name) => {
     const db = await firestore;
@@ -130,6 +133,12 @@ export function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     deleteUser,
+    // setPost,
+    // post,
+    // setPosts,
+    // posts,
+    // comments, 
+    // setComments,
   };
 
   return (

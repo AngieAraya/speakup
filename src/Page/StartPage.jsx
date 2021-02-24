@@ -10,8 +10,8 @@ export default function StartPage() {
 
   return (
     <Container>
-      <Header/>
-      <SelectCategories radio={radio} setRadio={setRadio}/>
+       <Header/>
+     <SelectCategories radio={radio} setRadio={setRadio}/>
       <h3>START PAGE</h3>
       {radio ?  <GetCategories radio={radio} /> : <Posts/> }
     </Container>

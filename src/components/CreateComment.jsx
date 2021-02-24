@@ -1,18 +1,23 @@
 import React, { useRef, useState } from "react";
-import { Button } from "./styles/FormStyle";
+import { Form, Button, Textarea } from "./styles/FormStyle";
 import { Alert } from "react-bootstrap";
 import { firestore } from "../firebase";
+import { useAuth } from "../contexts/AuthContext";
+import { usePost } from "../contexts/PostContext";
 
 export default function CreateComment({ postId, setShowForm }) {
-  const titleRef = useRef();
+  const { currentUser, userDetail } = useAuth();
+  const { setComments } = usePost();  
+
   const textRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [checkbox, setCheckBox] = useState(false);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    savePostToDB(titleRef.current.value, textRef.current.value);
+    saveCommentToDB(textRef.current.value);
     setShowForm(false);
   };
 
@@ -20,25 +25,36 @@ export default function CreateComment({ postId, setShowForm }) {
     setCheckBox((prev) => !prev);
   };
 
-  const savePostToDB = async (title, text) => {
+  const saveCommentToDB = async (text) => {
     const db = await firestore;
     let id = Math.floor(Math.random() * 1000000);
+    const date = new Date();
     return db
-    .collection("posts")
-    .doc(postId)
-    .collection("comment")
-    .doc()
-    .set({
-      title,
-      text,
-      // date: db.Timestamp.fromDate(new Date()),
-      // userId: currentUser.uid,
-      // name: userDetail.name,
-      anonymousPost: checkbox,
-      id,
-    })
-    .then(() => {
-      console.log("reload true setLoadcoment true");
+      .collection("posts")
+      .doc(postId)
+      .collection("comment")
+      .add({
+        text,
+        date,
+        userId: currentUser.uid,
+        name: userDetail.name,
+        anonymousPost: checkbox,
+        id,
+      })
+      .then((docRef) => {
+        setComments((prev) => [
+          ...prev,
+          {
+            commentId: docRef.id,
+            value: {
+              text,
+              date,
+              userId: currentUser.uid,
+              name: userDetail.name,
+              anonymousPost: checkbox,
+            },
+          },
+        ]);
 
         console.log("Document successfully written!");
       })
@@ -50,19 +66,17 @@ export default function CreateComment({ postId, setShowForm }) {
   return (
     <>
       <div>
-        <h2>Skapa Kommentar</h2>
+        <h2>Lämna en kommentar</h2>
         {error && <Alert variant="danger">{error}</Alert>}
-        <form onSubmit={handleSubmit}>
-          <label>Title</label>
-          <input type="text" ref={titleRef} required />
+        <Form onSubmit={handleSubmit}>
           <label>Text</label>
-          <input type="text" ref={textRef} required />
+          <Textarea type="text" ref={textRef} required></Textarea>
           <label>Jag vill vara Anonym</label>
           <input type="checkbox" onClick={toggleCheckbox} />
           <Button disabled={loading} type="submit">
             skicka
           </Button>
-        </form>
+        </Form>
       </div>
     </>
   );

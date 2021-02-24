@@ -7,8 +7,7 @@ export const Container = styled.div`
  flex-direction: column;
  align-items: center;
 //  background: rgb(150 132 132);
- height: 95vh;
- padding-top: 7%;
+
 `;
 
 export const Button = styled.button`

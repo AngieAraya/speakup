@@ -13,13 +13,14 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import DeletePost from "./DeletePost";
+import { usePost } from "../contexts/PostContext";
 
 export default function Dashboard() {
-  const [error, setError] = useState("");
   const { currentUser } = useAuth();
-  const [posts, setPosts] = useState([]);
+  const { posts, setPosts } = usePost();
+  const [error, setError] = useState("");
+  // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [deleted, setDeleted] = useState(false);
 
   const getPosts = () => {
     firestore
@@ -29,8 +30,6 @@ export default function Dashboard() {
       .then((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
-          // items.push(doc.data());
-          // items.push(doc.id)
           items.push({ collectionId: doc.id, value: doc.data() });
         });
         setPosts(items);
@@ -55,8 +54,7 @@ export default function Dashboard() {
   // }
   useEffect(() => {
     getPosts();
-    setDeleted(false)
-  }, [deleted]);
+  }, []);
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -86,7 +84,7 @@ export default function Dashboard() {
               <UpdateLink to={`/update-post/${post.collectionId}`}>
                 Modifiera
               </UpdateLink>
-              <DeletePost id={post.collectionId} setDeleted={setDeleted} />
+              <DeletePost collectionId={post.collectionId} />
             </Buttonwraper>
           </PostContainer>
         ))}

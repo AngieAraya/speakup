@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Form, Input, Button, Header } from "./styles/FormStyle";
+import { Container, Form, Input, Button, Header, Modal, ModalContainer } from "./styles/FormStyle";
 import { LinkDiv } from "../components/styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
@@ -65,8 +65,8 @@ export default function UpdateProfile({setShowModal}) {
   }
 
   return (
-    <>
-      <Container>
+    <Modal>
+      <ModalContainer>
         <Header>Update Profile</Header>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
@@ -89,7 +89,6 @@ export default function UpdateProfile({setShowModal}) {
             ref={passwordConfirmRef}
             placeholder="Leave blank to keep the same"
           />
-
           <Button disabled={loading} type="submit">
             Update
           </Button>
@@ -98,7 +97,7 @@ export default function UpdateProfile({setShowModal}) {
         <Button onClick={()=> setShowModal(false)}>Cancel</Button>
           {/* <CancelLink to="/profile">Cancel</CancelLink> */}
         </LinkDiv>
-      </Container>
-    </>
+      </ModalContainer>
+    </Modal>
   );
 }

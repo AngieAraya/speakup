@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {PostWrapper, Paragraph} from "../components/styles/StartPageStyle"
+import {PostWrapper, Paragraph, PostContainer} from "../components/styles/StartPageStyle"
 import { firestore } from "../firebase";
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -9,12 +10,9 @@ export default function Posts() {
   
   const getPosts = () => {
     setLoading(true);
-    // firestore.collection("posts").doc("IqmEAgmuwqPZeluYETfYY25t7gm1").collection("userPosts").onSnapshot((querySnapshot) => {
-      firestore.collection("posts").onSnapshot((querySnapshot) => {
+      firestore.collection("posts").onSnapshot((Snapshot) => {
         const items = [];
-        querySnapshot.forEach((doc) => {
-          console.log(doc.data().anonymousPost);
-          // items.push(doc.data());
+        Snapshot.forEach((doc) => {
           items.push({ collectionId: doc.id, value: doc.data() });
         });
         setPosts(items);
@@ -31,17 +29,21 @@ export default function Posts() {
     }
     
     return (
-      <>
+      <PostContainer>
       {posts.map((post) => (
         <PostWrapper key={post.collectionId}>
           <h1>{post.value.title}</h1>
-          <h4>{post.collectionId}</h4>
           <h4>Kategori {post.value.category}</h4>
+          <span>{moment(post.value.date.toDate()).startOf("minutes").fromNow()}</span>
+          <p>{moment(post.value.date.toDate()).format('ll')}</p>
+          {/* <div>{new Date(post.value.date.seconds * 1000).toLocaleDateString()}</div>
+          <div>{new Date(post.value.date.seconds * 1000).toLocaleTimeString()}</div> */}
+          {/* <h4>Kategori {post.value.date}</h4> */}
           <h5>Skriven av: {post.value.anonymousPost ? <span>Anonym</span> : <span>{post.value.name}</span>}</h5>
           <Paragraph>{post.value.text}</Paragraph>
           <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
         </PostWrapper>
       ))}
-    </>
+    </PostContainer>
   );
 }

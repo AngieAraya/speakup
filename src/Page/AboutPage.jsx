@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Header } from "../components/styles/AboutPageStyle"
 
-
 export default function AboutPage() {
   return (
     <Container>

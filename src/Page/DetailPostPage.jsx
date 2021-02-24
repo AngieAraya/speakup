@@ -4,9 +4,11 @@ import {
   PostWrapper,
   Headline,
   Category,
+  Container,
 } from "../components/styles/DetailPageStyle";
-import { Container, Button } from "../components/styles/GeneralStyle";
+import { Button } from "../components/styles/GeneralStyle";
 import { useAuth } from "../contexts/AuthContext";
+import moment from 'moment';
 import PostComment from "../components/PostComment";
 import CreateComment from "../components/CreateComment";
 
@@ -15,7 +17,9 @@ export default function DetailPostPage(props) {
   const postId = props.match.params.id;
   const [postDetail, setPostDetail] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [reloadComment, setReloadComment] = useState(false);
+  // const [comments, setComments] = useState([]);
+
+  console.log(postId);
 
   const getPost = () => {
     firestore
@@ -42,6 +46,20 @@ export default function DetailPostPage(props) {
     setShowForm((prev) => !prev);
   };
 
+//   if(postDetail)
+// {
+//   // const m = moment()
+//   // const m2 = moment(postDetail.date.toDate())
+//   // console.log("to date", postDetail.date.toDate());
+//   // console.log("för ish", moment(postDetail.date.toDate()).startOf("minutes").fromNow());
+//   // // console.log("fr now", m2.fromNow().locale());
+//   // // console.log("calend", moment(postDetail.date.toDate()).calendar());
+//   // console.log("locale", m.locale("sv"));
+//   // console.log("to moment", moment(postDetail.date.toDate()).locale());
+//   // console.log("seconds", new Date(postDetail.date.seconds));
+//   // console.log("nanoseconds", new Date(postDetail.date.nanoseconds));
+// }
+
   return (
     <Container>
       {postDetail && (
@@ -49,15 +67,14 @@ export default function DetailPostPage(props) {
           <Category>Kategory: {postDetail.category}</Category>
           <Headline>{postDetail.title}</Headline>
           <p>{postDetail.text}</p>
-          {/* <p>{postDetail.date.seconds}</p> */}
+          <p>{moment(postDetail.date.toDate()).startOf("minutes").fromNow()}</p>
         </PostWrapper>
       )}
       {currentUser && (
         <Button onClick={toggleCommentForm}>Lämna en komentar</Button>
       )}
-      {showForm && <CreateComment postId={postId} setShowForm={setShowForm}/>}
-      <h3>Kommentarer</h3>
-      <PostComment postId={postId}/>
+      {showForm && <CreateComment postId={postId} setShowForm={setShowForm} />}
+      <PostComment postId={postId} />
     </Container>
   );
 }

@@ -9,6 +9,10 @@ export const Paragraph = styled.p`
   padding: 10px;
 `;
 
+export const PostContainer = styled.div`
+  padding: 40px;
+`;
+
 export const PostWrapper = styled.div`
   background-color: #ffffffbf;
   display: flex;
