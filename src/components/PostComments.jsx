@@ -7,12 +7,13 @@ import { usePost } from "../contexts/PostContext";
 import PostComment from "./PostComment";
 
 export default function PostComments({ postId }) {
-  const { comments, getCommentsFromDB, setComments } = usePost();
+  const { comments, setComments } = usePost();
 
-  useEffect(() => {
-    getCommentsFromDB(postId);
-  }, []);
+  // useEffect(() => {
+  //   getCommentsFromDB(postId);
+  // }, []);
   
+
   // till för snapshot som uppdaterar automatiskt
   useEffect(() => {
     const unsubscribe = firestore
@@ -21,7 +22,6 @@ export default function PostComments({ postId }) {
       .collection("comment")
       .orderBy("date", "desc")
       .onSnapshot((snapshot) => {
-        console.log("data upd", snapshot);
         const data = snapshot.docs.map((doc) => doc.data());
         setComments(data);
       });

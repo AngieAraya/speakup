@@ -3,12 +3,10 @@ import { Form, Button, Textarea } from "./styles/FormStyle";
 import { Alert } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
-import { usePost } from "../contexts/PostContext";
+
 
 export default function CreateComment({ postId, setShowForm }) {
   const { currentUser, userDetail } = useAuth();
-  const { setComments } = usePost();  
-
   const textRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

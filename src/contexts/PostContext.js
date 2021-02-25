@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth, firestore } from "../firebase";
+import { useAuth } from "./AuthContext";
 
 const PostContext = React.createContext();
 
@@ -7,14 +8,17 @@ export function usePost() {
   return useContext(PostContext);
 }
 
+
 export function PostProvider({ children }) {
+  const { currentUser } = useAuth();
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
+  // console.log("i context post cont",currentUser.uid);
 
   //obs lägg till loading!! ?
   // const [loading, setLoading] = useState(true);
 
-const getPostFromDb = async (postId) =>{
+const getPostDetailFromDb = async (postId) =>{
   const db = await firestore
   return db
   .collection("posts")
@@ -32,34 +36,52 @@ const getPostFromDb = async (postId) =>{
   });
 }
 
-const getCommentsFromDB = async (postId) => {
-  const db = await firestore;
-  return db
-    .collection("posts")
-    .doc(postId)
-    .collection("comment")
-    .orderBy("date","desc")
-    .get()
-    .then((snapShot) => {
-        let items = [];
-        snapShot.docs.forEach((doc) => {
-          items.push(doc.data());
-        });
-        setComments(items);
-        // setComments(items);
-      })
-    // .then((snapShot) => {
-    //   let items = [];
-    //   snapShot.docs.forEach((doc) => {
-    //     items.push({ commentId: doc.id, value: doc.data() });
-    //   });
-    //   return items;
-    //   // setComments(items);
-    // })
-    .catch((error) => {
-      console.log("Error getting documents DASHBOARD: ", error);
-    });
-};
+// const getCommentsFromDB = async (postId) => {
+//   const db = await firestore;
+//   return db
+//     .collection("posts")
+//     .doc(postId)
+//     .collection("comment")
+//     .orderBy("date","desc")
+//     .get()
+//     .then((snapShot) => {
+//         let commentList = [];
+//         snapShot.docs.forEach((doc) => {
+//           commentList.push(doc.data());
+//         });
+//         setComments(commentList);
+//       })
+//     .catch((error) => {
+//       console.log("Error getting documents DASHBOARD: ", error);
+//     });
+// };
+
+// const getUsersPostsFromDb = async () => {
+//   const db = await firestore;
+//   return db
+//     .collection("posts")
+//     .where("userId", "==", currentUser.uid)
+//     .orderBy("date","desc")
+//     .get()
+//     .then((snapshot) => {
+//       const usersPosts = [];
+//       snapshot.forEach((doc) => {
+//         usersPosts.push(doc.data());
+//         // usersPosts.push({ collectionId: doc.id, value: doc.data() });
+//       });
+//       console.log("user i funktion", usersPosts);
+//       return usersPosts;
+//     })
+//     .catch((error) => {
+//       console.log("Error getting documents DASHBOARD: ", error);
+//     });
+// };
+
+
+
+
+
+
 
 
   // useEffect(() => {
@@ -72,9 +94,11 @@ const getCommentsFromDB = async (postId) => {
   //   return unsubscribe;
   // }, []);
 
+
   const value = {
-    getPostFromDb,
-    getCommentsFromDB,
+    getPostDetailFromDb,
+    // getCommentsFromDB,
+    // getUsersPostsFromDb,
     comments, 
     setComments,
     posts,

@@ -8,20 +8,20 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   
-  const getPosts = () => {
+  const getPostsFromDb = () => {
     setLoading(true);
       firestore.collection("posts").onSnapshot((Snapshot) => {
-        const items = [];
+        const postList = [];
         Snapshot.forEach((doc) => {
-          items.push({ collectionId: doc.id, value: doc.data() });
+          postList.push(doc.data());
         });
-        setPosts(items);
+        setPosts(postList);
         setLoading(false);
       });
     };
 
     useEffect(() => {
-      getPosts();
+      getPostsFromDb();
     }, []);
     
     if (loading) {
@@ -31,17 +31,16 @@ export default function Posts() {
     return (
       <PostContainer>
       {posts.map((post) => (
-        <PostWrapper key={post.collectionId}>
-          <h1>{post.value.title}</h1>
-          <h4>Kategori {post.value.category}</h4>
-          <span>{moment(post.value.date.toDate()).startOf("minutes").fromNow()}</span>
-          <p>{moment(post.value.date.toDate()).format('ll')}</p>
+        <PostWrapper key={post.docId}>
+          <h1>{post.title}</h1>
+          <h4>Kategori {post.category}</h4>
+          <span>{moment(post.date.toDate()).startOf("minutes").fromNow()}</span>
+          <p>{moment(post.date.toDate()).format('ll')}</p>
           {/* <div>{new Date(post.value.date.seconds * 1000).toLocaleDateString()}</div>
           <div>{new Date(post.value.date.seconds * 1000).toLocaleTimeString()}</div> */}
-          {/* <h4>Kategori {post.value.date}</h4> */}
-          <h5>Skriven av: {post.value.anonymousPost ? <span>Anonym</span> : <span>{post.value.name}</span>}</h5>
-          <Paragraph>{post.value.text}</Paragraph>
-          <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
+          <h5>Skriven av: {post.anonymousPost ? <span>Anonym</span> : <span>{post.name}</span>}</h5>
+          <Paragraph>{post.text}</Paragraph>
+          <Link to={`/detail/${post.docId}`}>Go to detail page</Link>
         </PostWrapper>
       ))}
     </PostContainer>

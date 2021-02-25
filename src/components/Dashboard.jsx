@@ -22,39 +22,43 @@ export default function Dashboard() {
   // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getPosts = () => {
-    firestore
+  console.log("wiw", posts);
+
+  // useEffect(() => {
+  //   getUsersPostsFromDb().then(pos => {
+  //     setPosts(pos)
+  //   })
+  // }, []);
+
+  useEffect(() => {
+    const unsubscribe = firestore
       .collection("posts")
       .where("userId", "==", currentUser.uid)
-      .get()
-      .then((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((doc) => {
-          items.push({ collectionId: doc.id, value: doc.data() });
-        });
-        setPosts(items);
-      })
-      .catch((error) => {
-        console.log("Error getting documents DASHBOARD: ", error);
+      .orderBy("date", "desc")
+      .onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data());
+        setPosts(data);
       });
-  };
-
-  //OBS! funkar denna bätrre ?
-  // const getPosts = () => {
-  //   setLoading(true)
-  //   firestore.collection("posts").doc(currentUser.uid.toString()).collection("userPosts").onSnapshot((querySnapshot) => {
-  //     const items = []
-  //     querySnapshot.forEach((doc) => {
-  //       items.push(doc.data())
-  //     })
-  //     console.log("doc", items)
-  //     setPosts(items)
-  //     setLoading(false)
-  //   })
-  // }
-  useEffect(() => {
-    getPosts();
+    return () => unsubscribe();
   }, []);
+
+  // const getUsersPostsFromDb = () => {
+  //   firestore
+  //     .collection("posts")
+  //     .where("userId", "==", currentUser.uid)
+  //     .get()
+  //     .then((snapshot) => {
+  //       const usersPostList = [];
+  //       snapshot.forEach((doc) => {
+  //         usersPostList.push(doc.data());
+  //         // usersPostList.push({ collectionId: doc.id, value: doc.data() });
+  //       });
+  //       setPosts(usersPostList);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting documents DASHBOARD: ", error);
+  //     });
+  // };
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -70,21 +74,21 @@ export default function Dashboard() {
       </LinkDiv>
       {posts &&
         posts.map((post) => (
-          <PostContainer key={post.collectionId}>
+          <PostContainer key={post.id}>
             <Postwrapper>
-              <h2>{post.value.title}</h2>
-              <h5>{post.value.description}</h5>
-              <p>{post.value.text.substring(0, 300) + `...`}</p>
+              <h2>{post.title}</h2>
+              <h5>{post.description}</h5>
+              <p>{post.text.substring(0, 300) + `...`}</p>
               <p>{post.collectionId}</p>
-              <Link to={`/detail/${post.collectionId}`}>
+              <Link to={`/detail/${post.docId}`}>
                 Gå vidare till sidan
               </Link>
             </Postwrapper>
             <Buttonwraper>
-              <UpdateLink to={`/update-post/${post.collectionId}`}>
+              <UpdateLink to={`/update-post/${post.docId}`}>
                 Modifiera
               </UpdateLink>
-              <DeletePost collectionId={post.collectionId} />
+              <DeletePost postDocId={post.docId} />
             </Buttonwraper>
           </PostContainer>
         ))}

@@ -15,11 +15,12 @@ import { usePost } from "../contexts/PostContext";
 
 export default function DetailPostPage(props) {
   const { currentUser } = useAuth();
-  const { getPostFromDb } = usePost();
+  const { getPostDetailFromDb } = usePost();
   const postId = props.match.params.id;
   const [postDetail, setPostDetail] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  // const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);  
+  console.log("post id porp", postId);
 
   // const getPost = () => {
   //   firestore
@@ -39,7 +40,7 @@ export default function DetailPostPage(props) {
   // };
 
   useEffect(() => {
-    getPostFromDb(postId).then(res =>{
+    getPostDetailFromDb(postId).then(res =>{
      setPostDetail(res);
     })
   }, []);

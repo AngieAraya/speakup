@@ -52,7 +52,6 @@ export default function UpdatePost({ id }) {
 
   const handlePostUpdate = (e) => {
     e.preventDefault();
-    console.log("handlepostuod");
     firestore
     .collection("posts")
     .doc(id)

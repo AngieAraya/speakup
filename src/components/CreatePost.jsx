@@ -40,8 +40,7 @@ export default function CreatePost() {
     let id = Math.floor(Math.random() * 1000000);
     return db
       .collection("posts")
-      .doc()
-      .set({
+      .add({
         title,
         text,
         category,
@@ -51,7 +50,11 @@ export default function CreatePost() {
         anonymousPost: checkbox,
         id,
       })
-      .then(() => {
+      .then((doc) => {
+        db.collection("posts")
+        .doc(doc.id).update({
+          docId: doc.id
+         })
         console.log("Document successfully written!");
         history.push("/profile");
       })
