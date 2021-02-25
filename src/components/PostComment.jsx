@@ -9,6 +9,8 @@ import {
   Left,
 } from "./styles/DetailPageStyle";
 import UpdateComment from "./UpdateComment";
+import moment from 'moment';
+
 
 export default function PostComment({comment, postId}) {
   const { userDetail } = useAuth();
@@ -17,13 +19,16 @@ export default function PostComment({comment, postId}) {
   return (
     <div>
       <CommentWrapper>
+        <Left>
+            <span>{moment(comment.date.toDate()).startOf("minutes").fromNow()}</span>
+        </Left>
         <Wrapper>
           <CommentedBy>
             {comment.anonymousPost ? (
               <span>Anonym</span>
-            ) : (
-              <span>{comment.name}</span>
-            )}
+              ) : (
+                <span>{comment.name}</span>
+                )}
           </CommentedBy>
           <p>{comment.text}</p>
         </Wrapper>

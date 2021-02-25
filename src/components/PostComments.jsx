@@ -1,18 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../firebase";
-import moment from "moment";
-import { useAuth } from "../contexts/AuthContext";
 import {
-  CommentWrapper,
   CommentContainer,
-  Wrapper,
-  CommentedBy,
-  Left,
 } from "./styles/DetailPageStyle";
-import DeleteComment from "./DeleteComment";
 import { usePost } from "../contexts/PostContext";
-import UpdateComment from "./UpdateComment";
-import UpdateProfile from "./UpdateProfile";
 import PostComment from "./PostComment";
 
 export default function PostComments({ postId }) {
@@ -22,7 +13,6 @@ export default function PostComments({ postId }) {
     getCommentsFromDB(postId);
   }, []);
   
-
   // till för snapshot som uppdaterar automatiskt
   useEffect(() => {
     const unsubscribe = firestore

@@ -12,8 +12,11 @@ import { firestore } from "../firebase";
 
 export default function UpdateComment({ postId, comment, setShowModal }) {
   const textRef = useRef();
+  const [checkbox, setCheckBox] = useState(false);
+
   // const [text, setText] = useState("");
   console.log("comment i upd file", comment.docId);
+
   
   const updateComment = (e) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
       .doc(comment.docId)
       .update({
         text: textRef.current.value,
+        anonymousPost: checkbox,
       })
       .then(() => {
         console.log("COMMENT Updated");
@@ -32,6 +36,10 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
       .catch((error) => {
         console.error("Error removing document: ", error);
       });
+  };
+
+  const toggleCheckbox = () => {
+    setCheckBox(prev => !prev);
   };
 
   return (
@@ -47,6 +55,8 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
               required
               defaultValue={comment.text}
             />
+            <label>Jag vill vara Anonym</label>
+          <input type="checkbox" onClick={toggleCheckbox}/>
             <Button type="submit">Update</Button>
           </Form>
         )}
