@@ -9,6 +9,7 @@ import { firestore } from "../firebase";
 
 export default function UpdateProfile({setShowModal}) {
   const emailRef = useRef();
+  const nameRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
   const { currentUser, userDetail, updatePassword, updateEmail, setUserDetail} = useAuth();
@@ -19,9 +20,10 @@ export default function UpdateProfile({setShowModal}) {
   const UpdateUserToDB = () => {
     firestore
     .collection("users")
-    .doc(userDetail.uid)
+    .doc(userDetail.id)
     .update({
       email: emailRef.current.value, 
+      name: nameRef.current.value, 
     })
     // setUserDetail({...userDetail, email:emailRef.current.value})
     .then(() => {
@@ -70,6 +72,13 @@ export default function UpdateProfile({setShowModal}) {
         <Header>Update Profile</Header>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
+          <label>name</label>
+          <Input
+            type="name"
+            ref={nameRef}
+            required
+            defaultValue={userDetail.name}
+          />
           <label>Email</label>
           <Input
             type="email"

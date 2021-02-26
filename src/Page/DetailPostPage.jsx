@@ -20,7 +20,7 @@ export default function DetailPostPage(props) {
   const [postDetail, setPostDetail] = useState(null);
   const [showForm, setShowForm] = useState(false);
   // const [comments, setComments] = useState([]);  
-  console.log("post id porp", postId);
+  console.log("post id porp", currentUser);
 
   // const getPost = () => {
   //   firestore

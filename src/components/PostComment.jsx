@@ -32,7 +32,7 @@ export default function PostComment({comment, postId}) {
           </CommentedBy>
           <p>{comment.text}</p>
         </Wrapper>
-        {userDetail.uid == comment.userId && (
+        {userDetail.id == comment.userId && (
           <Left>
             <button onClick={() => setShowModal(true)}>Modifiera</button>
             <DeleteComment postId={postId} docId={comment.docId} />

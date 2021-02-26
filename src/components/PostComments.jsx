@@ -28,12 +28,14 @@ export default function PostComments({ postId }) {
     return () => unsubscribe();
   }, []);
 
+
   return (
     <CommentContainer>
       {comments &&
         comments.map((comment) => (
           <PostComment key={comment.id} comment={comment} postId={postId} />
         ))}
+
     </CommentContainer>
   );
 }

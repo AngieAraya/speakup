@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   UpdateLink,
   ProfileImg,
@@ -14,10 +14,24 @@ import { firestore } from "../firebase";
 import UpdateProfile from "./UpdateProfile";
 
 export default function UserDetails() {
-  const { userDetail, deleteUser } = useAuth();  
+  const { userDetail, setUserDetail, deleteUser, currentUser } = useAuth();  
   const [ showModal, setShowModal ] = useState(false)
 
-  console.log("user dit file", userDetail.uid);
+  console.log("user dit file", userDetail);
+  useEffect(() => {
+    if(userDetail){
+      const unsubscribe = firestore
+      .collection("users")
+      .where("id", "==", currentUser.uid)
+      .onSnapshot((snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data());
+        setUserDetail(data[0]);
+        // console.log("28", data[0] );
+      });
+    return () => unsubscribe();
+    }
+  }, []);
+
 
   const deleteUserFromDB = () => {
     firestore
@@ -43,8 +57,8 @@ export default function UserDetails() {
         <div>
           <UserDetailWrapper>
             <ProfileImg src={userImg} alt="no user img" />
-            <div key={userDetail.uid}>
-              <h2>User Name: {userDetail.name}</h2>
+            <div >
+              <h2>Namn: {userDetail.name}</h2>
               <h3>Email: {userDetail.email}</h3>
             </div>
           </UserDetailWrapper>

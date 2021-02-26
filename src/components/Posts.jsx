@@ -3,8 +3,10 @@ import {PostWrapper, Paragraph, PostContainer} from "../components/styles/StartP
 import { firestore } from "../firebase";
 import { Link } from "react-router-dom";
 import moment from 'moment';
+import { usePost } from "../contexts/PostContext";
 
 export default function Posts() {
+  // const { comments } = usePost();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   
@@ -40,6 +42,7 @@ export default function Posts() {
           <div>{new Date(post.value.date.seconds * 1000).toLocaleTimeString()}</div> */}
           <h5>Skriven av: {post.anonymousPost ? <span>Anonym</span> : <span>{post.name}</span>}</h5>
           <Paragraph>{post.text}</Paragraph>
+          {/* {<p>{comments.length} kommentarer</p>} */}
           <Link to={`/detail/${post.docId}`}>Go to detail page</Link>
         </PostWrapper>
       ))}

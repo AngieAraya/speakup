@@ -19,6 +19,7 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
 
   
   const updateComment = (e) => {
+    setShowModal(false)
     e.preventDefault();
     console.log("text ref", textRef.current.value);
     firestore
@@ -32,6 +33,7 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
       })
       .then(() => {
         console.log("COMMENT Updated");
+
       })
       .catch((error) => {
         console.error("Error removing document: ", error);

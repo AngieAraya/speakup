@@ -100,7 +100,7 @@ export function AuthProvider({ children }) {
             const userData = {
               email: doc.data().email,
               name: doc.data().name,
-              uid: user.uid,
+              id: user.uid,
             };
             setUserDetail(userData);
           } else {
@@ -126,6 +126,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     userDetail,
+    setUserDetail,
     login,
     signup,
     logout,
