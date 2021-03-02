@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonDelete } from "../components/styles/ProfilePageStyle";
+import { useAuth } from "../contexts/AuthContext";
 import { usePost } from "../contexts/PostContext";
 import { firestore } from "../firebase";
 

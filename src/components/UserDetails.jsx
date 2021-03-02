@@ -17,7 +17,8 @@ export default function UserDetails() {
   const { userDetail, setUserDetail, deleteUser, currentUser } = useAuth();  
   const [ showModal, setShowModal ] = useState(false)
 
-  console.log("user dit file", userDetail);
+  // console.log("userDetail  profile", userDetail.admin);
+
   useEffect(() => {
     if(userDetail){
       const unsubscribe = firestore
@@ -26,7 +27,6 @@ export default function UserDetails() {
       .onSnapshot((snapshot) => {
         const data = snapshot.docs.map((doc) => doc.data());
         setUserDetail(data[0]);
-        // console.log("28", data[0] );
       });
     return () => unsubscribe();
     }
@@ -36,7 +36,7 @@ export default function UserDetails() {
   const deleteUserFromDB = () => {
     firestore
       .collection("users")
-      .doc(userDetail.uid)
+      .doc(userDetail.id)
       .delete()
       .then(() => {
         console.log("Document successfully deleted from cloud firestorer!");
@@ -48,7 +48,7 @@ export default function UserDetails() {
 
   const handleDelete = () => {
     deleteUser();
-    deleteUserFromDB()
+    deleteUserFromDB();
   };
 
   return (
@@ -62,7 +62,7 @@ export default function UserDetails() {
               <h3>Email: {userDetail.email}</h3>
             </div>
           </UserDetailWrapper>
-          <Button onClick={()=> setShowModal(true)}>Upddate</Button>
+         { userDetail.updateprofile && <Button onClick={()=> setShowModal(true)}>Upddate</Button>}
           {/* <UpdateLink to="/update-profile">Update Profile</UpdateLink> */}
           <ButtonDelete onClick={() => handleDelete()}>
             Delete Account

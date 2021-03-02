@@ -5,7 +5,6 @@ import { firestore } from "../firebase";
 export default function DeleteComment({ postId, docId }) {
   const { setComments } = usePost();  
   // console.log("post id delete", postId);
-  console.log("docid delete", docId);
 
   const deleteComment = () => {
     firestore

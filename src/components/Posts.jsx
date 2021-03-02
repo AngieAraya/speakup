@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {PostWrapper, Paragraph, PostContainer} from "../components/styles/StartPageStyle"
+import {PostWrapper, PostContainer, DateContainer, CategoryMark, TextWrapper, PostedBy} from "../components/styles/StartPageStyle"
 import { firestore } from "../firebase";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import { usePost } from "../contexts/PostContext";
+import { useAuth } from "../contexts/AuthContext";
+import DeletePost from "./DeletePost";
 
 export default function Posts() {
   // const { comments } = usePost();
+  const { userDetail } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   
@@ -34,16 +37,23 @@ export default function Posts() {
       <PostContainer>
       {posts.map((post) => (
         <PostWrapper key={post.docId}>
-          <h1>{post.title}</h1>
-          <h4>Kategori {post.category}</h4>
-          <span>{moment(post.date.toDate()).startOf("minutes").fromNow()}</span>
+          {/* <span>{moment(post.date.toDate()).startOf("minutes").fromNow()}</span> */}
+          <DateContainer>
+          <CategoryMark>{post.category}</CategoryMark>
           <p>{moment(post.date.toDate()).format('ll')}</p>
+          </DateContainer>
+          <TextWrapper>
+          <h1>{post.title}</h1>
           {/* <div>{new Date(post.value.date.seconds * 1000).toLocaleDateString()}</div>
           <div>{new Date(post.value.date.seconds * 1000).toLocaleTimeString()}</div> */}
-          <h5>Skriven av: {post.anonymousPost ? <span>Anonym</span> : <span>{post.name}</span>}</h5>
-          <Paragraph>{post.text}</Paragraph>
+          <p>{post.text.substring(0, 300) + `...`}</p>
+          </TextWrapper>
+          <PostedBy>
+          <h5>-{post.anonymousPost ? <span>Anonym</span> : <span>{post.name}</span>}</h5>
+          </PostedBy>
           {/* {<p>{comments.length} kommentarer</p>} */}
-          <Link to={`/detail/${post.docId}`}>Go to detail page</Link>
+          <Link to={`/detail/${post.docId}`}>Läs mer</Link>
+          {userDetail.admin && <DeletePost postDocId={post.docId}/>}
         </PostWrapper>
       ))}
     </PostContainer>

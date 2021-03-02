@@ -10,6 +10,8 @@ import CreatePostPage from "./Page/CreatePostPage";
 import DetailPostPage from "./Page/DetailPostPage";
 import ProfilePage from "./Page/ProfilePage";
 import UpdatePostPage from "./Page/UpdatePostPage";
+import moment from "moment/locale/sv";
+
 
 
 function App() {

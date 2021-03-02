@@ -16,6 +16,7 @@ export default function PostComments({ postId }) {
 
   // till för snapshot som uppdaterar automatiskt
   useEffect(() => {
+    console.log("kommentaer frpn db");
     const unsubscribe = firestore
       .collection("posts")
       .doc(postId)

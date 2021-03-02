@@ -24,9 +24,10 @@ export default function SignupForm() {
     }
 
     try {
+      const updProfileOpt = true
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, name);
+      await signup(emailRef.current.value, passwordRef.current.value, name, updProfileOpt);
       setLoading(false);
       history.push("/profile");
     } catch {
@@ -52,15 +53,15 @@ export default function SignupForm() {
               required
               placeholder="User Name"
             />
-            <Input type="email" ref={emailRef} required placeholder="Email" />
-            <Input type="password" ref={passwordRef} required placeholder="Password" />
-            <Input type="password" ref={passwordConfirmRef} required placeholder="Password Confirmation" />
+            <Input type="email" ref={emailRef} required placeholder="E-postadress" />
+            <Input type="password" ref={passwordRef} required placeholder="Lösenord" />
+            <Input type="password" ref={passwordConfirmRef} required placeholder="Upprepa lösenord" />
           <Button disabled={loading} type="submit">
-            Sign Up
+            Skapa ett konto
           </Button>
         </Form>
       <TextCenter>
-        Already have an account? <Link to="/login">Log in</Link>
+        Har du redan ett konto? <Link to="/login">Logga in</Link>
       </TextCenter>
       </Container>
     </>

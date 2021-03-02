@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, firestore } from "../firebase";
+import app, { auth, firestore } from "../firebase";
 
 const AuthContext = React.createContext();
 
@@ -11,19 +11,27 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
+  // app.auth().languageCode = 'sv';
+  auth.languageCode = 'sv';
+  
   // const [post, setPost] = useState({});
   // const [posts, setPosts] = useState([]);
   // const [comments, setComments] = useState([]);
 
-  const saveUserToDB = async (user, name) => {
+  // console.log("Current User context", currentUser );
+  console.log(" User Detail context", userDetail );
+
+  const saveUserToDB = async (user, name, updProfileOpt ) => {
     const db = await firestore;
     return db
       .collection("users")
-      .doc(user.uid.toString())
+      .doc(user.uid)
       .set({
-        id: user.uid.toString(),
+        id: user.uid,
         name,
         email: user.email,
+        admin: false,
+        updateprofile: updProfileOpt,
       })
       .then(() => {
         // console.log("Document successfully written!");
@@ -33,9 +41,23 @@ export function AuthProvider({ children }) {
       });
   };
 
-  function signup(email, password, userName) {
+  function signup(email, password, userName, updProfileOpt) {
     return auth.createUserWithEmailAndPassword(email, password).then((res) => {
-      saveUserToDB(res.user, userName);
+      saveUserToDB(res.user, userName , updProfileOpt);
+      return res.user;
+    });
+  }
+
+  function loginWithGmail(provider, updProfileOpt) {
+    return auth.signInWithPopup(provider).then((res) => {
+      saveUserToDB(res.user, res.user.displayName, updProfileOpt);
+      return res.user;
+    });
+  }
+
+  function loginWithFacebook(provider, updProfileOpt) {
+    return auth.signInWithPopup(provider).then((res) => {
+      saveUserToDB(res.user, res.user.displayName, updProfileOpt);
       return res.user;
     });
   }
@@ -45,7 +67,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut();
+    return auth.signOut().then(setUserDetail({}))
   }
 
   function resetPassword(email) {
@@ -88,6 +110,7 @@ export function AuthProvider({ children }) {
   }
 
   const getUserData = async (user) => {
+    console.log("kommer jag hit vid radera", user);
     //Här är endast för att displaya info om min user som är inloggad
     if (user) {
       setLoading(false);
@@ -97,10 +120,13 @@ export function AuthProvider({ children }) {
         .get()
         .then((doc) => {
           if (doc.exists) {
+            // console.log("usr data context", doc.data().admin);
             const userData = {
               email: doc.data().email,
               name: doc.data().name,
               id: user.uid,
+              admin: doc.data().admin,
+              updateprofile: doc.data().updateprofile,
             };
             setUserDetail(userData);
           } else {
@@ -108,14 +134,14 @@ export function AuthProvider({ children }) {
           }
         });
     } else {
-      setCurrentUser(null);
+      setUserDetail({})
+      setCurrentUser();
       setLoading(false);
     }
   };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log("user", user);
       setCurrentUser(user);
       setLoading(false);
       getUserData(user);
@@ -125,6 +151,8 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    setCurrentUser,
+    saveUserToDB,
     userDetail,
     setUserDetail,
     login,
@@ -134,12 +162,8 @@ export function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     deleteUser,
-    // setPost,
-    // post,
-    // setPosts,
-    // posts,
-    // comments, 
-    // setComments,
+    loginWithGmail,
+    loginWithFacebook,
   };
 
   return (

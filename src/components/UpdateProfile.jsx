@@ -56,7 +56,7 @@ export default function UpdateProfile({setShowModal}) {
       })
       .then(() => {
         setLoading(false);
-        history.push("/profile");
+        setShowModal(false)
       })
       .catch(() => {
         setLoading(false);

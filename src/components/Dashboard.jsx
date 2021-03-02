@@ -22,8 +22,6 @@ export default function Dashboard() {
   // const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("wiw", posts);
-
   // useEffect(() => {
   //   getUsersPostsFromDb().then(pos => {
   //     setPosts(pos)

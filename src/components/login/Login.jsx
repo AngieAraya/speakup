@@ -3,10 +3,13 @@ import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { Form, Container, Input, Button, Header, TextCenter } from "../styles/FormStyle";
-// import LoginFacebook from './LoginFacebook'
+import {
+  SocialBtnContainer
+ } from "../styles/GeneralStyle";
+import LoginFacebook from './LoginFacebook'
 // import firebase from "firebase"
 // import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
-// import LoginGoogle from './LoginGoogle'
+import LoginGoogle from './LoginGoogle'
 
 export default function Login() {
   const emailRef = useRef();
@@ -48,8 +51,13 @@ export default function Login() {
             Log in
           </Button>
         </Form>
-        {/* <LoginGoogle/> */}
-        {/* <LoginFacebook/> */}
+        <TextCenter>
+        <Link to="/forgot-password">Glömt Lösenord?</Link>
+      </TextCenter>
+        <SocialBtnContainer>
+        <LoginGoogle/>
+        <LoginFacebook/>
+        </SocialBtnContainer>
         {/* {isSignedIn ? (
           // <span>
           //   <div>Signed In!</div>
@@ -67,9 +75,7 @@ export default function Login() {
             firebaseAuth={firebase.auth()}
           />
         )} */}
-      <TextCenter>
-        <Link to="/forgot-password">Forgot Password</Link>
-      </TextCenter>
+  
       <TextCenter>
         Need an account? <Link to="/signup">Sign up</Link>
       </TextCenter>

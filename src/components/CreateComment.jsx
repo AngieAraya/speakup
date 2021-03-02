@@ -24,6 +24,7 @@ export default function CreateComment({ postId, setShowForm }) {
   };
 
   const saveCommentToDB = async (text) => {
+    console.log("curr comment id", currentUser.uid);
     const db = await firestore;
     let id = Math.floor(Math.random() * 1000000);
     const date = new Date();

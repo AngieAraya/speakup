@@ -12,15 +12,16 @@ import moment from 'moment';
 import PostComment from "../components/PostComments";
 import CreateComment from "../components/CreateComment";
 import { usePost } from "../contexts/PostContext";
+import DeletePost from "../components/DeletePost";
 
 export default function DetailPostPage(props) {
-  const { currentUser } = useAuth();
+  const { currentUser, userDetail } = useAuth();
   const { getPostDetailFromDb } = usePost();
   const postId = props.match.params.id;
   const [postDetail, setPostDetail] = useState(null);
   const [showForm, setShowForm] = useState(false);
   // const [comments, setComments] = useState([]);  
-  console.log("post id porp", currentUser);
+  // console.log("post id porp", currentUser);
 
   // const getPost = () => {
   //   firestore
@@ -71,6 +72,7 @@ export default function DetailPostPage(props) {
           <Headline>{postDetail.title}</Headline>
           <p>{postDetail.text}</p>
           <p>{moment(postDetail.date.toDate()).startOf("minutes").fromNow()}</p>
+          {userDetail.admin ? <DeletePost postDocId={postDetail.docId}/> : null}
         </PostWrapper>
       )}
       {currentUser && (
