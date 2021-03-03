@@ -7,7 +7,8 @@ import {
 } from "../styles/FormStyle";
 
 export default function SignupForm() {
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -18,13 +19,14 @@ export default function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let name = `${firstName} ${lastName}`
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
 
     try {
-      const updProfileOpt = true
+      const updProfileOpt = true;
       setError("");
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value, name, updProfileOpt);
@@ -48,10 +50,17 @@ export default function SignupForm() {
         <Form onSubmit={handleSubmit}>
             <Input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               required
-              placeholder="User Name"
+              placeholder="Förnamn"
+            />
+            <Input
+              type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              placeholder="Efternamn"
             />
             <Input type="email" ref={emailRef} required placeholder="E-postadress" />
             <Input type="password" ref={passwordRef} required placeholder="Lösenord" />

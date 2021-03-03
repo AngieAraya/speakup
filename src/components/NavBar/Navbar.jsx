@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import {
   Nav,
   NavLink,
-  // Bars,
+  Bars,
   NavMenu,
   NavBtn,
   NavBtnLink,
@@ -31,32 +31,28 @@ export default function Navbar() {
           <NavLink to="/start">
             <h1>Speak UP</h1>
           </NavLink>
-          {/* <Bars/> */}
+          <Bars/>
           <NavMenu>
             <NavLink to="/start">Hem</NavLink>
             <NavLink to="/about">Om</NavLink>
             <NavLink to="/profile">Profil</NavLink>
-          </NavMenu>
-          <NavBtn>
-            <NavBtnLink onClick={handleLogout} to="/start">
+            <NavLink onClick={handleLogout} to="/start">
               Logga ut
-            </NavBtnLink>
-          </NavBtn>
+            </NavLink>
+          </NavMenu>
         </Nav>
       ) : (
         <Nav>
           <NavLink to="/start">
             <h1>Speak UP</h1>
           </NavLink>
-          {/* <Bars/> */}
+          <Bars/>
           <NavMenu>
             <NavLink to="/start">Hem</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/signup">Skapa konto</NavLink>
+            <NavLink to="/login">Logga in</NavLink>
           </NavMenu>
-          <NavBtn>
-            <NavBtnLink to="/login">Logga in</NavBtnLink>
-          </NavBtn>
         </Nav>
       )}
     </>

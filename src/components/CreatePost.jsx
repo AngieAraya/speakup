@@ -9,14 +9,17 @@ import { Alert } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { firestore } from "../firebase";
+import { usePost } from "../contexts/PostContext";
 
 export default function CreatePost() {
   const titleRef = useRef();
   const textRef = useRef();
   const { currentUser, userDetail } = useAuth();
+  const { categories} = usePost();
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState("Familj");
+  const [category, setCategory] = useState("Annat");
   const [checkbox, setCheckBox] = useState(false);
   const history = useHistory();
 
@@ -28,6 +31,7 @@ export default function CreatePost() {
   const toggleCheckbox = () => {
     setCheckBox((prev) => !prev);
   };
+
 
   const savePostToDB = async (title, text) => {
     const db = await firestore;
@@ -55,7 +59,7 @@ export default function CreatePost() {
         console.error("Error writing document: ", error);
       });
   };
-
+ 
   return (
     <>
       <Container>
@@ -73,9 +77,13 @@ export default function CreatePost() {
               setCategory(selectCategory);
             }}
           >
-            <option value="Familj">Familj</option>
+             {categories &&
+              categories.map((category) => (
+                <option key={category.docId} value={category.category}>{category.category}</option>          
+              ))}
+        {/*     <option value="Familj">Familj</option>
             <option value="Rån">Rån</option>
-            <option value="Misshandel">Misshandel</option>
+            <option value="Misshandel">Misshandel</option> */}
           </select>
           <label>Jag vill vara Anonym</label>
           <input type="checkbox" onClick={toggleCheckbox} />

@@ -1,26 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Container,
-  Form,
-  Input,
-  Button,
-  Header,
-} from "./styles/FormStyle";
-import {
-  LinkDiv,
-  CancelLink,
-} from "../components/styles/ProfilePageStyle";
+import { Container, Form, Input, Button, Header } from "./styles/FormStyle";
+import { LinkDiv, CancelLink } from "../components/styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { useHistory } from "react-router-dom";
+import { usePost } from "../contexts/PostContext";
 
 export default function UpdatePost({ id }) {
+  const { categories} = usePost();
   const [postDetail, setPostDetail] = useState(null);
   const [category, setCategory] = useState("familj");
   const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
   const textRef = useRef();
-  const history = useHistory()
+  const history = useHistory();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -44,31 +37,30 @@ export default function UpdatePost({ id }) {
   useEffect(() => {
     getPost();
   }, []);
-  
 
   const handlePostUpdate = (e) => {
     e.preventDefault();
     firestore
-    .collection("posts")
-    .doc(id)
-    .update({
-      title: titleRef.current.value,
-      text: textRef.current.value,
-      category,
-      anonymousPost: checkbox,
-    })
-    .then(() => {
-      history.push("/profile")
-      console.log("Document successfully updated!");
-    })
-    .catch((error) => {
-      // The document probably doesn't exist.
-      console.error("Error updating document: ", error);
-    });
+      .collection("posts")
+      .doc(id)
+      .update({
+        title: titleRef.current.value,
+        text: textRef.current.value,
+        category,
+        anonymousPost: checkbox,
+      })
+      .then(() => {
+        history.push("/profile");
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
   };
 
   const toggleCheckbox = () => {
-    setCheckBox(prev => !prev);
+    setCheckBox((prev) => !prev);
   };
 
   return (
@@ -76,7 +68,7 @@ export default function UpdatePost({ id }) {
       <Container>
         <Header>Uppdatera Post</Header>
         {error && <Alert variant="danger">{error}</Alert>}
-        {postDetail && 
+        {postDetail && (
           <Form onSubmit={handlePostUpdate}>
             <label>Title</label>
             <Input
@@ -88,24 +80,32 @@ export default function UpdatePost({ id }) {
             <label>Text</label>
             <Input type="text" ref={textRef} defaultValue={postDetail.text} />
             <label>Välj kategori:</label>
-          <select defaultValue={postDetail.category} onChange={(e) => {
-            const selectCategory = e.target.value
-            setCategory(selectCategory)
-          }}>
-            <option value="Familj">Familj</option>
+            <select
+              defaultValue={postDetail.category}
+              onChange={(e) => {
+                const selectCategory = e.target.value;
+                setCategory(selectCategory);
+              }}
+            >
+              {categories &&
+                categories.map((category) => (
+                  <option key={category.docId} value={category.category}>
+                    {category.category}
+                  </option>
+                ))}
+              {/* <option value="Familj">Familj</option>
             <option value="Rån">Rån</option>
-            <option value="Misshandel">Misshandel</option>
-          </select>
-          <label>Jag vill vara Anonym</label>
-          <input type="checkbox" onClick={toggleCheckbox}/>
+            <option value="Misshandel">Misshandel</option> */}
+            </select>
+            <label>Jag vill vara Anonym</label>
+            <input type="checkbox" onClick={toggleCheckbox} />
             <Button disabled={loading} required type="submit">
               uppdatera
             </Button>
-
           </Form>
-        }
-         <LinkDiv> 
-        <CancelLink to="/profile">Cancel</CancelLink>
+        )}
+        <LinkDiv>
+          <CancelLink to="/profile">Cancel</CancelLink>
         </LinkDiv>
       </Container>
     </>
