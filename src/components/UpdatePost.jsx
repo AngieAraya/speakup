@@ -15,7 +15,6 @@ import { firestore } from "../firebase";
 import { useHistory } from "react-router-dom";
 
 export default function UpdatePost({ id }) {
-  // console.log("upd", id);
   const [postDetail, setPostDetail] = useState(null);
   const [category, setCategory] = useState("familj");
   const [checkbox, setCheckBox] = useState(false);
@@ -24,9 +23,6 @@ export default function UpdatePost({ id }) {
   const history = useHistory()
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  // if (postDetail) {
-  //   console.log(postDetail);
-  // }
 
   const getPost = () => {
     firestore

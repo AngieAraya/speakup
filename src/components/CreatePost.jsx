@@ -1,11 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  Container,
-  Form,
-  Input,
-  Button,
-  Header,
-} from "./styles/FormStyle";
+import { Container, Form, Input, Button, Header } from "./styles/FormStyle";
 import {
   LinkDiv,
   CancelLink,
@@ -32,7 +26,7 @@ export default function CreatePost() {
   };
 
   const toggleCheckbox = () => {
-    setCheckBox(prev => !prev);
+    setCheckBox((prev) => !prev);
   };
 
   const savePostToDB = async (title, text) => {
@@ -51,10 +45,9 @@ export default function CreatePost() {
         id,
       })
       .then((doc) => {
-        db.collection("posts")
-        .doc(doc.id).update({
-          docId: doc.id
-         })
+        db.collection("posts").doc(doc.id).update({
+          docId: doc.id,
+        });
         console.log("Document successfully written!");
         history.push("/profile");
       })
@@ -72,24 +65,26 @@ export default function CreatePost() {
           <label>Title</label>
           <Input type="text" ref={titleRef} required />
           <label>Text</label>
-          <TextInput type="text" ref={textRef} required ></TextInput>
+          <TextInput type="text" ref={textRef} required></TextInput>
           <label>Välj kategori:</label>
-          <select onChange={(e) => {
-            const selectCategory = e.target.value;
-            setCategory(selectCategory)
-          }}>
+          <select
+            onChange={(e) => {
+              const selectCategory = e.target.value;
+              setCategory(selectCategory);
+            }}
+          >
             <option value="Familj">Familj</option>
             <option value="Rån">Rån</option>
             <option value="Misshandel">Misshandel</option>
           </select>
           <label>Jag vill vara Anonym</label>
-          <input type="checkbox" onClick={toggleCheckbox}/>
+          <input type="checkbox" onClick={toggleCheckbox} />
           <Button disabled={loading} type="submit">
             Publicera
           </Button>
         </Form>
-        <LinkDiv> 
-        <CancelLink to="/profile">Cancel</CancelLink>
+        <LinkDiv>
+          <CancelLink to="/profile">Cancel</CancelLink>
         </LinkDiv>
       </Container>
     </>

@@ -7,8 +7,6 @@ import {
   SocialBtnContainer
  } from "../styles/GeneralStyle";
 import LoginFacebook from './LoginFacebook'
-// import firebase from "firebase"
-// import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 import LoginGoogle from './LoginGoogle'
 
 export default function Login() {
@@ -58,24 +56,6 @@ export default function Login() {
         <LoginGoogle/>
         <LoginFacebook/>
         </SocialBtnContainer>
-        {/* {isSignedIn ? (
-          // <span>
-          //   <div>Signed In!</div>
-          //   <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
-          //   <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
-          //   <img
-          //     alt="profile picture"
-          //     src={firebase.auth().currentUser.photoURL}
-          //   />
-          // </span>
-          <h1>hej</h1>
-        ) : (
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        )} */}
-  
       <TextCenter>
         Need an account? <Link to="/signup">Sign up</Link>
       </TextCenter>

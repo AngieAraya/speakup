@@ -14,14 +14,10 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
   const textRef = useRef();
   const [checkbox, setCheckBox] = useState(false);
 
-  // const [text, setText] = useState("");
-  console.log("comment i upd file", comment.docId);
-
-  
   const updateComment = (e) => {
     setShowModal(false)
     e.preventDefault();
-    console.log("text ref", textRef.current.value);
+    // console.log("text ref", textRef.current.value);
     firestore
       .collection("posts")
       .doc(postId)

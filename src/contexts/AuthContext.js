@@ -11,15 +11,10 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
-  // app.auth().languageCode = 'sv';
   auth.languageCode = 'sv';
-  
-  // const [post, setPost] = useState({});
-  // const [posts, setPosts] = useState([]);
-  // const [comments, setComments] = useState([]);
 
   // console.log("Current User context", currentUser );
-  console.log(" User Detail context", userDetail );
+  // console.log(" User Detail context", userDetail );
 
   const saveUserToDB = async (user, name, updProfileOpt ) => {
     const db = await firestore;
@@ -73,23 +68,6 @@ export function AuthProvider({ children }) {
   function resetPassword(email) {
     return auth.sendPasswordResetEmail(email);
   }
-
-  // const updateUserEmailToDB = async (email) => {
-  //   console.log("em", email);
-  //   const db = await firestore;
-  //   return db
-  //     .collection("users")
-  //     .doc(currentUser.uid.toString())
-  //     .update({
-  //       email
-  //     })
-  //     .then(() => {
-  //       console.log("Document successfully written!");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error writing document: ", error);
-  //     });
-  // };
 
   function updateEmail(email) {
     return currentUser.updateEmail(email);

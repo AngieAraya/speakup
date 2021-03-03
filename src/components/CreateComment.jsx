@@ -4,14 +4,12 @@ import { Alert } from "react-bootstrap";
 import { firestore } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 
-
 export default function CreateComment({ postId, setShowForm }) {
   const { currentUser, userDetail } = useAuth();
   const textRef = useRef();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [checkbox, setCheckBox] = useState(false);
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +22,6 @@ export default function CreateComment({ postId, setShowForm }) {
   };
 
   const saveCommentToDB = async (text) => {
-    console.log("curr comment id", currentUser.uid);
     const db = await firestore;
     let id = Math.floor(Math.random() * 1000000);
     const date = new Date();
@@ -41,25 +38,13 @@ export default function CreateComment({ postId, setShowForm }) {
         id,
       })
       .then((doc) => {
-      db.collection("posts")
-      .doc(postId)
-      .collection("comment").doc(doc.id).update({
-        docId: doc.id
-       })
-        // setComments((prev) => [
-        //   ...prev,
-        //   {
-        //     commentId: doc.id,
-        //     value: {
-        //       text,
-        //       date,
-        //       userId: currentUser.uid,
-        //       name: userDetail.name,
-        //       anonymousPost: checkbox,
-        //     },
-        //   },
-        // ]);
-
+        db.collection("posts")
+          .doc(postId)
+          .collection("comment")
+          .doc(doc.id)
+          .update({
+            docId: doc.id,
+          });
         console.log("Document successfully written!");
       })
       .catch((error) => {

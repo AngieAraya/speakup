@@ -3,12 +3,10 @@ import {PostWrapper, PostContainer, DateContainer, CategoryMark, TextWrapper, Po
 import { firestore } from "../firebase";
 import { Link } from "react-router-dom";
 import moment from 'moment';
-import { usePost } from "../contexts/PostContext";
 import { useAuth } from "../contexts/AuthContext";
 import DeletePost from "./DeletePost";
 
 export default function Posts() {
-  // const { comments } = usePost();
   const { userDetail } = useAuth();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
