@@ -13,7 +13,7 @@ export default function Posts() {
   
   const getPostsFromDb = () => {
     setLoading(true);
-      firestore.collection("posts").onSnapshot((Snapshot) => {
+      firestore.collection("posts").orderBy("date", "desc").onSnapshot((Snapshot) => {
         const postList = [];
         Snapshot.forEach((doc) => {
           postList.push(doc.data());

@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { firestore } from '../firebase';
+import React, { useState } from "react";
+import { firestore } from "../firebase";
 
 export default function CreateCategory() {
-  const [createCategory, setCreateCategory] = useState("")
+  const [createCategory, setCreateCategory] = useState("");
 
-  const handleCreateCategory = (e) =>{
+  const handleCreateCategory = (e) => {
     e.preventDefault();
-    saveCategoryToDB()
-  }
-  
+    saveCategoryToDB();
+  };
+
   const saveCategoryToDB = async () => {
     const db = await firestore;
     return db
@@ -21,7 +21,7 @@ export default function CreateCategory() {
         db.collection("category").doc(doc.id).update({
           docId: doc.id,
         });
-        setCreateCategory("")
+        setCreateCategory("");
         console.log("Document successfully written!");
       })
       .catch((error) => {
@@ -29,20 +29,18 @@ export default function CreateCategory() {
       });
   };
 
-
-
-
   return (
     <div>
-          <form onSubmit={handleCreateCategory}>
-        <input type="text"        
-              value={createCategory}
-              onChange={(e) => setCreateCategory(e.target.value)}
-              required
-              placeholder="skapa ny kategori" />
-              <button type="submit">Skapa</button>
-        </form>
-      
+      <form onSubmit={handleCreateCategory}>
+        <input
+          type="text"
+          value={createCategory}
+          onChange={(e) => setCreateCategory(e.target.value)}
+          required
+          placeholder="skapa ny kategori"
+        />
+        <button type="submit">Skapa</button>
+      </form>
     </div>
-  )
+  );
 }

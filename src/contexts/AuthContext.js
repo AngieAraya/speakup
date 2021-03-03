@@ -79,7 +79,7 @@ export function AuthProvider({ children }) {
   }
 
   function deleteUser() {
-    return currentUser.delete();
+    return currentUser.delete()
     //   return firestore.collection("users").doc().delete().then(() => {
     //     console.log("Document successfully deleted!");
     // }).catch((error) => {
@@ -88,7 +88,7 @@ export function AuthProvider({ children }) {
   }
 
   const getUserData = async (user) => {
-    console.log("kommer jag hit vid radera", user);
+    console.log("user get user dat");
     //Här är endast för att displaya info om min user som är inloggad
     if (user) {
       setLoading(false);
@@ -98,7 +98,6 @@ export function AuthProvider({ children }) {
         .get()
         .then((doc) => {
           if (doc.exists) {
-            // console.log("usr data context", doc.data().admin);
             const userData = {
               email: doc.data().email,
               name: doc.data().name,
@@ -112,13 +111,16 @@ export function AuthProvider({ children }) {
           }
         });
     } else {
+      console.log("hit i get user data func i contex");
       setUserDetail({})
       setCurrentUser();
       setLoading(false);
     }
   };
 
+
   useEffect(() => {
+    console.log("useffect context");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);

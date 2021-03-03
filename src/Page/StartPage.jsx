@@ -7,6 +7,7 @@ import GetCategories from "../components/GetCategories";
 
 export default function StartPage() {
   const [radio, setRadio] = useState("");
+  console.log("i start comp", radio);
 
   return (
     <Container>
@@ -14,6 +15,7 @@ export default function StartPage() {
       <SelectCategories radio={radio} setRadio={setRadio} />
       <h3>START PAGE</h3>
       {radio ? <GetCategories radio={radio} /> : <Posts />}
+      {radio == "Alla" && <Posts />}
     </Container>
   );
 }

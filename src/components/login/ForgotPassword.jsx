@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import resetImg from'../../img/forgot_password.png';
+import {
+  Container, Image
+} from "../../components/styles/ResetPasswordPageStyle";
+
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -12,14 +15,14 @@ export default function ForgotPassword() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     try {
       setMessage("");
       setError("");
       setLoading(true);
       await resetPassword(emailRef.current.value);
-      setMessage("Check you inbox for further instructions");
+      setMessage("Kontrollera din inkorg för ytterligare instruktioner");
     } catch {
+      setMessage("Det gick inte att återställa lösenordet");
       setError("Failed to reset password");
     }
 
@@ -27,29 +30,18 @@ export default function ForgotPassword() {
   }
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Password Reset</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Reset Password
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/login">Log in</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Need an account? <Link to="/signup">Sign up</Link>
-      </div>
-    </>
+    <Container>
+      <h2 className="text-center mb-4">Glömt lösenord?</h2>
+      {/* {error && <Alert variant="danger">{error}</Alert>}
+      {message && <Alert variant="success">{message}</Alert>} */}
+      <Image src={resetImg} alt="resetimg Image"/>
+      <form onSubmit={handleSubmit}>
+        <input type="email" ref={emailRef} placeholder="E-postadress" required />
+        <button disabled={loading} type="submit">
+          Återställ lösenord
+        </button>
+      </form>
+      {message && <h3>{message}</h3>}
+    </Container>
   );
 }

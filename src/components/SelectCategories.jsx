@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { usePost } from "../contexts/PostContext";
 
 export default function SelectCategories({ radio, setRadio }) {
+  const { categories} = usePost();
+  const [category, setCategory] = useState("familj");
+
   return (
     <div>
-      <h1>Kategori</h1>
+      <select
+            onChange={(e) => {
+              const selectCategory = e.target.value;
+              setRadio(selectCategory);
+            }}
+      >
+        {categories &&
+          categories.map((category) => (
+            <option key={category.docId} value={category.category}>
+              {category.category}
+            </option>
+          ))}
+      </select>
+      {/* <h1>Kategori</h1>
       <label>Misshandel</label>
       <input
         type="radio"
@@ -30,7 +47,7 @@ export default function SelectCategories({ radio, setRadio }) {
         onChange={(e) => {
           setRadio(e.target.value);
         }}
-      />
+      /> */}
     </div>
   );
 }
