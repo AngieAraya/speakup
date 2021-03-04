@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { PostWrapper, Paragraph } from "../components/styles/StartPageStyle";
+import { PostContainer } from "../components/styles/StartPageStyle";
 import { firestore } from "../firebase";
-import { Link } from "react-router-dom";
+import Post from "./Post";
 
 export default function GetCategories({ radio }) {
   const [posts, setPosts] = useState([]);
@@ -36,18 +36,11 @@ export default function GetCategories({ radio }) {
   }
 
   return (
-    <>
+    <PostContainer>
       <h1>{radio}</h1>
       {posts.map((post) => (
-        <PostWrapper key={post.docId}>
-          <h1>{post.title}</h1>
-          <h4>{post.collectionId}</h4>
-          <h4>Kategori {post.category}</h4>
-          <h5>Skriven av: {post.name}</h5>
-          <Paragraph>{post.text}</Paragraph>
-          <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
-        </PostWrapper>
+        <Post key={post.docId} post={post} />
       ))}
-    </>
+    </PostContainer>
   );
 }
