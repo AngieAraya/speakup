@@ -37,7 +37,7 @@ export function PostProvider({ children }) {
   const getCategoryFromDb = async () => {
     const db = await firestore;
     return db
-      .collection("category")
+      .collection("categories")
       .orderBy("date", "desc")
       .onSnapshot((Snapshot) => {
         const categoryList = [];

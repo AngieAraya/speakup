@@ -6,7 +6,7 @@ export default function Category({category, id}) {
   const handleDelete = () => {
     console.log(id);
     firestore
-      .collection("category")
+      .collection("categories")
       .doc(id)
       .delete()
       .then(() => {

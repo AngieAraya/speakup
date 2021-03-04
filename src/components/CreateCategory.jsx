@@ -12,13 +12,13 @@ export default function CreateCategory() {
   const saveCategoryToDB = async () => {
     const db = await firestore;
     return db
-      .collection("category")
+      .collection("categories")
       .add({
         category: createCategory,
         date: new Date(),
       })
       .then((doc) => {
-        db.collection("category").doc(doc.id).update({
+        db.collection("categories").doc(doc.id).update({
           docId: doc.id,
         });
         setCreateCategory("");

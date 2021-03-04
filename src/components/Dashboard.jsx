@@ -45,7 +45,7 @@ export default function Dashboard() {
       </LinkDiv>
       {posts &&
         posts.map((post) => (
-          <PostContainer key={post.id}>
+          <PostContainer key={post.docId}>
             <Postwrapper>
               <h2>{post.title}</h2>
               <h5>{post.description}</h5>

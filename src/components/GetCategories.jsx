@@ -9,7 +9,6 @@ export default function GetCategories({ radio }) {
 
   const handleGetCategory = () => {
     setLoading(true);
-    console.log(radio);
     firestore
       .collection("posts")
       .where("category", "==", radio)
@@ -17,7 +16,8 @@ export default function GetCategories({ radio }) {
       .then((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
-          items.push({ collectionId: doc.id, value: doc.data() });
+          console.log(doc.data());
+          items.push(doc.data());
         });
         setPosts(items);
         setLoading(false);
@@ -39,12 +39,12 @@ export default function GetCategories({ radio }) {
     <>
       <h1>{radio}</h1>
       {posts.map((post) => (
-        <PostWrapper key={post.collectionId}>
-          <h1>{post.value.title}</h1>
+        <PostWrapper key={post.docId}>
+          <h1>{post.title}</h1>
           <h4>{post.collectionId}</h4>
-          <h4>Kategori {post.value.category}</h4>
-          <h5>Skriven av: {post.value.name}</h5>
-          <Paragraph>{post.value.text}</Paragraph>
+          <h4>Kategori {post.category}</h4>
+          <h5>Skriven av: {post.name}</h5>
+          <Paragraph>{post.text}</Paragraph>
           <Link to={`/detail/${post.collectionId}`}>Go to detail page</Link>
         </PostWrapper>
       ))}

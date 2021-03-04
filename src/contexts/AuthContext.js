@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   auth.languageCode = 'sv';
 
-  // console.log("Current User context", currentUser );
+  console.log("Current User context", currentUser );
   // console.log(" User Detail context", userDetail );
 
   const saveUserToDB = async (user, name, updProfileOpt ) => {
