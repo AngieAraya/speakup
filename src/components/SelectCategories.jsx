@@ -1,17 +1,47 @@
 import React, { useState } from "react";
 import { usePost } from "../contexts/PostContext";
+import { firestore } from "../firebase";
 
-export default function SelectCategories({ radio, setRadio }) {
-  const { categories} = usePost();
-  const [category, setCategory] = useState("familj");
+export default function SelectCategories({ setRadio, setPosts, radio }) {
+  const { categories } = usePost();
+  const [loading, setLoading] = useState(false);
+
+
+  const handleGetCategory = (radio) => {
+    setLoading(true);
+    firestore
+      .collection("posts")
+      .where("category", "==", radio)
+      .get()
+      .then((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          items.push(doc.data());
+        });
+        setPosts(items);
+        setLoading(false);
+        console.log("items",items);
+      })
+      .catch((error) => {
+        console.log("Error getting documents DASHBOARD: ", error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const selectCategory = e.target.value;
+    setRadio(selectCategory);
+    handleGetCategory(selectCategory);
+  };
 
   return (
     <div>
       <select
-            onChange={(e) => {
-              const selectCategory = e.target.value;
-              setRadio(selectCategory);
-            }}
+        onChange={(e) => {
+          handleChange(e);
+          // const selectCategory = e.target.value;
+          // setRadio(selectCategory);
+        }}
       >
         {categories &&
           categories.map((category) => (
@@ -20,34 +50,6 @@ export default function SelectCategories({ radio, setRadio }) {
             </option>
           ))}
       </select>
-      {/* <h1>Kategori</h1>
-      <label>Misshandel</label>
-      <input
-        type="radio"
-        checked={radio === "Misshandel"}
-        value="Misshandel"
-        onChange={(e) => {
-          setRadio(e.target.value);
-        }}
-      />
-      <label>Rån</label>
-      <input
-        type="radio"
-        checked={radio === "Rån"}
-        value="Rån"
-        onChange={(e) => {
-          setRadio(e.target.value);
-        }}
-      />
-      <label>Familj</label>
-      <input
-        type="radio"
-        checked={radio === "Familj"}
-        value="Familj"
-        onChange={(e) => {
-          setRadio(e.target.value);
-        }}
-      /> */}
     </div>
   );
 }

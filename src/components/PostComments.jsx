@@ -7,11 +7,6 @@ import PostComment from "./PostComment";
 export default function PostComments({ postId }) {
   const { comments, setComments } = usePost();
 
-  // useEffect(() => {
-  //   getCommentsFromDB(postId);
-  // }, []);
-
-  // till för snapshot som uppdaterar automatiskt
   useEffect(() => {
     const unsubscribe = firestore
       .collection("posts")
@@ -29,7 +24,8 @@ export default function PostComments({ postId }) {
     <CommentContainer>
       {comments &&
         comments.map((comment) => (
-          <PostComment key={comment.id} comment={comment} postId={postId} />
+          //tog bort id och bytte mot docId får då "each child..."
+          <PostComment key={comment.docId} comment={comment} postId={postId} />
         ))}
     </CommentContainer>
   );

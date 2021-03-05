@@ -20,11 +20,14 @@ export default function ProfilePage() {
     }
   };
 
+
   return (
     <Container>
       <h1>Profile Page</h1>
-      <UserDetails />
-      {checkUserDetail()}
+      {userDetail ? <><UserDetails /> {checkUserDetail()} </>: <h1>Loading...</h1>}
+      {/* <UserDetails />
+      {checkUserDetail()} */}
+      
       {/* <Dashboard /> */}
     </Container>
   );

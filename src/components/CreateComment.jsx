@@ -22,8 +22,9 @@ export default function CreateComment({ postId, setShowForm }) {
   };
 
   const saveCommentToDB = async (text) => {
+    console.log("oki", postId);
     const db = await firestore;
-    let id = Math.floor(Math.random() * 1000000);
+    // let id = Math.floor(Math.random() * 1000000);
     const date = new Date();
     return db
       .collection("posts")
@@ -35,7 +36,7 @@ export default function CreateComment({ postId, setShowForm }) {
         userId: currentUser.uid,
         name: userDetail.name,
         anonymousPost: checkbox,
-        id,
+        // id,
       })
       .then((doc) => {
         db.collection("posts")

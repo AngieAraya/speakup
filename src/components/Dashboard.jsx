@@ -14,6 +14,10 @@ import { Link } from "react-router-dom";
 import { firestore } from "../firebase";
 import DeletePost from "./DeletePost";
 import { usePost } from "../contexts/PostContext";
+import { BsPencil } from "react-icons/bs"
+import { FaTrashAlt } from "react-icons/fa"
+import ProfilePost from "./ProfilePost";
+
 
 export default function Dashboard() {
   const { currentUser } = useAuth();
@@ -36,6 +40,7 @@ export default function Dashboard() {
   if (loading) {
     return <h1>Loading...</h1>;
   }
+  
 
   return (
     <DashboardContainer>
@@ -45,21 +50,8 @@ export default function Dashboard() {
       </LinkDiv>
       {posts &&
         posts.map((post) => (
-          <PostContainer key={post.docId}>
-            <Postwrapper>
-              <h2>{post.title}</h2>
-              <h5>{post.description}</h5>
-              <p>{post.text.substring(0, 300) + `...`}</p>
-              <p>{post.collectionId}</p>
-              <Link to={`/detail/${post.docId}`}>Gå vidare till sidan</Link>
-            </Postwrapper>
-            <Buttonwraper>
-              <UpdateLink to={`/update-post/${post.docId}`}>
-                Modifiera
-              </UpdateLink>
-              <DeletePost postDocId={post.docId} />
-            </Buttonwraper>
-          </PostContainer>
+          <ProfilePost key={post.docId} post={post} />
+  
         ))}
     </DashboardContainer>
   );

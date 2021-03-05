@@ -3,37 +3,37 @@ import { PostContainer } from "../components/styles/StartPageStyle";
 import { firestore } from "../firebase";
 import Post from "./Post";
 
-export default function GetCategories({ radio }) {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+export default function GetCategories({ radio, posts }) {
+  // const [posts, setPosts] = useState([]);
+  // const [loading, setLoading] = useState(false);
 
-  const handleGetCategory = () => {
-    setLoading(true);
-    firestore
-      .collection("posts")
-      .where("category", "==", radio)
-      .get()
-      .then((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((doc) => {
-          console.log(doc.data());
-          items.push(doc.data());
-        });
-        setPosts(items);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error getting documents DASHBOARD: ", error);
-      });
-  };
+  // const handleGetCategory = () => {
+  //   setLoading(true);
+  //   firestore
+  //     .collection("posts")
+  //     .where("category", "==", radio)
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       const items = [];
+  //       querySnapshot.forEach((doc) => {
+  //         console.log(doc.data());
+  //         items.push(doc.data());
+  //       });
+  //       setPosts(items);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting documents DASHBOARD: ", error);
+  //     });
+  // };
 
-  useEffect(() => {
-    handleGetCategory();
-  }, [radio]);
+  // useEffect(() => {
+  //   handleGetCategory();
+  // }, [radio]);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  // if (loading) {
+  //   return <h1>Loading...</h1>;
+  // }
 
   return (
     <PostContainer>

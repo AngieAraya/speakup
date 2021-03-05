@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, firestore } from "../firebase";
+import { firestore } from "../firebase";
 
 const PostContext = React.createContext();
 

@@ -4,7 +4,6 @@ import moment from "moment";
 import DeletePost from "./DeletePost";
 import {
   PostWrapper,
-  PostContainer,
   DateContainer,
   CategoryMark,
   TextWrapper,

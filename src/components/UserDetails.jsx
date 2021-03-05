@@ -7,6 +7,8 @@ import {
   ButtonDelete,
   Button,
 } from "../components/styles/ProfilePageStyle";
+import { AiOutlineClose } from "react-icons/ai"
+import { FiSettings } from "react-icons/fi"
 
 import userImg from "../img/NoUser1.png";
 import { useAuth } from "../contexts/AuthContext";
@@ -34,13 +36,20 @@ export const ModalContainer = styled.div`
   border-radius: 10px;
   min-height: 14%;
   padding: 28px;
+  text-align: center;
+`;
+export const ModalCloseBtn = styled.div`
+  text-align: right;
+  cursor: pointer;
+  &:hover{
+    color: #4e746a;
+  }
 `;
 export default function UserDetails() {
   const { userDetail, setUserDetail, deleteUser, currentUser } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  console.log("userDetail profile prob", userDetail);
-
+console.log("modal", showDeleteModal);
   useEffect(() => {
     if (userDetail) {
       const unsubscribe = firestore
@@ -86,9 +95,8 @@ export default function UserDetails() {
             </div>
           </UserDetailWrapper>
           {userDetail.updateprofile && (
-            <Button onClick={() => setShowModal(true)}>Upddate</Button>
+            <Button onClick={() => setShowModal(true)}><FiSettings/>Upddate</Button>
           )}
-          {/* <UpdateLink to="/update-profile">Update Profile</UpdateLink> */}
           <ButtonDelete onClick={() => setShowDeleteModal(true)}>
             Delete Account
           </ButtonDelete>
@@ -96,6 +104,9 @@ export default function UserDetails() {
           {showDeleteModal ? (
             <Modal>
               <ModalContainer>
+                <ModalCloseBtn>
+                <AiOutlineClose onClick={() => setShowDeleteModal(false)}/>
+                </ModalCloseBtn>
                 <h1>Är du säker på att du vill radera ditt konto?</h1>{" "}
                 <ButtonDelete onClick={() => handleDelete()}>
                   Radera konto
