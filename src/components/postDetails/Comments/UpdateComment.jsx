@@ -6,9 +6,9 @@ import {
   Header,
   Modal,
   ModalContainer,
-} from "./styles/FormStyle";
-import { LinkDiv } from "../components/styles/ProfilePageStyle";
-import { firestore } from "../firebase";
+} from "../../styles/FormStyle";
+import { LinkDiv } from "../../styles/ProfilePageStyle";
+import { firestore } from "../../../firebase";
 
 export default function UpdateComment({ postId, comment, setShowModal }) {
   const textRef = useRef();
@@ -17,7 +17,6 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
   const updateComment = (e) => {
     setShowModal(false)
     e.preventDefault();
-    // console.log("text ref", textRef.current.value);
     firestore
       .collection("posts")
       .doc(postId)

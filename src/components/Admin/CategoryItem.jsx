@@ -1,10 +1,10 @@
 import React from 'react'
-import { firestore } from '../firebase';
+import { firestore } from '../../firebase';
 
 
-export default function Category({category, id}) {
+export default function CategoryItem({category, id}) {
+  
   const handleDelete = () => {
-    console.log(id);
     firestore
       .collection("categories")
       .doc(id)

@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Form, Input, Button, Header } from "./styles/FormStyle";
-import { LinkDiv, CancelLink } from "../components/styles/ProfilePageStyle";
+import { Container, Form, Input, Button, Header } from "../styles/FormStyle";
+import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import { useHistory } from "react-router-dom";
-import { usePost } from "../contexts/PostContext";
+import { usePost } from "../../contexts/PostContext";
+import { useCategory } from "../../contexts/CategoryContext";
 
 export default function UpdatePost({ id }) {
-  const { categories} = usePost();
-  const [postDetail, setPostDetail] = useState(null);
+  const { getPostDetailFromDb, postDetail, UpdatePost } = usePost();
+  const { categories } = useCategory();
   const [category, setCategory] = useState("familj");
   const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
@@ -17,46 +18,19 @@ export default function UpdatePost({ id }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const getPost = () => {
-    firestore
-      .collection("posts")
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setPostDetail(doc.data());
-        } else {
-          console.log("No such document!");
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-  };
-
   useEffect(() => {
-    getPost();
+    getPostDetailFromDb(id);
   }, []);
 
   const handlePostUpdate = (e) => {
     e.preventDefault();
-    firestore
-      .collection("posts")
-      .doc(id)
-      .update({
-        title: titleRef.current.value,
-        text: textRef.current.value,
-        category,
-        anonymousPost: checkbox,
-      })
-      .then(() => {
-        history.push("/profile");
-        console.log("Document successfully updated!");
-      })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
+    UpdatePost(
+      id,
+      titleRef.current.value,
+      textRef.current.value,
+      category,
+      checkbox
+    );
   };
 
   const toggleCheckbox = () => {

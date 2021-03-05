@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   auth.languageCode = 'sv';
 
-  console.log("Current User context", currentUser );
+  // console.log("Current User context", currentUser );
   // console.log(" User Detail context", userDetail );
 
   const saveUserToDB = async (user, name, updProfileOpt ) => {
@@ -80,15 +80,9 @@ export function AuthProvider({ children }) {
 
   function deleteUser() {
     return currentUser.delete()
-    //   return firestore.collection("users").doc().delete().then(() => {
-    //     console.log("Document successfully deleted!");
-    // }).catch((error) => {
-    //     console.error("Error removing document: ", error);
-    // });
   }
 
   const getUserData = async (user) => {
-    console.log("user get user dat");
     //Här är endast för att displaya info om min user som är inloggad
     if (user) {
       setLoading(false);
@@ -111,7 +105,6 @@ export function AuthProvider({ children }) {
           }
         });
     } else {
-      console.log("hit i get user data func i contex");
       setUserDetail({})
       setCurrentUser();
       setLoading(false);

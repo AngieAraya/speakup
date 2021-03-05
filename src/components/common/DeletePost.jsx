@@ -1,6 +1,6 @@
 import React from "react";
-import { ButtonDelete } from "../components/styles/ProfilePageStyle";
-import { firestore } from "../firebase";
+import { ButtonDelete } from "../../components/styles/ProfilePageStyle";
+import { firestore } from "../../firebase";
 
 export default function DeletePost({ postDocId }) {
   const handleDelete = () => {

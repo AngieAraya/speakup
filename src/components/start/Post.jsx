@@ -1,15 +1,15 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import moment from "moment";
-import DeletePost from "./DeletePost";
+import DeletePost from "../common/DeletePost";
 import {
   PostWrapper,
   DateContainer,
   CategoryMark,
   TextWrapper,
   PostedBy,
-} from "../components/styles/StartPageStyle";
-import { useAuth } from "../contexts/AuthContext";
+} from "../styles/StartPageStyle";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Post({post}) {
   const { userDetail } = useAuth();

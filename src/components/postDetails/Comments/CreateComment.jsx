@@ -1,20 +1,35 @@
-import React, { useRef, useState } from "react";
-import { Form, Button, Textarea } from "./styles/FormStyle";
-import { Alert } from "react-bootstrap";
-import { firestore } from "../firebase";
-import { useAuth } from "../contexts/AuthContext";
+import React, { useState } from "react";
+import { firestore } from "../../../firebase";
+import { useAuth } from "../../../contexts/AuthContext";
+import styled from "styled-components";
 
-export default function CreateComment({ postId, setShowForm }) {
+export const Form = styled.form`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  align-items: center;
+`;
+export const Textarea = styled.textarea`
+  border-radius: 7px;
+  rezise: non;
+  resize: none;
+  padding: 7px;
+  outline: none;
+  width: 45%;
+`;
+
+export default function CreateComment({ postId }) {
   const { currentUser, userDetail } = useAuth();
-  const textRef = useRef();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [text, setText] = useState("");
   const [checkbox, setCheckBox] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveCommentToDB(textRef.current.value);
-    setShowForm(false);
+    saveCommentToDB(text);
+    console.log("handle submitt");
+    setCheckBox(false);
+    setText("");
   };
 
   const toggleCheckbox = () => {
@@ -22,7 +37,6 @@ export default function CreateComment({ postId, setShowForm }) {
   };
 
   const saveCommentToDB = async (text) => {
-    console.log("oki", postId);
     const db = await firestore;
     // let id = Math.floor(Math.random() * 1000000);
     const date = new Date();
@@ -55,19 +69,22 @@ export default function CreateComment({ postId, setShowForm }) {
 
   return (
     <>
-      <div>
-        <h2>Lämna en kommentar</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <label>Text</label>
-          <Textarea type="text" ref={textRef} required></Textarea>
+      <Form onSubmit={handleSubmit}>
+        <Textarea
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Lämna en kommentar..."
+          required
+        ></Textarea>
+        <div>
+          <input type="checkbox" value={checkbox} onClick={toggleCheckbox} />
           <label>Jag vill vara Anonym</label>
-          <input type="checkbox" onClick={toggleCheckbox} />
-          <Button disabled={loading} type="submit">
-            skicka
-          </Button>
-        </Form>
-      </div>
+        </div>
+        <button disabled={loading} type="submit">
+          skicka
+        </button>
+      </Form>
     </>
   );
 }

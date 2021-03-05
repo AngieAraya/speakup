@@ -7,11 +7,12 @@ import './index.css';
 import Compose  from './contexts/Compose'
 import { AuthProvider } from './contexts/AuthContext';
 import { PostProvider } from './contexts/PostContext';
+import { CategoryProvider } from './contexts/CategoryContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <Compose components={[AuthProvider, PostProvider]}>
+    <Compose components={[AuthProvider, PostProvider, CategoryProvider]}>
     <App />
     </Compose>
     </BrowserRouter>

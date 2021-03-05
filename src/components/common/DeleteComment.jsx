@@ -1,7 +1,8 @@
 import React from "react";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 
 export default function DeleteComment({ postId, docId }) {
+  
   const deleteComment = () => {
     firestore
       .collection("posts")

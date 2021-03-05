@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { Container, Form, Input, Button, Header, Modal, ModalContainer } from "./styles/FormStyle";
-import { LinkDiv } from "../components/styles/ProfilePageStyle";
+import { Container, Form, Input, Button, Header, Modal, ModalContainer } from "../styles/FormStyle";
+import { LinkDiv } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 
 
 export default function UpdateProfile({setShowModal}) {
@@ -25,7 +25,6 @@ export default function UpdateProfile({setShowModal}) {
       email: emailRef.current.value, 
       name: nameRef.current.value, 
     })
-    // setUserDetail({...userDetail, email:emailRef.current.value})
     .then(() => {
       console.log("Document successfully updated!");
     })

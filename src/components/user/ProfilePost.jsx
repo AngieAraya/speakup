@@ -3,11 +3,11 @@ import {
   Postwrapper,
   PostContainer,
   ButtonDelete,
-} from "../components/styles/ProfilePageStyle";
+} from "../styles/ProfilePageStyle";
 import { Link } from "react-router-dom";
 import { BsPencil } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
-import { firestore } from "../firebase";
+import { firestore } from "../../firebase";
 import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 

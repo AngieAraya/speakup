@@ -1,14 +1,12 @@
 import React from "react";
 import { Container } from "../components/styles/ProfilePageStyle";
-import Dashboard from "../components/Dashboard";
-import UserDetails from "../components/UserDetails";
+import Dashboard from "../components/user/Dashboard";
+import UserDetails from "../components/common/UserDetails";
 import { useAuth } from "../contexts/AuthContext";
-import AdminDashboard from "../components/AdminDashboard";
+import AdminDashboard from "../components/Admin/AdminDashboard";
 
 export default function ProfilePage() {
   const { userDetail } = useAuth();
-
-  console.log("userDetail i profilepage", userDetail);
 
   const checkUserDetail = () => {
     if (userDetail) {

@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { usePost } from "../contexts/PostContext";
-import { firestore } from "../firebase";
-import Category from "./Category";
+import { usePost } from "../../contexts/PostContext";
+import { useCategory } from "../../contexts/CategoryContext";
+import { firestore } from "../../firebase";
+import CategoryItem from "./CategoryItem";
 import CreateCategory from "./CreateCategory";
 
 export default function AdminDashboard() {
-  const { categories, getCategoryFromDb } = usePost();
+  // const { categories } = usePost();
+  const { getAllCategoriesFromDb, categories } = useCategory();
   const [showCategory, setShowCategory] = useState(false);
 
   // const [categories, setCategories] = useState([])
   // const [loading, setLoading] = useState(false);
 
-  // const getCategoryFromDb = () => {
+  // const getAllCategoriesFromDb = () => {
   //   setLoading(true);
   //     firestore.collection("category").onSnapshot((Snapshot) => {
   //       const categoryList = [];
@@ -24,7 +26,7 @@ export default function AdminDashboard() {
   //   };
 
   useEffect(() => {
-    getCategoryFromDb();
+    getAllCategoriesFromDb();
   }, []);
 
   // if (loading) {
@@ -40,7 +42,7 @@ export default function AdminDashboard() {
           <ol>
             {categories &&
               categories.map((category) => (
-                <Category
+                <CategoryItem
                   key={category.docId}
                   category={category}
                   id={category.docId}

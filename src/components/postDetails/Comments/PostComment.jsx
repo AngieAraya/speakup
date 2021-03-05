@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import DeleteComment from "./DeleteComment";
+import { useAuth } from "../../../contexts/AuthContext";
+import DeleteComment from "../../common/DeleteComment";
 import {
   CommentWrapper,
   CommentContainer,
   Wrapper,
   CommentedBy,
   Left,
-} from "./styles/DetailPageStyle";
+} from "../../styles/DetailPageStyle";
 import UpdateComment from "./UpdateComment";
 import moment from "moment";
 

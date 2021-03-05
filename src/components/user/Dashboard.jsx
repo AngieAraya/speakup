@@ -7,13 +7,13 @@ import {
   LinkDiv,
   DashboardContainer,
   CreateNewPostLink,
-} from "../components/styles/ProfilePageStyle";
+} from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import { firestore } from "../firebase";
-import DeletePost from "./DeletePost";
-import { usePost } from "../contexts/PostContext";
+import { firestore } from "../../firebase";
+import DeletePost from "../common/DeletePost";
+import { usePost } from "../../contexts/PostContext";
 import { BsPencil } from "react-icons/bs"
 import { FaTrashAlt } from "react-icons/fa"
 import ProfilePost from "./ProfilePost";

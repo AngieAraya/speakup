@@ -6,14 +6,14 @@ import {
   UserDetaiContainer,
   ButtonDelete,
   Button,
-} from "../components/styles/ProfilePageStyle";
+} from "../styles/ProfilePageStyle";
 import { AiOutlineClose } from "react-icons/ai"
 import { FiSettings } from "react-icons/fi"
 
-import userImg from "../img/NoUser1.png";
-import { useAuth } from "../contexts/AuthContext";
-import { firestore } from "../firebase";
-import UpdateProfile from "./UpdateProfile";
+import userImg from "../../img/NoUser1.png";
+import { useAuth } from "../../contexts/AuthContext";
+import { firestore } from "../../firebase";
+import UpdateProfile from "../user/UpdateProfile";
 import styled from "styled-components";
 
 export const Modal = styled.div`
@@ -49,7 +49,7 @@ export default function UserDetails() {
   const { userDetail, setUserDetail, deleteUser, currentUser } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-console.log("modal", showDeleteModal);
+
   useEffect(() => {
     if (userDetail) {
       const unsubscribe = firestore

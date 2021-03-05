@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from "react";
-import SelectCategories from "../components/SelectCategories";
-import Header from "../components/Header";
-import Posts from "../components/Posts";
+import SelectCategories from "../components/start/SelectCategories";
+import Header from "../components/start/Header";
+import PostList from "../components/start/PostList";
 import { Container } from "../components/styles/StartPageStyle";
-import GetCategories from "../components/GetCategories";
-import { firestore } from "../firebase";
+import GetCategories from "../components/start/GetCategories";
+import { useCategory } from "../contexts/CategoryContext";
 
 export default function StartPage() {
-  const [radio, setRadio] = useState("");
-  const [posts, setPosts] = useState([]);
- 
+  const { selectedCategory } = useCategory();
 
-  // if(radio){
-  //   console.log("radio var klickad")
-  // }
-  // else(
-  //   console.log("alla post körs nu")
-  // )
   return (
     <Container>
       <Header />
-      <SelectCategories setPosts={setPosts} radio={radio} setRadio={setRadio} />
+      <SelectCategories/>
       <h3>START PAGE</h3>
-      {radio ? <GetCategories radio={radio} posts={posts} /> : <Posts />}
-      {radio == "Alla" && <Posts />}
+      {selectedCategory ? <GetCategories /> : <PostList />}
+      {selectedCategory == "Alla" && <PostList />}
     </Container>
   );
 }

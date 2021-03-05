@@ -1,5 +1,5 @@
 import React from 'react'
-import header from'../img/headerImg.jpg';
+import header from'../../img/headerImg.jpg';
 import styled from "styled-components";
 
 export const Image = styled.img`
