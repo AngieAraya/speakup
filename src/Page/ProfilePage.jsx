@@ -21,7 +21,6 @@ export default function ProfilePage() {
 
   return (
     <Container>
-      <h1>Profile Page</h1>
       {userDetail ? <><UserDetails /> {checkUserDetail()} </>: <h1>Loading...</h1>}
       {/* <UserDetails />
       {checkUserDetail()} */}

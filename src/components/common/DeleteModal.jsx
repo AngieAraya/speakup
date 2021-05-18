@@ -43,6 +43,7 @@ export default function DeleteModal({setShowDeleteModal, postDocId, admin}) {
           </ModalCloseBtn>
           <h1>Är du säker på att du vill radera inlägget?</h1>{" "}
           <DeletePost postDocId={postDocId} admin={admin} />
+          <button onClick={() => setShowDeleteModal(false)}>Avbryt</button>
         </ModalContainer>
       </Modal>
     </div>

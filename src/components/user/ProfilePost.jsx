@@ -1,117 +1,105 @@
 import React, { useState } from "react";
-import {
-  Postwrapper,
-  PostContainer,
-  ButtonDelete,
-} from "../styles/ProfilePageStyle";
 import { Link } from "react-router-dom";
 import { BsPencil } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
-import { firestore } from "../../firebase";
-import { AiOutlineClose } from "react-icons/ai";
+import moment from "moment";
 import styled from "styled-components";
+import DeleteModal from "../common/DeleteModal";
 
-export const Modal = styled.div`
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+export const PostContainer = styled.div`
   display: flex;
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 `;
 
-export const ModalContainer = styled.div`
-  background: #eeeeee;
-  width: 50%;
-  margin: auto;
-  border-radius: 10px;
-  min-height: 14%;
-  padding: 28px;
-  text-align: center;
+export const Postwrapper = styled.div`
+  width: 70%;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 1px solid purple;
+  margin: 30px 5px; 
+}
 `;
-export const ModalCloseBtn = styled.div`
-  text-align: right;
-  cursor: pointer;
-  &:hover {
-    color: #4e746a;
-  }
-`;
+
 export const Right = styled.div`
   text-align: right;
   }
 `;
 export const BtnDeleteNoStyle = styled.button`
-border-block-end-style: none; 
-/* background: none; */
-/* border: none; */
-background: none;
-/* color: inherit; */
-border: none;
-/* padding: 0; */
-font: inherit;
-cursor: pointer;
-outline: inherit;
+  border-block-end-style: none;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  &:hover {
+    color: #ce2c2ce6;
+  }
+`;
+
+export const UpdateLink = styled(Link)`
+  text-align: center;
+  color: black;
+  margin-right: 9px;
+  &:hover {
+    color: #1d89c9;
+  }
+`;
+export const ItemRight = styled.p`
+  text-align: right;
+  font-family: cursive;
+    font-style: oblique;
+    font-size: 13px;
+    color: #625f5f;
+  }
+`;
+export const LinkToDetail = styled(Link)`
+  text-decoration: none;
+  border: 1px solid #b78db7;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: black;
+  font-size: 12px;
+  &:hover{
+    background-color: #b78db7;
+    color: white;
+  }
+}
+`;
+export const FlexSpaceBetween = styled.div`
+display: flex;
+justify-content: space-between;
+  }
+`;
+export const Text = styled.p`
+  margin: 10px 0 18px;
+  }
 `;
 
 export default function ProfilePost({ post }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const handleDelete = (postDocId) => {
-    firestore
-      .collection("posts")
-      .doc(postDocId)
-      .delete()
-      .then(() => {
-        console.log("Document successfully deleted!");
-      })
-      .catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-  };
-
   return (
     <div>
       <PostContainer>
         <Postwrapper>
+          <ItemRight>{moment(post.date.toDate()).format("ll")}</ItemRight>
           <h2>{post.title}</h2>
-          <h5>{post.description}</h5>
-          <p>{post.text.substring(0, 300) + `...`}</p>
-          <p>{post.collectionId}</p>
-          <Link to={`/detail/${post.docId}`}>Gå vidare till sidan</Link>
-          <Right>
-            <Link to={`/update-post/${post.docId}`}>
-              <BsPencil />
-              Modifiera
-            </Link>
-            <BtnDeleteNoStyle onClick={() => setShowDeleteModal(true)}>
-              <FaTrashAlt /> Radera
-            </BtnDeleteNoStyle>
-          </Right>
+          <Text>{post.text.substring(0, 300) + `...`}</Text>
+          <FlexSpaceBetween>
+            <LinkToDetail to={`/detail/${post.docId}`}>
+              Gå till sidan
+            </LinkToDetail>
+            <div>
+              <UpdateLink to={`/update-post/${post.docId}`}>
+                <BsPencil />
+              </UpdateLink>
+              <BtnDeleteNoStyle onClick={() => setShowDeleteModal(true)}>
+                <FaTrashAlt />
+              </BtnDeleteNoStyle>
+            </div>
+          </FlexSpaceBetween>
         </Postwrapper>
-        {showDeleteModal ? (
-          <Modal>
-            <ModalContainer>
-              <ModalCloseBtn>
-                <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
-              </ModalCloseBtn>
-              <h1>Är du säker på att du vill radera ditt inlägg?</h1>{" "}
-              <ButtonDelete onClick={() => handleDelete(post.docId)}>
-                Radera
-              </ButtonDelete>
-            </ModalContainer>
-          </Modal>
+        {showDeleteModal ? (<DeleteModal setShowDeleteModal={setShowDeleteModal} postDocId={post.docId}/>
         ) : null}
-        {/* <Buttonwraper>
-          <UpdateLink to={`/update-post/${post.docId}`}>
-            <BsPencil />
-            Modifiera
-          </UpdateLink>
-          <DeletePost postDocId={post.docId} />
-        </Buttonwraper> */}
       </PostContainer>
     </div>
   );

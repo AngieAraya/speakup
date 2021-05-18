@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { PostContainer } from "../styles/StartPageStyle";
+import React from "react";
 import { useCategory } from "../../contexts/CategoryContext";
-import { firestore } from "../../firebase";
 import Post from "./Post";
+import styled from "styled-components";
+
+export const PostContainer = styled.div`
+  padding: 40px;
+`;
 
 export default function GetCategories() {
   const { posts, selectedCategory } = useCategory();

@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext";
 import DeleteComment from "../../common/DeleteComment";
-import {
-  CommentWrapper,
-  CommentContainer,
-  Wrapper,
-  CommentedBy,
-  Left,
-} from "../../styles/DetailPageStyle";
 import UpdateComment from "./UpdateComment";
 import moment from "moment";
+import styled from "styled-components";
+
+export const Left = styled.div`
+// background: pink;
+text-align: right;
+`;
+export const Wrapper = styled.div`
+// background: yellow;
+display: flex;
+// align-items: center;
+padding: 10px;
+`;
+export const CommentedBy = styled.span`
+margin: 10px 40px;
+`;
+
+
+export const CommentWrapper = styled.div`
+border-bottom: 1px solid black;
+    padding: 10px;
+`;
+
 
 export default function PostComment({ comment, postId }) {
   const { userDetail } = useAuth();

@@ -71,8 +71,6 @@ export function CategoryProvider({ children }) {
       });
   };
 
-
-
   useEffect(() => {
     getAllCategoriesFromDb();
   }, []);

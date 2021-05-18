@@ -5,6 +5,10 @@ export const Container = styled.div`
   text-align: center;
 `;
 
+export const PostContainer = styled.div`
+  padding: 40px;
+`;
+
 export const Paragraph = styled.p`
   padding: 10px;
 `;
@@ -16,9 +20,6 @@ border-radius: 29px;
 color: white;
 `;
 
-export const PostContainer = styled.div`
-  padding: 40px;
-`;
 export const DateContainer = styled.div`
 display: flex;
 width: 100%;

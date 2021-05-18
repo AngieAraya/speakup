@@ -35,7 +35,7 @@ export default function LoginFacebook() {
     <>
       <FbBtn onClick={handleClick}>
         <FaFacebook />
-        <SocialText>Login with Facebook</SocialText>
+        <SocialText>Logga in med Facebook</SocialText>
       </FbBtn>
     </>
   );

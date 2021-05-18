@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { firestore } from "../../../firebase";
-import { CommentContainer } from "../../styles/DetailPageStyle";
 import { usePost } from "../../../contexts/PostContext";
 import PostComment from "./PostComment";
 import { useAuth } from "../../../contexts/AuthContext";
 import CreateComment from "./CreateComment";
+import styled from "styled-components";
+
+export const CommentContainer = styled.div`
+max-width: 60%;
+min-width: 50%;
+padding: 10px;
+margin: 70px auto 60px;
+`;
 
 export default function PostCommentsList({ postId }) {
-  const { currentUser, userDetail } = useAuth();
-
+  const { currentUser } = useAuth();
   const { comments, setComments } = usePost();
 
   useEffect(() => {

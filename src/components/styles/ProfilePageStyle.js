@@ -52,8 +52,6 @@ export const PostContainer = styled.div`
 `;
 
 export const Postwrapper = styled.div`
-  // background: yellow;
-  // margin: 30px;
   width: 70%;
   padding: 1rem;
   border-radius: 5px;

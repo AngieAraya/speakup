@@ -35,7 +35,7 @@ export default function Login() {
   return (
     <>
       <Container>
-        <Header className="text-center mb-4">Log in</Header>
+        <Header >Logga in</Header>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Input type="email" ref={emailRef} required placeholder="Email" />
@@ -43,10 +43,10 @@ export default function Login() {
             type="password"
             ref={passwordRef}
             required
-            placeholder="Password"
+            placeholder="Lösenord"
           />
           <Button disabled={loading} type="submit">
-            Log in
+            Logga in
           </Button>
         </Form>
         <TextCenter>
@@ -57,7 +57,7 @@ export default function Login() {
         <LoginFacebook/>
         </SocialBtnContainer>
       <TextCenter>
-        Need an account? <Link to="/signup">Sign up</Link>
+        Har du inget konto? <Link to="/signup">Skapa konto</Link>
       </TextCenter>
       </Container>
     </>

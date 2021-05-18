@@ -111,6 +111,20 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const deleteUserFromDB = async () => {
+    const db = await firestore;
+    return db
+      .collection("users")
+      .doc(userDetail.id)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted from cloud firestorer!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
 
   useEffect(() => {
     console.log("useffect context");
@@ -137,6 +151,7 @@ export function AuthProvider({ children }) {
     deleteUser,
     loginWithGmail,
     loginWithFacebook,
+    deleteUserFromDB,
   };
 
   return (

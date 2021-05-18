@@ -1,11 +1,49 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Container, Form, Input, Button, Header } from "../styles/FormStyle";
-import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
-import { firestore } from "../../firebase";
-import { useHistory } from "react-router-dom";
 import { usePost } from "../../contexts/PostContext";
 import { useCategory } from "../../contexts/CategoryContext";
+import { Link } from 'react-router-dom';
+
+import styled from "styled-components";
+
+export const LinkDiv = styled.div`
+  text-align: center;
+`;
+
+export const UpdateLink = styled(Link)`
+letter-spacing: 1px;
+padding: 3px 55px;
+border: none;
+border-radius: 10px;
+background-color: #38a1bd;
+color: rgb(255, 255, 255);
+cursor: pointer;
+transition: all 0.3s ease 0s;
+box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
+&:hover {
+  transition: all 0.2s ease-in-out;
+  background-color: #06b9e8;
+  color: white;
+  text-decoration: none;
+}
+`;
+
+
+export const CreateNewPostLink = styled(UpdateLink)`
+background-color: #38a1bd;
+&:hover {
+  background-color: #06b9e8;
+}
+`;
+
+export const CancelLink = styled(CreateNewPostLink)`
+background-color: #38a1bd;
+&:hover {
+  background-color: #06b9e8;
+}
+`;
+
 
 export default function UpdatePost({ id }) {
   const { getPostDetailFromDb, postDetail, UpdatePost } = usePost();
@@ -14,7 +52,6 @@ export default function UpdatePost({ id }) {
   const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
   const textRef = useRef();
-  const history = useHistory();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 

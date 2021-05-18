@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Form, Input, Button, Header, Modal, ModalContainer } from "../styles/FormStyle";
+import { Form, Input, Button, Header, Modal, ModalContainer } from "../styles/FormStyle";
 import { LinkDiv } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";

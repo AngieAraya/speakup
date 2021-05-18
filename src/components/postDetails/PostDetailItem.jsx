@@ -1,51 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { usePost } from "../../contexts/PostContext";
-import { PostWrapper, Headline, Category } from "../styles/DetailPageStyle";
-import { Button } from "../styles/GeneralStyle";
 import { useAuth } from "../../contexts/AuthContext";
 import moment from "moment";
 import PostComment from "./Comments/PostCommentsList";
-import CreateComment from "./Comments/CreateComment";
-import DeletePost from "../common/DeletePost";
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
 import DeleteModal from "../common/DeleteModal";
 
-export const Modal = styled.div`
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  display: flex;
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+export const CategoryMark = styled.div`
+background: #566180;
+padding: 0px 12px;
+border: 1px solid #565558;
+border-radius: 29px;
+color: white;
 `;
 
-export const ModalContainer = styled.div`
-  background: #eeeeee;
-  width: 50%;
-  margin: auto;
-  border-radius: 10px;
-  min-height: 14%;
-  padding: 28px;
-  text-align: center;
+export const DateContainer = styled.div`
+display: flex;
+width: 100%;
+justify-content: space-between;
 `;
-export const ModalCloseBtn = styled.div`
+
+export const PostWrapper = styled.div`
+  background: #908b8321;
+  max-width: 60%;
+  padding: 30px 60px 62px;
+  border-radius: 14px;
+`;
+
+export const Headline = styled.h1`
+  text-align: center;
+  margin: 30px 0 21px;
+`;
+
+export const PostedBy = styled.div`
   text-align: right;
-  cursor: pointer;
-  &:hover {
-    color: #4e746a;
+  margin-top: 30px;
+`;
+
+export const Date = styled.p`
+  font-family: cursive;
+    font-style: oblique;
+    font-size: 13px;
+    color: #625f5f;
   }
 `;
 
 export default function PostDetailItem({ postId }) {
   const { getPostDetailFromDb, postDetail } = usePost();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  // const [showForm, setShowForm] = useState(false);
   const { userDetail } = useAuth();
 
   useEffect(() => {
@@ -59,13 +61,23 @@ export default function PostDetailItem({ postId }) {
     <>
       {postDetail && (
         <PostWrapper>
-          <Category>Kategory: {postDetail.category}</Category>
+          <DateContainer>
+            <CategoryMark>{postDetail.category}</CategoryMark>
+            <Date>{moment(postDetail.date.toDate()).format("ll")}</Date>
+          </DateContainer>
           <Headline>{postDetail.title}</Headline>
           <p>{postDetail.text}</p>
           <p>{moment(postDetail.date.toDate()).startOf("minutes").fromNow()}</p>
-          {/* {userDetail.admin ? (
-            <DeletePost postDocId={postDetail.docId} admin={userDetail.admin} />
-          ) : null} */}
+          <PostedBy>
+            <h5>
+              -
+              {postDetail.anonymousPost ? (
+                <span>Anonym</span>
+              ) : (
+                <span>{postDetail.name}</span>
+              )}
+            </h5>
+          </PostedBy>
           {userDetail.admin && (
             <button onClick={() => setShowDeleteModal(true)}>
               Delete Post
@@ -73,16 +85,12 @@ export default function PostDetailItem({ postId }) {
           )}
         </PostWrapper>
       )}
-      {showDeleteModal ? ( <DeleteModal setShowDeleteModal={setShowDeleteModal} postDocId={postDetail.docId} admin={userDetail.admin} />
-        // <Modal>
-        //   <ModalContainer>
-        //     <ModalCloseBtn>
-        //       <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
-        //     </ModalCloseBtn>
-        //     <h1>Är du säker på att du vill radera inlägget?</h1>{" "}
-        //     <DeletePost postDocId={postDetail.docId} admin={userDetail.admin} />
-        //   </ModalContainer>
-        // </Modal>
+      {showDeleteModal ? (
+        <DeleteModal
+          setShowDeleteModal={setShowDeleteModal}
+          postDocId={postDetail.docId}
+          admin={userDetail.admin}
+        />
       ) : null}
       {/* {currentUser && (
         <Button onClick={toggleCommentForm}>Lämna en komentar</Button>

@@ -1,10 +1,9 @@
 import React from 'react'
 import { firestore } from '../../firebase';
 
-
 export default function CategoryItem({category, id}) {
   
-  const handleDelete = () => {
+  const handleDeleteCategory = () => {
     firestore
       .collection("categories")
       .doc(id)
@@ -19,7 +18,7 @@ export default function CategoryItem({category, id}) {
   return (
     <>
       <li>{category.category}</li>  
-      <button onClick={() => handleDelete()}>radera</button> 
+      <button onClick={() => handleDeleteCategory()}>radera</button> 
     </>
   )
 }

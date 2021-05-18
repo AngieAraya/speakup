@@ -12,7 +12,6 @@ padding-top: 7%;
 export const PostWrapper = styled.div`
  background: #908b8321;
  max-width: 60%;
-//  margin: 0 auto;
  padding: 60px;
  border-radius: 14px;
 `;
@@ -47,9 +46,6 @@ margin: 10px 40px;
 
 
 export const CommentWrapper = styled.div`
-// min-width: 300px;
-// display: flex;
-// justify-content: space-around;
 border-bottom: 1px solid black;
     padding: 10px;
 `;

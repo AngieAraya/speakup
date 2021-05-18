@@ -1,46 +1,61 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import DeletePost from "../common/DeletePost";
-import {
-  PostWrapper,
-  DateContainer,
-  CategoryMark,
-  TextWrapper,
-  PostedBy,
-} from "../styles/StartPageStyle";
 import { useAuth } from "../../contexts/AuthContext";
 import styled from "styled-components";
-import { AiOutlineClose } from "react-icons/ai";
 import DeleteModal from "../common/DeleteModal";
 
-export const Modal = styled.div`
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  display: flex;
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+export const CategoryMark = styled.div`
+background: #566180;
+padding: 0px 12px;
+border: 1px solid #565558;
+border-radius: 29px;
+color: white;
 `;
 
-export const ModalContainer = styled.div`
-  background: #eeeeee;
-  width: 50%;
-  margin: auto;
-  border-radius: 10px;
-  min-height: 14%;
-  padding: 28px;
-  text-align: center;
+export const DateContainer = styled.div`
+display: flex;
+width: 100%;
+justify-content: space-between;
 `;
-export const ModalCloseBtn = styled.div`
-  text-align: right;
-  cursor: pointer;
-  &:hover {
-    color: #4e746a;
+export const TextWrapper = styled.div`
+text-align: center;
+margin: 20px;
+`;
+
+export const PostedBy = styled.div`
+text-align: right;
+`;
+
+export const PostWrapper = styled.div`
+  background-color: #ffffffbf;
+  max-width: 55%;
+  border-radius: 5px;
+  margin: 80px  auto;
+  padding: 9px 25px;
+  box-shadow: 8px 10px 15px -3px rgba(0,0,0,0.38);
+`;
+
+
+export const LinkToDetail = styled(Link)`
+  text-decoration: none;
+  border: 1px solid #b78db7;
+  padding: 3px 6px;
+  border-radius: 3px;
+  color: black;
+  font-size: 12px;
+  &:hover{
+    background-color: #b78db7;
+    color: white;
+  }
+}
+`;
+
+export const Date = styled.p`
+  font-family: cursive;
+    font-style: oblique;
+    font-size: 13px;
+    color: #625f5f;
   }
 `;
 
@@ -64,7 +79,7 @@ export default function Post({ post }) {
         {/* <span>{moment(post.date.toDate()).startOf("minutes").fromNow()}</span> */}
         <DateContainer>
           <CategoryMark>{post.category}</CategoryMark>
-          <p>{moment(post.date.toDate()).format("ll")}</p>
+          <Date>{moment(post.date.toDate()).format("ll")}</Date>
         </DateContainer>
         <TextWrapper>
           <h1>{post.title}</h1>
@@ -83,7 +98,7 @@ export default function Post({ post }) {
           </h5>
         </PostedBy>
         {/* {<p>{comments.length} kommentarer</p>} */}
-        <Link to={`/detail/${post.docId}`}>Läs mer</Link>
+        <LinkToDetail to={`/detail/${post.docId}`}>Läs mer</LinkToDetail>
         <div>
           {/* {userDetail.admin && <DeletePost postDocId={post.docId} />} */}
           {/* {userDetail.admin && (
@@ -94,15 +109,6 @@ export default function Post({ post }) {
         </div>
         {checkUserDetail()}
         {showDeleteModal ? ( <DeleteModal setShowDeleteModal={setShowDeleteModal} postDocId={post.docId}/>
-          // <Modal>
-          //   <ModalContainer>
-          //     <ModalCloseBtn>
-          //       <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
-          //     </ModalCloseBtn>
-          //     <h1>Är du säker på att du vill radera inlägget?</h1>{" "}
-          //     <DeletePost postDocId={post.docId} />
-          //   </ModalContainer>
-          // </Modal>
         ) : null}
       </PostWrapper>
     </>
