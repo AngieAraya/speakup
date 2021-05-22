@@ -29,7 +29,6 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `;
 
 export const Container = styled.div`
-  // background: orange;
   display: flex;
   flex-direction: column;
   justify-content: center;
