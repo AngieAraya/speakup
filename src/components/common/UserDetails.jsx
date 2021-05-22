@@ -1,46 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai"
-import { FiSettings } from "react-icons/fi"
+import { AiOutlineClose } from "react-icons/ai";
+import { FiSettings } from "react-icons/fi";
 import { useAuth } from "../../contexts/AuthContext";
 import { firestore } from "../../firebase";
 import UpdateProfile from "../user/UpdateProfile";
-import UserAvatar from 'react-user-avatar'
+import UserAvatar from "react-user-avatar";
 import styled from "styled-components";
+import { FaTrashAlt } from "react-icons/fa";
 
 export const Button = styled.button`
-letter-spacing: 1px;
-padding: 3px 55px;
-border: none;
-border-radius: 10px;
-background-color: rgb(94 60 128);
-color: rgb(255, 255, 255);
-cursor: pointer;
-transition: all 0.3s ease 0s;
-box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-&:hover {
-  transition: all 0.2s ease-in-out;
-  background-color: rgb(141 75 206);
-  color: white;
-}
+  letter-spacing: 1px;
+  gap: 5px;
+  padding: 3px 55px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(119 207 191);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
+  justify-content: center;
+  display: flex;
+  width: 130px;
+  padding: 6px 7px;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: rgb(79 176 159);
+    color: white;
+  }
 `;
 
 export const ButtonDelete = styled(Button)`
-background-color: darkred;
-&:hover {
-  background-color: red;
-  color: white;
-}
+  background-color: #d95f76;
+  &:hover {
+    background-color: #e05353;
+    color: white;
+  }
 `;
 
 export const UserDetaiContainer = styled.div`
-  margin: 40px;
+  @media (min-width: 800px) {
+    margin: 40px;
+  }
 `;
 
 export const ProfileImg = styled.img`
-height: 170px;
-border-radius: 50%;
-// margin-right: 30px;
-object-fit: scale-down;
+  // height: 170px;
+  border-radius: 50%;
+  // margin-right: 30px;
+  object-fit: scale-down;
 `;
 
 export const Modal = styled.div`
@@ -68,19 +76,62 @@ export const ModalContainer = styled.div`
 export const ModalCloseBtn = styled.div`
   text-align: right;
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: #4e746a;
   }
 `;
 
 export const UserDetailWrapper = styled.div`
+  max-width: 80%;
+  padding: 10px;
+  text-align: center;
+  @media (min-width: 800px) {
+    // display: flex;
+    // justify-content: start;
+    // align-items: center;
+    display: grid;
+    grid-template-columns: 160px 2fr 1fr;
+    align-items: center;
+  }
+`;
+
+export const UserName = styled.h3`
+  font-size: 18px;
+  text-transform: capitalize;
+  margin: 14px 0 65px;
+  text-align: center;
+  @media screen and (min-width: 800px) {
+    margin: 0;
+    font-size: 25px;
+    text-align: left;
+  }
+`;
+
+export const UserEmail = styled.h3`
+font-size: 13px;
+}
+`;
+export const AvatarWrapper = styled.div`
 display: flex;
-justify-content: start;
-align-items: center;
+justify-content: center;
+}
+`;
+
+export const ButtonWrapper = styled.div`
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+gap: 15px;
 }
 `;
 export default function UserDetails() {
-  const { userDetail, setUserDetail, deleteUser, currentUser, deleteUserFromDB } = useAuth();
+  const {
+    userDetail,
+    setUserDetail,
+    deleteUser,
+    currentUser,
+    deleteUserFromDB,
+  } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -105,16 +156,21 @@ export default function UserDetails() {
 
   const ImgChecker = (userDetail) => {
     console.log(currentUser);
-    if(userDetail.updateprofile){
-      if(userDetail.name)
-      return <UserAvatar size="78" name={userDetail.name} colors={['#b7efd9', '#acd4e5', '#75d7c3']} />
+    if (userDetail.updateprofile) {
+      if (userDetail.name)
+        return (
+          <AvatarWrapper>
+            <UserAvatar
+              size="78"
+              name={userDetail.name}
+              colors={["#b7efd9", "#acd4e5", "#75d7c3"]}
+            />
+          </AvatarWrapper>
+        );
+    } else {
+      return <ProfileImg src={currentUser.photoURL} alt="no user img" />;
     }
-    else{
-      return (
-      <ProfileImg src={currentUser.photoURL} alt="no user img" />)
-    }
-
-  }
+  };
 
   return (
     <UserDetaiContainer>
@@ -124,22 +180,29 @@ export default function UserDetails() {
             {/* <ProfileImg src={userImg} alt="no user img" /> */}
             {ImgChecker(userDetail)}
             <div>
-              <h2>Namn: {userDetail.name}</h2>
-              <h3>Email: {userDetail.email}</h3>
+              <UserName>{userDetail.name}</UserName>
+              {/* ha eller släng email ? */}
+              {/* <UserEmail>{userDetail.email}</UserEmail> */}
             </div>
+            <ButtonWrapper>
+              {userDetail.updateprofile && (
+                <Button onClick={() => setShowModal(true)}>
+                  <FiSettings />
+                  Uppdatera
+                </Button>
+              )}
+              <ButtonDelete onClick={() => setShowDeleteModal(true)}>
+                <FaTrashAlt />
+                Radera konto
+              </ButtonDelete>
+            </ButtonWrapper>
           </UserDetailWrapper>
-          {userDetail.updateprofile && (
-            <Button onClick={() => setShowModal(true)}><FiSettings/>Upddate</Button>
-          )}
-          <ButtonDelete onClick={() => setShowDeleteModal(true)}>
-            Delete Account
-          </ButtonDelete>
           {showModal ? <UpdateProfile setShowModal={setShowModal} /> : null}
           {showDeleteModal ? (
             <Modal>
               <ModalContainer>
                 <ModalCloseBtn>
-                <AiOutlineClose onClick={() => setShowDeleteModal(false)}/>
+                  <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
                 </ModalCloseBtn>
                 <h1>Är du säker på att du vill radera ditt konto?</h1>{" "}
                 <ButtonDelete onClick={() => handleDelete()}>
