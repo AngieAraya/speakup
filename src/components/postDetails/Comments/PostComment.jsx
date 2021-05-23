@@ -4,6 +4,7 @@ import DeleteComment from "../../common/DeleteComment";
 import UpdateComment from "./UpdateComment";
 import moment from "moment";
 import styled from "styled-components";
+import { BsPencil } from "react-icons/bs";
 
 export const Left = styled.div`
 // background: pink;
@@ -25,6 +26,19 @@ border-bottom: 1px solid black;
     padding: 10px;
 `;
 
+export const BtnNoStyle = styled.button`
+  border-block-end-style: none;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  margin-right: 9px;
+  &:hover {
+    color: #1d89c9;
+  }
+`;
+
 
 export default function PostComment({ comment, postId }) {
   const { userDetail } = useAuth();
@@ -33,7 +47,7 @@ export default function PostComment({ comment, postId }) {
   const renderCurrentUserOptionsBtns = () => {
   return (userDetail.id == comment.userId && (
       <Left>
-        <button onClick={() => setShowModal(true)}>Modifiera</button>
+        <BtnNoStyle onClick={() => setShowModal(true)}><BsPencil /></BtnNoStyle>
         <DeleteComment postId={postId} docId={comment.docId} />
         {showModal ? (
           <UpdateComment

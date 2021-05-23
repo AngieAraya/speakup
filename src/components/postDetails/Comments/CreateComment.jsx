@@ -20,6 +20,7 @@ export const Textarea = styled.textarea`
 
 export default function CreateComment({ postId }) {
   const { currentUser, userDetail } = useAuth();
+  //loading?
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [checkbox, setCheckBox] = useState(false);

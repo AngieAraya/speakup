@@ -128,10 +128,10 @@ export const Form = styled.form`
   flex-direction: column;
   padding: 30px;
   margin: auto;
-  box-shadow: 7px 5px 14px 2px rgb(0 0 0 / 10%);
   max-width: 711px;
-  background: #f6f4f5de;
   max-width: 655px;
+  background: #f6f4f5de;
+  box-shadow: 7px 5px 14px 2px rgb(0 0 0 / 10%);
   border-radius: 6px;
 `;
 
