@@ -108,12 +108,12 @@ export const BtnAndInputWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const StyledSelect = styled.div`
-  border-radius: 6px;
-  padding: 4px;
-  border: 1px solid purple;
-  width: 163px;
-`;
+// export const StyledSelect = styled.div`
+//   border-radius: 6px;
+//   padding: 4px;
+//   border: 1px solid purple;
+//   width: 163px;
+// `;
 
 export const Form = styled.form`
   background: pink;
