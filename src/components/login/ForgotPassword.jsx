@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import resetImg from'../../img/forgot_password.png';
+import resetImg from "../../img/forgot_password.png";
 import {
-  Container, Image
+  Container,
+  Image,
 } from "../../components/styles/ResetPasswordPageStyle";
-
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -34,9 +34,14 @@ export default function ForgotPassword() {
       <h2 className="text-center mb-4">Glömt lösenord?</h2>
       {/* {error && <Alert variant="danger">{error}</Alert>}
       {message && <Alert variant="success">{message}</Alert>} */}
-      <Image src={resetImg} alt="resetimg Image"/>
+      <Image src={resetImg} alt="resetimg Image" />
       <form onSubmit={handleSubmit}>
-        <input type="email" ref={emailRef} placeholder="E-postadress" required />
+        <input
+          type="email"
+          ref={emailRef}
+          placeholder="E-postadress"
+          required
+        />
         <button disabled={loading} type="submit">
           Återställ lösenord
         </button>

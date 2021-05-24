@@ -107,9 +107,6 @@ export default function UpdatePost({ id }) {
                           {category.category}
                         </option>
                       ))}
-                    {/* <option value="Familj">Familj</option>
-            <option value="Rån">Rån</option>
-            <option value="Misshandel">Misshandel</option> */}
                   </select>
                 </div>
               </Wrapper>

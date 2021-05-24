@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
-
 // import { Form, Input, Button, Header, Modal, ModalContainer } from "../styles/FormStyle";
 import { LinkDiv } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
@@ -187,12 +186,9 @@ export const Button = styled.button`
 
 export const Input = styled.input`
   border-radius: 6px;
-  // background: yellow;
   margin: 0.3rem;
   border: 1px solid purple;
-  // width: 70%;
   padding: 5px;
-  // margin: 9px;
 `;
 
 export const Label = styled.label`
@@ -203,9 +199,6 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // margin: 20px auto;
-  // min-width: 40%;
-  // align-items: center;
   width: 75%;
   margin: 10px auto 32px;
 `;

@@ -29,62 +29,53 @@ export default function CreatePost() {
 
   return (
     <div>
-      <Container>
-        <Form onSubmit={handleSubmit}>
-      <Header>Skapa inlägg</Header>
-          <TextWrapper>
-            <Wrapper>
-              <TitleWrapper>
-                <label>Title</label>
-                <br />
-                <Input type="text" ref={titleRef} required />
-              </TitleWrapper>
-              <div>
-                <label>Välj kategori:</label>
-                <br />
-                <select
-                  onChange={(e) => {
-                    const selectCategory = e.target.value;
-                    setCategory(selectCategory);
-                  }}
-                >
-                  {categories &&
-                    categories.map((category) => (
-                      <option key={category.docId} value={category.category}>
-                        {category.category}
-                      </option>
-                    ))}
-                </select>
-              </div>
-            </Wrapper>
-            <label>Text</label>
-            <TextInput type="text" ref={textRef} required></TextInput>
-          </TextWrapper>
-          <BtnAndInputWrapper>
-            <AnonymousCheck>
-              <AnonymousLabel>Jag vill vara Anonym</AnonymousLabel>
-              <input type="checkbox" onClick={toggleCheckbox} />
-            </AnonymousCheck>
-            <ButtonWrapper>
-              <Button type="submit">Publicera</Button>
-              <LinkDiv>
-                <CancelLink to="/profile">Avbryt</CancelLink>
-              </LinkDiv>
-            </ButtonWrapper>
-          </BtnAndInputWrapper>
-        </Form>
-      </Container>
+      <Form onSubmit={handleSubmit}>
+        <Header>Skapa inläggiiinjknkn</Header>
+        <TextWrapper>
+          <Wrapper>
+            <TitleWrapper>
+              <label>Title</label>
+              <br />
+              <Input type="text" ref={titleRef} required />
+            </TitleWrapper>
+            <div>
+              <label>Välj kategori:</label>
+              <br />
+              <select
+                onChange={(e) => {
+                  const selectCategory = e.target.value;
+                  setCategory(selectCategory);
+                }}
+              >
+                {categories &&
+                  categories.map((category) => (
+                    <option key={category.docId} value={category.category}>
+                      {category.category}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </Wrapper>
+          <label>Text</label>
+          <TextInput type="text" ref={textRef} required></TextInput>
+        </TextWrapper>
+        <BtnAndInputWrapper>
+          <AnonymousCheck>
+            <AnonymousLabel>Jag vill vara Anonym</AnonymousLabel>
+            <input type="checkbox" onClick={toggleCheckbox} />
+          </AnonymousCheck>
+          <ButtonWrapper>
+            <Button type="submit">Publicera</Button>
+            <LinkDiv>
+              <CancelLink to="/profile">Avbryt</CancelLink>
+            </LinkDiv>
+          </ButtonWrapper>
+        </BtnAndInputWrapper>
+      </Form>
     </div>
   );
 }
 
-export const Container = styled.div`
-  // background: orange;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // height: 80vh;
-`;
 export const Wrapper = styled.div`
   margin-bottom: 17px;
   @media (min-width: 550px) {
@@ -99,11 +90,6 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   /* width: 100%; */
   margin-top: 30px;
-  // margin-bottom: 17px;
-  // @media (min-width: 550px) {
-  //   display: flex;
-  //   justify-content: space-between;
-  // }
 `;
 export const TitleWrapper = styled.div`
   width: 60%;
@@ -123,21 +109,8 @@ export const BtnAndInputWrapper = styled.div`
   flex-direction: column;
 `;
 
-// export const StyledSelect = styled.div`
-//   border-radius: 6px;
-//   padding: 4px;
-//   border: 1px solid purple;
-//   width: 163px;
-// `;
-
 export const Form = styled.form`
   background: pink;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // margin: 20px auto;
-  // min-width: 40%;
-  // align-items: center;
   max-width: 900px;
   display: flex;
   flex-direction: column;
@@ -161,8 +134,6 @@ export const Input = styled.input`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  // max-width: 620px;
-  // margin: 0 70px;
 `;
 
 export const Header = styled.h1`
@@ -190,10 +161,7 @@ export const Button = styled.button`
 export const TextInput = styled.textarea`
   border-radius: 6px;
   border: 1px solid purple;
-  // width: 70%;
   outline: none;
   padding: 7px;
   min-height: 240px;
-  // padding: 5px;
-  // margin: 9px;
 `;

@@ -3,7 +3,12 @@ import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import {
-  Form, Container, Input, Button, Header, TextCenter
+  Form,
+  Container,
+  Input,
+  Button,
+  Header,
+  TextCenter,
 } from "../styles/FormStyle";
 
 export default function SignupForm() {
@@ -19,7 +24,7 @@ export default function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let name = `${firstName} ${lastName}`
+    let name = `${firstName} ${lastName}`;
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
@@ -29,60 +34,66 @@ export default function SignupForm() {
       const updProfileOpt = true;
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value, name, updProfileOpt);
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        name,
+        updProfileOpt
+      );
       setLoading(false);
       history.push("/profile");
     } catch {
       setError("Failed to create an account");
       setLoading(false);
     }
-    // if(sucessLogin){
-    //   console.log('currenttest');
-    //   history.push("/");
-    // }
   };
 
   return (
     <>
       <Container>
-        <Header>Sign up</Header>
+        <Header>Skapa konto</Header>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
-            <Input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              placeholder="Förnamn"
-            />
-            <Input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-              placeholder="Efternamn"
-            />
-            <Input type="email" ref={emailRef} required placeholder="E-postadress" />
-            <Input type="password" ref={passwordRef} required placeholder="Lösenord" />
-            <Input type="password" ref={passwordConfirmRef} required placeholder="Upprepa lösenord" />
+          <Input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            placeholder="Förnamn"
+          />
+          <Input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            placeholder="Efternamn"
+          />
+          <Input
+            type="email"
+            ref={emailRef}
+            required
+            placeholder="E-postadress"
+          />
+          <Input
+            type="password"
+            ref={passwordRef}
+            required
+            placeholder="Lösenord"
+          />
+          <Input
+            type="password"
+            ref={passwordConfirmRef}
+            required
+            placeholder="Upprepa lösenord"
+          />
           <Button disabled={loading} type="submit">
             Skapa ett konto
           </Button>
         </Form>
-      <TextCenter>
-        Har du redan ett konto? <Link to="/login">Logga in</Link>
-      </TextCenter>
+        <TextCenter>
+          Har du redan ett konto? <Link to="/login">Logga in</Link>
+        </TextCenter>
       </Container>
     </>
   );
 }
-
-{/* <InputContainer id="email">
-<Input type="email" ref={emailRef} required placeholder="Email" />
-</InputContainer>
-<InputContainer id="password">
-<Input type="password" ref={passwordRef} required placeholder="Password" />
-</InputContainer>
-<InputContainer id="password-confirm">
-<Input type="password" ref={passwordConfirmRef} required placeholder="Password Confirmation" />
-</InputContainer> */}

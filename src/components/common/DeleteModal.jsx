@@ -3,6 +3,27 @@ import { AiOutlineClose } from "react-icons/ai";
 import DeletePost from "./DeletePost";
 import styled from "styled-components";
 
+export default function DeleteModal({ setShowDeleteModal, postDocId, admin }) {
+  return (
+    <div>
+      <Modal>
+        <ModalContainer>
+          <ModalCloseBtn>
+            <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
+          </ModalCloseBtn>
+          <ModalHeading>
+            Är du säker på att du vill radera inlägget?
+          </ModalHeading>{" "}
+          <ModalButtonWrapper>
+            <DeletePost postDocId={postDocId} admin={admin} />
+            <Button onClick={() => setShowDeleteModal(false)}>Avbryt</Button>
+          </ModalButtonWrapper>
+        </ModalContainer>
+      </Modal>
+    </div>
+  );
+}
+
 export const Modal = styled.div`
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -61,29 +82,8 @@ export const Button = styled.button`
 `;
 
 export const ModalButtonWrapper = styled.div`
-display: flex;
-justify-content: space-around;
-width: 320px;
-margin: 40px auto 10px;
+  display: flex;
+  justify-content: space-around;
+  width: 320px;
+  margin: 40px auto 10px;
 `;
-
-export default function DeleteModal({ setShowDeleteModal, postDocId, admin }) {
-  return (
-    <div>
-      <Modal>
-        <ModalContainer>
-          <ModalCloseBtn>
-            <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
-          </ModalCloseBtn>
-          <ModalHeading>
-            Är du säker på att du vill radera inlägget?
-          </ModalHeading>{" "}
-          <ModalButtonWrapper>
-            <DeletePost postDocId={postDocId} admin={admin} />
-            <Button onClick={() => setShowDeleteModal(false)}>Avbryt</Button>
-          </ModalButtonWrapper>
-        </ModalContainer>
-      </Modal>
-    </div>
-  );
-}

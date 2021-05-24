@@ -6,6 +6,40 @@ import moment from "moment";
 import styled from "styled-components";
 import DeleteModal from "../common/DeleteModal";
 
+export default function ProfilePost({ post }) {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  return (
+    <div>
+      <PostContainer>
+        <Postwrapper>
+          <ItemRight>{moment(post.date.toDate()).format("ll")}</ItemRight>
+          <h2>{post.title}</h2>
+          <Text>{post.text.substring(0, 300) + `...`}</Text>
+          <FlexSpaceBetween>
+            <LinkToDetail to={`/detail/${post.docId}`}>
+              Gå till sidan
+            </LinkToDetail>
+            <div>
+              <UpdateLink to={`/update-post/${post.docId}`}>
+                <BsPencil />
+              </UpdateLink>
+              <BtnDeleteNoStyle onClick={() => setShowDeleteModal(true)}>
+                <FaTrashAlt />
+              </BtnDeleteNoStyle>
+            </div>
+          </FlexSpaceBetween>
+        </Postwrapper>
+        {showDeleteModal ? (
+          <DeleteModal
+            setShowDeleteModal={setShowDeleteModal}
+            postDocId={post.docId}
+          />
+        ) : null}
+      </PostContainer>
+    </div>
+  );
+}
 export const PostContainer = styled.div`
   display: flex;
 `;
@@ -73,34 +107,3 @@ export const Text = styled.p`
   margin: 10px 0 18px;
   }
 `;
-
-export default function ProfilePost({ post }) {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  return (
-    <div>
-      <PostContainer>
-        <Postwrapper>
-          <ItemRight>{moment(post.date.toDate()).format("ll")}</ItemRight>
-          <h2>{post.title}</h2>
-          <Text>{post.text.substring(0, 300) + `...`}</Text>
-          <FlexSpaceBetween>
-            <LinkToDetail to={`/detail/${post.docId}`}>
-              Gå till sidan
-            </LinkToDetail>
-            <div>
-              <UpdateLink to={`/update-post/${post.docId}`}>
-                <BsPencil />
-              </UpdateLink>
-              <BtnDeleteNoStyle onClick={() => setShowDeleteModal(true)}>
-                <FaTrashAlt />
-              </BtnDeleteNoStyle>
-            </div>
-          </FlexSpaceBetween>
-        </Postwrapper>
-        {showDeleteModal ? (<DeleteModal setShowDeleteModal={setShowDeleteModal} postDocId={post.docId}/>
-        ) : null}
-      </PostContainer>
-    </div>
-  );
-}
