@@ -33,7 +33,41 @@ export const ModalCloseBtn = styled.div`
   }
 `;
 
-export default function DeleteModal({setShowDeleteModal, postDocId, admin}) {
+export const ModalHeading = styled.h1`
+  font-size: 24px;
+  font-weight: 400;
+`;
+
+export const Button = styled.button`
+  letter-spacing: 1px;
+  gap: 5px;
+  padding: 3px 55px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(119 207 191);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+  box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
+  justify-content: center;
+  display: flex;
+  width: 130px;
+  padding: 6px 7px;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: rgb(79 176 159);
+    color: white;
+  }
+`;
+
+export const ModalButtonWrapper = styled.div`
+display: flex;
+justify-content: space-around;
+width: 320px;
+margin: 40px auto 10px;
+`;
+
+export default function DeleteModal({ setShowDeleteModal, postDocId, admin }) {
   return (
     <div>
       <Modal>
@@ -41,9 +75,13 @@ export default function DeleteModal({setShowDeleteModal, postDocId, admin}) {
           <ModalCloseBtn>
             <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
           </ModalCloseBtn>
-          <h1>Är du säker på att du vill radera inlägget?</h1>{" "}
-          <DeletePost postDocId={postDocId} admin={admin} />
-          <button onClick={() => setShowDeleteModal(false)}>Avbryt</button>
+          <ModalHeading>
+            Är du säker på att du vill radera inlägget?
+          </ModalHeading>{" "}
+          <ModalButtonWrapper>
+            <DeletePost postDocId={postDocId} admin={admin} />
+            <Button onClick={() => setShowDeleteModal(false)}>Avbryt</Button>
+          </ModalButtonWrapper>
         </ModalContainer>
       </Modal>
     </div>

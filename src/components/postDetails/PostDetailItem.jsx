@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { usePost } from "../../contexts/PostContext";
 import { useAuth } from "../../contexts/AuthContext";
 import moment from "moment";
-import PostComment from "./Comments/PostCommentsList";
+import PostCommentList from "./Comments/PostCommentsList";
 import styled from "styled-components";
 import DeleteModal from "../common/DeleteModal";
 
@@ -25,6 +25,7 @@ export const PostWrapper = styled.div`
   max-width: 60%;
   padding: 30px 60px 62px;
   border-radius: 14px;
+  margin: auto;
 `;
 
 export const Headline = styled.h1`
@@ -96,7 +97,7 @@ export default function PostDetailItem({ postId }) {
         <Button onClick={toggleCommentForm}>Lämna en komentar</Button>
       )}
       {showForm && <CreateComment postId={postId} setShowForm={setShowForm} />} */}
-      <PostComment postId={postId} />
+      <PostCommentList postId={postId} />
     </>
   );
 }

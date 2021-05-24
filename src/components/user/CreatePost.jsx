@@ -29,12 +29,9 @@ export default function CreatePost() {
 
   return (
     <div>
-      <Header>Skapa inlägg</Header>
-      <LinkDiv>
-        <CancelLink to="/profile">Avbryt</CancelLink>
-      </LinkDiv>
       <Container>
         <Form onSubmit={handleSubmit}>
+      <Header>Skapa inlägg</Header>
           <TextWrapper>
             <Wrapper>
               <TitleWrapper>
@@ -68,7 +65,12 @@ export default function CreatePost() {
               <AnonymousLabel>Jag vill vara Anonym</AnonymousLabel>
               <input type="checkbox" onClick={toggleCheckbox} />
             </AnonymousCheck>
-            <Button type="submit">Publicera</Button>
+            <ButtonWrapper>
+              <Button type="submit">Publicera</Button>
+              <LinkDiv>
+                <CancelLink to="/profile">Avbryt</CancelLink>
+              </LinkDiv>
+            </ButtonWrapper>
           </BtnAndInputWrapper>
         </Form>
       </Container>
@@ -89,6 +91,19 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
   }
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
+  margin-top: 30px;
+  // margin-bottom: 17px;
+  // @media (min-width: 550px) {
+  //   display: flex;
+  //   justify-content: space-between;
+  // }
 `;
 export const TitleWrapper = styled.div`
   width: 60%;
@@ -127,7 +142,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   padding: 30px;
-  margin: auto;
+  margin: 40px auto;
   max-width: 711px;
   max-width: 655px;
   background: #f6f4f5de;
@@ -152,6 +167,7 @@ export const TextWrapper = styled.div`
 
 export const Header = styled.h1`
   text-align: center;
+  margin-bottom: 22px;
 `;
 
 export const Button = styled.button`
@@ -162,10 +178,8 @@ export const Button = styled.button`
   background-color: rgb(94 60 128);
   color: rgb(255, 255, 255);
   cursor: pointer;
-  margin-top: 20px;
   transition: all 0.3s ease 0s;
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-  width: 35%;
   &:hover {
     transition: all 0.2s ease-in-out;
     background-color: rgb(141 75 206);

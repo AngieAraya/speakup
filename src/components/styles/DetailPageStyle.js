@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
 background: aliceblue;
-display: flex;
-flex-direction: column;
-align-items: center;
+// display: flex;
+// flex-direction: column;
+// align-items: center;
 //  background: rgb(150 132 132);
 min-height: 100vh;
 padding-top: 7%;

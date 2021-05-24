@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import app, { auth, firestore } from "../firebase";
+import { useHistory } from "react-router-dom";
+
 
 const AuthContext = React.createContext();
 
@@ -11,6 +13,7 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
   auth.languageCode = 'sv';
 
   // console.log("Current User context", currentUser );
@@ -119,6 +122,7 @@ export function AuthProvider({ children }) {
       .delete()
       .then(() => {
         console.log("Document successfully deleted from cloud firestorer!");
+        history.push("/start");
       })
       .catch((error) => {
         console.error("Error removing document: ", error);

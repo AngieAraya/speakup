@@ -74,14 +74,11 @@ export default function UpdatePost({ id }) {
 
   return (
     <div>
-      <Header>Uppdatera Post</Header>
-      <LinkDiv>
-        <CancelLink to="/profile">Avbryt</CancelLink>
-      </LinkDiv>
       <Container>
         {error && <Alert variant="danger">{error}</Alert>}
         {postDetail && (
           <Form onSubmit={handlePostUpdate}>
+            <Header>Uppdatera inlägg</Header>
             <TextWrapper>
               <Wrapper>
                 <TitleWrapper>
@@ -128,9 +125,14 @@ export default function UpdatePost({ id }) {
                 <AnonymousLabel>Jag vill vara Anonym</AnonymousLabel>
                 <input type="checkbox" onClick={toggleCheckbox} />
               </AnonymousCheck>
-              <Button disabled={loading} required type="submit">
-                uppdatera
-              </Button>
+              <ButtonWrapper>
+                <Button disabled={loading} required type="submit">
+                  uppdatera
+                </Button>
+                <LinkDiv>
+                  <CancelLink to="/profile">Avbryt</CancelLink>
+                </LinkDiv>
+              </ButtonWrapper>
             </BtnAndInputWrapper>
           </Form>
         )}
@@ -171,6 +173,19 @@ export const BtnAndInputWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  /* width: 100%; */
+  margin-top: 30px;
+  @media (min-width: 500px) {
+    flex-direction: row;
+
+  }
+`;
+
 export const StyledSelect = styled.div`
   border-radius: 6px;
   padding: 4px;
@@ -190,7 +205,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   padding: 30px;
-  margin: auto;
+  margin: 40px auto;
   box-shadow: 7px 5px 14px 2px rgb(0 0 0 / 10%);
   max-width: 711px;
   background: #f6f4f5de;
@@ -215,6 +230,7 @@ export const TextWrapper = styled.div`
 
 export const Header = styled.h1`
   text-align: center;
+  margin-bottom: 22px;
 `;
 
 export const Button = styled.button`
@@ -225,10 +241,8 @@ export const Button = styled.button`
   background-color: rgb(94 60 128);
   color: rgb(255, 255, 255);
   cursor: pointer;
-  margin-top: 20px;
   transition: all 0.3s ease 0s;
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-  width: 35%;
   &:hover {
     transition: all 0.2s ease-in-out;
     background-color: rgb(141 75 206);
@@ -246,4 +260,3 @@ export const TextInput = styled.textarea`
   // padding: 5px;
   // margin: 9px;
 `;
-

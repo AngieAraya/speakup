@@ -7,12 +7,22 @@ import CreateComment from "./CreateComment";
 import styled from "styled-components";
 
 export const CommentContainer = styled.div`
-max-width: 60%;
+max-width: 93%;
 min-width: 50%;
-padding: 10px;
-margin: 70px auto 60px;
-`;
+padding: 10px 0 80px;
+margin: 70px auto 0px;
+// max-width: 60%;
+// min-width: 50%;
+// padding: 10px;
+// margin: 70px auto 60px;
+  @media screen and (min-width: 700px) {
+    max-width: 60%;
+    padding: 80px 0;
 
+    // min-width: 50%;
+  }
+`;
+//vad är det här för sida?
 export default function PostCommentsList({ postId }) {
   const { currentUser } = useAuth();
   const { comments, setComments } = usePost();
@@ -32,9 +42,7 @@ export default function PostCommentsList({ postId }) {
 
   return (
     <CommentContainer>
-      {currentUser && (
-        <CreateComment postId={postId}/>
-      )}
+      {currentUser && <CreateComment postId={postId} />}
       {comments &&
         comments.map((comment) => (
           //tog bort id och bytte mot docId får då "each child..."

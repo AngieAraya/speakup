@@ -30,6 +30,13 @@ export const Button = styled.button`
   }
 `;
 
+export const ModalButtonWrapper = styled.div`
+display: flex;
+justify-content: space-around;
+width: 320px;
+margin: 40px auto 10px;
+`;
+
 export const ButtonDelete = styled(Button)`
   background-color: #d95f76;
   &:hover {
@@ -42,6 +49,11 @@ export const UserDetaiContainer = styled.div`
   @media (min-width: 800px) {
     margin: 40px;
   }
+`;
+
+export const ModalHeading = styled.h1`
+font-size: 24px;
+font-weight: 400;
 `;
 
 export const ProfileImg = styled.img`
@@ -204,10 +216,15 @@ export default function UserDetails() {
                 <ModalCloseBtn>
                   <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
                 </ModalCloseBtn>
-                <h1>Är du säker på att du vill radera ditt konto?</h1>{" "}
-                <ButtonDelete onClick={() => handleDelete()}>
-                  Radera konto
-                </ButtonDelete>
+                <ModalHeading>Är du säker på att du vill radera ditt konto?</ModalHeading>{" "}
+                <ModalButtonWrapper>
+                  <ButtonDelete onClick={() => handleDelete()}>
+                    Radera konto
+                  </ButtonDelete>
+                  <Button onClick={() => setShowDeleteModal(false)}>
+                    Avbryt
+                  </Button>
+                </ModalButtonWrapper>
               </ModalContainer>
             </Modal>
           ) : null}
