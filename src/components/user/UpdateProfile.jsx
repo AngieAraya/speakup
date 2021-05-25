@@ -102,14 +102,14 @@ export default function UpdateProfile({ setShowModal }) {
           <Input
             type="password"
             ref={passwordRef}
-            placeholder="Leave blank to keep the same"
+            placeholder="Lämna tomt om du vill behålla samma"
           />
 
           <Label>Bekräfta lösenord</Label>
           <Input
             type="password"
             ref={passwordConfirmRef}
-            placeholder="Leave blank to keep the same"
+            placeholder="Lämna tomt om du vill behålla samma"
           />
           <div>
             <UpdBtn disabled={loading} type="submit">

@@ -4,7 +4,7 @@ import { Container, Header } from "../components/styles/AboutPageStyle";
 export default function AboutPage() {
   return (
     <Container>
-      <Header>ABOUT</Header>
+      <Header>SpeakUp</Header>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

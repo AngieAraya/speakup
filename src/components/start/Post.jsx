@@ -33,7 +33,7 @@ export default function Post({ post }) {
           <Date>{moment(post.date.toDate()).format("ll")}</Date>
         </DateContainer>
         <TextWrapper>
-          <h1>{post.title}</h1>
+          <PostHeading>{post.title}</PostHeading>
           <p>{post.text.substring(0, 700) + `...`}</p>
         </TextWrapper>
         <PostedBy>
@@ -79,6 +79,11 @@ export const DeleteWrapper = styled.div`
 export const TextWrapper = styled.div`
   text-align: center;
   margin: 20px;
+`;
+
+export const PostHeading = styled.h2`
+  font-weight: 500;
+  margin-bottom: 20px;
 `;
 
 export const PostedBy = styled.div`
