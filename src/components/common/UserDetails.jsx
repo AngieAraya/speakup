@@ -48,7 +48,7 @@ export default function UserDetails() {
             <UserAvatar
               size="78"
               name={userDetail.name}
-              colors={["#b7efd9", "#acd4e5", "#75d7c3"]}
+              colors={["#d7d3e0", "#b5d2db", "#95adbe"]}
             />
           </AvatarWrapper>
         );

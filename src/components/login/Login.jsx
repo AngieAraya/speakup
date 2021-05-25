@@ -34,7 +34,7 @@ export default function Login() {
     <>
       <S.Container>
         <S.Header>Logga in</S.Header>
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && <S.Alert variant="danger">{error}</S.Alert>}
         <S.Form onSubmit={handleSubmit}>
           <S.Input type="email" ref={emailRef} required placeholder="Email" />
           <S.Input

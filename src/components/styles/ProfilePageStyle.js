@@ -72,7 +72,7 @@ export const Button = styled.button`
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background-color: rgb(141 75 206);
+    background-color: rgb(127 97 157);
     color: white;
   }
 `;
@@ -87,6 +87,7 @@ export const ButtonDelete = styled(Button)`
 
 export const UpdateLink = styled(Link)`
   letter-spacing: 1px;
+  text-decoration: none;
   padding: 3px 55px;
   border: none;
   border-radius: 10px;
@@ -110,8 +111,8 @@ export const CreateNewPostLink = styled(UpdateLink)`
   }
 `;
 export const CancelLink = styled(CreateNewPostLink)`
-  background-color: #38a1bd;
+  background-color: #597f9b;
   &:hover {
-    background-color: #06b9e8;
+    background-color: #95adbe;
   }
 `;

@@ -13,7 +13,6 @@ export default function CreateComment({ postId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     saveCommentToDB(text);
-    console.log("handle submitt");
     setCheckBox(false);
     setText("");
   };

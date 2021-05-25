@@ -91,7 +91,7 @@ export const Button = styled.button`
   box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background-color: rgb(141 75 206);
+    background-color: rgb(127 97 157);
     color: white;
   }
 `;

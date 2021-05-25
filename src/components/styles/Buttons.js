@@ -6,7 +6,7 @@ export const Button = styled.button`
   padding: 3px 55px;
   border: none;
   border-radius: 10px;
-  background-color: rgb(119 207 191);
+  background-color: #95adbe;
   color: rgb(255, 255, 255);
   cursor: pointer;
   transition: all 0.3s ease 0s;
@@ -17,7 +17,7 @@ export const Button = styled.button`
   padding: 6px 7px;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background-color: rgb(79 176 159);
+    background-color: #597f9b;
     color: white;
   }
 `;
@@ -31,30 +31,30 @@ export const DeleteBtn = styled(Button)`
 `;
 
 export const CreateCommentBtn = styled(Button)`
-  background-color: rgb(185 146 215);
+  background-color: #574f7d;
   gap: 0;
   width: 66px;
   &:hover {
-    background-color: rgb(159 118 190);
+    background-color: #503a65;
     color: white;
   }
 `;
 
 export const CategoryBtn = styled(Button)`
-  background-color: rgb(119 150 207);
+  background-color: #574f7d;
   &:hover {
-    background-color: rgb(137 169 230);
+    background-color: #503a65;
     color: white;
   }
 `;
 
 export const CreateCategoryBtn = styled(Button)`
-  background-color: rgb(185 146 215);
+  background-color: #574f7d;
   gap: 0;
   width: 66px;
   margin-left: 10px;
   &:hover {
-    background-color: rgb(159 118 190);
+    background-color: #503a65;
     color: white;
   }
 `;
@@ -66,7 +66,7 @@ export const CanselBtn = styled(Button)`
   margin-top: 20px;
   width: 97%;
   &:hover {
-    background-color: rgb(141 75 206);
+    background-color: rgb(127 97 157);
     color: white;
   }
 `;
@@ -78,7 +78,7 @@ export const UpdBtn = styled(Button)`
   margin-top: 20px;
   width: 97%;
   &:hover {
-    background-color: rgb(141 75 206);
+    background-color: rgb(127 97 157);
     color: white;
   }
 `;

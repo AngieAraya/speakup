@@ -81,7 +81,7 @@ export default function UpdatePost({ id }) {
             </S.AnonymousCheck>
             <S.ButtonWrapper>
               <S.Button required type="submit">
-                uppdatera
+                Uppdatera
               </S.Button>
               <LinkDiv>
                 <CancelLink to="/profile">Avbryt</CancelLink>

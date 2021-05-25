@@ -7,11 +7,12 @@ export const Container = styled.div`
 `;
 
 export const CategoryMark = styled.div`
-  background: #566180;
+  background: #95adbe;
   padding: 0px 12px;
-  border: 1px solid #565558;
+  border: 1px solid #95adbe;
   border-radius: 29px;
   color: white;
+  font-size: 15px;
 `;
 
 export const DateContainer = styled.div`

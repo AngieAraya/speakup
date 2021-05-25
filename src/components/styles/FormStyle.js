@@ -59,7 +59,7 @@ export const Button = styled.button`
   width: 72%;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background-color: rgb(141 75 206);
+    background-color: rgb(127 97 157);
     color: white;
   }
 `;

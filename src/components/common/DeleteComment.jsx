@@ -12,7 +12,7 @@ export default function DeleteComment({ postId, docId }) {
       .doc(docId)
       .delete()
       .then(() => {
-        console.log("COMMENT DELETED");
+        console.log("Comment deleted");
       })
       .catch((error) => {
         console.error("Error removing document: ", error);
