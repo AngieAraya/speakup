@@ -34,7 +34,7 @@ export default function Post({ post }) {
         </DateContainer>
         <TextWrapper>
           <h1>{post.title}</h1>
-          <p>{post.text.substring(0, 300) + `...`}</p>
+          <p>{post.text.substring(0, 700) + `...`}</p>
         </TextWrapper>
         <PostedBy>
           <h5>

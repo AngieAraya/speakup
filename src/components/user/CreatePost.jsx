@@ -1,6 +1,19 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
-// import { Container, Form, Input, Button, Header } from "../styles/FormStyle";
+// import {
+//   Form,
+//   Header,
+//   TextWrapper,
+//   Wrapper,
+//   TextInput,
+//   BtnAndInputWrapper,
+//   TitleWrapper,
+//   AnonymousCheck,
+//   AnonymousLabel,
+//   Input,
+//   Button,
+//   ButtonWrapper,
+// } from "../styles/forms/CreatePostForm";
+import * as S from "../styles/forms/CreatePostForm";
 import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
 import { useCategory } from "../../contexts/CategoryContext";
 import { usePost } from "../../contexts/PostContext";
@@ -29,15 +42,15 @@ export default function CreatePost() {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <Header>Skapa inläggiiinjknkn</Header>
-        <TextWrapper>
-          <Wrapper>
-            <TitleWrapper>
+      <S.Form onSubmit={handleSubmit}>
+        <S.Header>Skapa inlägg</S.Header>
+        <S.TextWrapper>
+          <S.Wrapper>
+            <S.TitleWrapper>
               <label>Title</label>
               <br />
-              <Input type="text" ref={titleRef} required />
-            </TitleWrapper>
+              <S.Input type="text" ref={titleRef} required />
+            </S.TitleWrapper>
             <div>
               <label>Välj kategori:</label>
               <br />
@@ -55,113 +68,23 @@ export default function CreatePost() {
                   ))}
               </select>
             </div>
-          </Wrapper>
+          </S.Wrapper>
           <label>Text</label>
-          <TextInput type="text" ref={textRef} required></TextInput>
-        </TextWrapper>
-        <BtnAndInputWrapper>
-          <AnonymousCheck>
-            <AnonymousLabel>Jag vill vara Anonym</AnonymousLabel>
+          <S.TextInput type="text" ref={textRef} required></S.TextInput>
+        </S.TextWrapper>
+        <S.BtnAndInputWrapper>
+          <S.AnonymousCheck>
+            <S.AnonymousLabel>Jag vill vara Anonym</S.AnonymousLabel>
             <input type="checkbox" onClick={toggleCheckbox} />
-          </AnonymousCheck>
-          <ButtonWrapper>
-            <Button type="submit">Publicera</Button>
+          </S.AnonymousCheck>
+          <S.ButtonWrapper>
+            <S.Button type="submit">Publicera</S.Button>
             <LinkDiv>
               <CancelLink to="/profile">Avbryt</CancelLink>
             </LinkDiv>
-          </ButtonWrapper>
-        </BtnAndInputWrapper>
-      </Form>
+          </S.ButtonWrapper>
+        </S.BtnAndInputWrapper>
+      </S.Form>
     </div>
   );
 }
-
-export const Wrapper = styled.div`
-  margin-bottom: 17px;
-  @media (min-width: 550px) {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* width: 100%; */
-  margin-top: 30px;
-`;
-export const TitleWrapper = styled.div`
-  width: 60%;
-`;
-
-export const AnonymousLabel = styled.label`
-  margin-right: 8px;
-`;
-
-export const AnonymousCheck = styled.div`
-  margin-top: 19px;
-`;
-export const BtnAndInputWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-export const Form = styled.form`
-  background: pink;
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  margin: 40px auto;
-  max-width: 711px;
-  max-width: 655px;
-  background: #f6f4f5de;
-  box-shadow: 7px 5px 14px 2px rgb(0 0 0 / 10%);
-  border-radius: 6px;
-`;
-
-export const Input = styled.input`
-  border-radius: 6px;
-  outline: none;
-  padding: 5px;
-  width: 100%;
-  border: 1px solid purple;
-`;
-
-export const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Header = styled.h1`
-  text-align: center;
-  margin-bottom: 22px;
-`;
-
-export const Button = styled.button`
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 10px;
-  padding: 6px 26px;
-  background-color: rgb(94 60 128);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-  box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background-color: rgb(141 75 206);
-    color: white;
-  }
-`;
-
-export const TextInput = styled.textarea`
-  border-radius: 6px;
-  border: 1px solid purple;
-  outline: none;
-  padding: 7px;
-  min-height: 240px;
-`;

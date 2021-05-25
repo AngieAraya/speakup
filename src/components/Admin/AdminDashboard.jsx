@@ -3,10 +3,10 @@ import { useCategory } from "../../contexts/CategoryContext";
 import CategoryItem from "./CategoryItem";
 import CreateCategory from "./CreateCategory";
 import styled, { keyframes } from "styled-components";
+import { CategoryBtn } from "../styles/Buttons";
 
 export default function AdminDashboard() {
   const { getAllCategoriesFromDb, categories } = useCategory();
-  // const [showCategory, setShowCategory] = useState(false);
   const [isOpen, setIsopen] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
 
   return (
     <CategoryContainer>
-      <Button onClick={() => setIsopen(!isOpen)}>Kategorier</Button>
+      <CategoryBtn onClick={() => setIsopen(!isOpen)}>Kategorier</CategoryBtn>
       {isOpen && (
         <CategoryWrapper>
           <CreateCategory />
@@ -29,7 +29,6 @@ export default function AdminDashboard() {
                 />
               ))}
           </Ol>
-          {/* <button onClick={() => setShowCategory(false)}>Stäng</button> */}
         </CategoryWrapper>
       )}
     </CategoryContainer>
@@ -45,30 +44,7 @@ to {
 `;
 
 export const CategoryContainer = styled.div`
-margin-top: 30px;
-
-`;
-
-export const Button = styled.button`
-  letter-spacing: 1px;
-  gap: 5px;
-  padding: 3px 55px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(119 150 207);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-  box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-  justify-content: center;
-  display: flex;
-  width: 130px;
-  padding: 6px 7px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background-color: rgb(137 169 230);
-    color: white;
-  }
+  margin-top: 30px;
 `;
 
 export const CategoryWrapper = styled.div`
@@ -76,7 +52,6 @@ export const CategoryWrapper = styled.div`
   max-width: 265px;
   display: flex;
   flex-direction: column;
-  // text-align: center;
   padding: 24px;
   margin-top: 17px;
   background: #f6f4f5de;

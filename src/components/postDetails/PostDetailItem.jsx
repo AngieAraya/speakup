@@ -26,7 +26,9 @@ export default function PostDetailItem({ postId }) {
           </DateContainer>
           <Headline>{postDetail.title}</Headline>
           <p>{postDetail.text}</p>
-          <p>{moment(postDetail.date.toDate()).startOf("minutes").fromNow()}</p>
+          <PostedTime>
+            {moment(postDetail.date.toDate()).startOf("minutes").fromNow()}
+          </PostedTime>
           <PostedBy>
             <h5>
               -
@@ -89,6 +91,13 @@ export const Headline = styled.h1`
 export const PostedBy = styled.div`
   text-align: right;
   margin-top: 30px;
+`;
+
+export const PostedTime = styled.div`
+  margin-top: 20px;
+  font-style: oblique;
+  font-size: 13px;
+  color: #625f5f;
 `;
 
 export const Date = styled.p`

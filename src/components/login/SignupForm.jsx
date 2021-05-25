@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -10,6 +9,7 @@ import {
   Header,
   TextCenter,
 } from "../styles/FormStyle";
+import styled from "styled-components";
 
 export default function SignupForm() {
   const [firstName, setFirstName] = useState("");
@@ -27,7 +27,7 @@ export default function SignupForm() {
     let name = `${firstName} ${lastName}`;
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+      return setError("Lösenorden matchar inte");
     }
 
     try {
@@ -97,3 +97,8 @@ export default function SignupForm() {
     </>
   );
 }
+
+const Alert = styled.div`
+  text-align: center;
+  color: #e40a0a;
+`;

@@ -13,7 +13,6 @@ export default function StartPage() {
     <Container>
       <Header />
       <SelectCategories/>
-      <h3>START PAGE</h3>
       {selectedCategory ? <GetCategories /> : <PostList />}
       {selectedCategory == "Alla" && <PostList />}
     </Container>

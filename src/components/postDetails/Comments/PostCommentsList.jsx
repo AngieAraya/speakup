@@ -6,22 +6,6 @@ import { useAuth } from "../../../contexts/AuthContext";
 import CreateComment from "./CreateComment";
 import styled from "styled-components";
 
-export const CommentContainer = styled.div`
-max-width: 93%;
-min-width: 50%;
-padding: 10px 0 80px;
-margin: 70px auto 0px;
-// max-width: 60%;
-// min-width: 50%;
-// padding: 10px;
-// margin: 70px auto 60px;
-  @media screen and (min-width: 700px) {
-    max-width: 60%;
-    padding: 80px 0;
-
-    // min-width: 50%;
-  }
-`;
 //vad är det här för sida?
 export default function PostCommentsList({ postId }) {
   const { currentUser } = useAuth();
@@ -51,3 +35,15 @@ export default function PostCommentsList({ postId }) {
     </CommentContainer>
   );
 }
+
+export const CommentContainer = styled.div`
+  max-width: 93%;
+  min-width: 50%;
+  padding: 10px 0 80px;
+  margin: 30px auto 0px;
+
+  @media screen and (min-width: 700px) {
+    max-width: 60%;
+    padding: 70px 0;
+  }
+`;

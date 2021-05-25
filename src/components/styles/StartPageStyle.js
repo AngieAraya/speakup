@@ -25,6 +25,7 @@ display: flex;
 width: 100%;
 justify-content: space-between;
 `;
+
 export const TextWrapper = styled.div`
 text-align: center;
 margin: 20px;

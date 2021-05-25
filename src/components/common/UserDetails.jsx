@@ -6,6 +6,8 @@ import { firestore } from "../../firebase";
 import UpdateProfile from "../user/UpdateProfile";
 import UserAvatar from "react-user-avatar";
 import styled from "styled-components";
+import * as S from "../styles/ModalStyle";
+import { Button, DeleteBtn }from "../styles/Buttons";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function UserDetails() {
@@ -75,32 +77,32 @@ export default function UserDetails() {
                   Uppdatera
                 </Button>
               )}
-              <ButtonDelete onClick={() => setShowDeleteModal(true)}>
+              <DeleteBtn onClick={() => setShowDeleteModal(true)}>
                 <FaTrashAlt />
                 Radera konto
-              </ButtonDelete>
+              </DeleteBtn>
             </ButtonWrapper>
           </UserDetailWrapper>
           {showModal ? <UpdateProfile setShowModal={setShowModal} /> : null}
           {showDeleteModal ? (
-            <Modal>
+            <S.Modal>
               <ModalContainer>
-                <ModalCloseBtn>
+                <S.ModalCloseBtn>
                   <AiOutlineClose onClick={() => setShowDeleteModal(false)} />
-                </ModalCloseBtn>
+                </S.ModalCloseBtn>
                 <ModalHeading>
                   Är du säker på att du vill radera ditt konto?
                 </ModalHeading>{" "}
-                <ModalButtonWrapper>
-                  <ButtonDelete onClick={() => handleDelete()}>
+                <S.ModalButtonWrapper>
+                  <DeleteBtn onClick={() => handleDelete()}>
                     Radera konto
-                  </ButtonDelete>
+                  </DeleteBtn>
                   <Button onClick={() => setShowDeleteModal(false)}>
                     Avbryt
                   </Button>
-                </ModalButtonWrapper>
+                </S.ModalButtonWrapper>
               </ModalContainer>
-            </Modal>
+            </S.Modal>
           ) : null}
         </div>
       ) : (
@@ -109,42 +111,6 @@ export default function UserDetails() {
     </UserDetaiContainer>
   );
 }
-export const Button = styled.button`
-  letter-spacing: 1px;
-  gap: 5px;
-  padding: 3px 55px;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(119 207 191);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-  box-shadow: rgb(0 0 0 / 20%) 0px 5px 10px;
-  justify-content: center;
-  display: flex;
-  width: 130px;
-  padding: 6px 7px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background-color: rgb(79 176 159);
-    color: white;
-  }
-`;
-
-export const ModalButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 320px;
-  margin: 40px auto 10px;
-`;
-
-export const ButtonDelete = styled(Button)`
-  background-color: #d95f76;
-  &:hover {
-    background-color: #e05353;
-    color: white;
-  }
-`;
 
 export const UserDetaiContainer = styled.div`
   @media (min-width: 800px) {
@@ -158,23 +124,8 @@ export const ModalHeading = styled.h1`
 `;
 
 export const ProfileImg = styled.img`
-  // height: 170px;
   border-radius: 50%;
-  // margin-right: 30px;
   object-fit: scale-down;
-`;
-
-export const Modal = styled.div`
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  display: flex;
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 `;
 
 export const ModalContainer = styled.div`
@@ -186,22 +137,12 @@ export const ModalContainer = styled.div`
   padding: 28px;
   text-align: center;
 `;
-export const ModalCloseBtn = styled.div`
-  text-align: right;
-  cursor: pointer;
-  &:hover {
-    color: #4e746a;
-  }
-`;
 
 export const UserDetailWrapper = styled.div`
   max-width: 80%;
   padding: 10px;
   text-align: center;
   @media (min-width: 800px) {
-    // display: flex;
-    // justify-content: start;
-    // align-items: center;
     display: grid;
     grid-template-columns: 160px 2fr 1fr;
     align-items: center;
@@ -221,19 +162,17 @@ export const UserName = styled.h3`
 `;
 
 export const UserEmail = styled.h3`
-font-size: 13px;
-}
+  font-size: 13px;
 `;
+
 export const AvatarWrapper = styled.div`
-display: flex;
-justify-content: center;
-}
+  display: flex;
+  justify-content: center;
 `;
 
 export const ButtonWrapper = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-end;
-gap: 15px;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
 `;
