@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SelectCategories from "../components/start/SelectCategories";
 import Header from "../components/start/Header";
 import PostList from "../components/start/PostList";
@@ -12,7 +12,7 @@ export default function StartPage() {
   return (
     <Container>
       <Header />
-      <SelectCategories/>
+      <SelectCategories />
       {selectedCategory ? <GetCategories /> : <PostList />}
       {selectedCategory == "Alla" && <PostList />}
     </Container>

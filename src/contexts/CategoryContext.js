@@ -14,7 +14,6 @@ export function CategoryProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [createCategory, setCreateCategory] = useState("");
 
-
   //Hämtar alla kategorier
   const getAllCategoriesFromDb = async () => {
     const db = await firestore;
