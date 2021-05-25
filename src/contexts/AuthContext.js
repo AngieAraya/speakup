@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import app, { auth, firestore } from "../firebase";
 import { useHistory } from "react-router-dom";
 
-
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -14,12 +13,9 @@ export function AuthProvider({ children }) {
   const [userDetail, setUserDetail] = useState({});
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  auth.languageCode = 'sv';
+  auth.languageCode = "sv";
 
-  // console.log("Current User context", currentUser );
-  // console.log(" User Detail context", userDetail );
-
-  const saveUserToDB = async (user, name, updProfileOpt ) => {
+  const saveUserToDB = async (user, name, updProfileOpt) => {
     const db = await firestore;
     return db
       .collection("users")
@@ -41,7 +37,7 @@ export function AuthProvider({ children }) {
 
   function signup(email, password, userName, updProfileOpt) {
     return auth.createUserWithEmailAndPassword(email, password).then((res) => {
-      saveUserToDB(res.user, userName , updProfileOpt);
+      saveUserToDB(res.user, userName, updProfileOpt);
       return res.user;
     });
   }
@@ -65,7 +61,7 @@ export function AuthProvider({ children }) {
   }
 
   function logout() {
-    return auth.signOut().then(setUserDetail({}))
+    return auth.signOut().then(setUserDetail({}));
   }
 
   function resetPassword(email) {
@@ -82,7 +78,7 @@ export function AuthProvider({ children }) {
   }
 
   function deleteUser() {
-    return currentUser.delete()
+    return currentUser.delete();
   }
 
   const getUserData = async (user) => {
@@ -108,7 +104,7 @@ export function AuthProvider({ children }) {
           }
         });
     } else {
-      setUserDetail({})
+      setUserDetail({});
       setCurrentUser();
       setLoading(false);
     }
@@ -129,9 +125,7 @@ export function AuthProvider({ children }) {
       });
   };
 
-
   useEffect(() => {
-    console.log("useffect context");
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);

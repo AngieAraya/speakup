@@ -22,7 +22,7 @@ export default function UpdateComment({ postId, comment, setShowModal }) {
         anonymousPost: checkbox,
       })
       .then(() => {
-        console.log("COMMENT Updated");
+        console.log("Comment Updated");
       })
       .catch((error) => {
         console.error("Error removing document: ", error);

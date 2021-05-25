@@ -41,7 +41,6 @@ export default function UserDetails() {
   };
 
   const ImgChecker = (userDetail) => {
-    console.log(currentUser);
     if (userDetail.updateprofile) {
       if (userDetail.name)
         return (

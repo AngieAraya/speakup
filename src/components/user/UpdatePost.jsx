@@ -11,7 +11,6 @@ export default function UpdatePost({ id }) {
   const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
   const textRef = useRef();
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getPostDetailFromDb(id);
@@ -81,7 +80,7 @@ export default function UpdatePost({ id }) {
               <input type="checkbox" onClick={toggleCheckbox} />
             </S.AnonymousCheck>
             <S.ButtonWrapper>
-              <S.Button disabled={loading} required type="submit">
+              <S.Button required type="submit">
                 uppdatera
               </S.Button>
               <LinkDiv>

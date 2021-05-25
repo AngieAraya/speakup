@@ -39,7 +39,6 @@ export function CategoryProvider({ children }) {
       .then((querySnapshot) => {
         const items = [];
         querySnapshot.forEach((doc) => {
-          console.log(doc.data());
           items.push(doc.data());
         });
         setPosts(items);

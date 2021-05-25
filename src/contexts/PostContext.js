@@ -20,7 +20,6 @@ export function PostProvider({ children }) {
 
   // hämta alla posts
   const getAllPostsFromDb = () => {
-    // setLoading(true);
     firestore
       .collection("posts")
       .orderBy("date", "desc")
@@ -30,7 +29,6 @@ export function PostProvider({ children }) {
           postList.push(doc.data());
         });
         setAllPosts(postList);
-        // setLoading(false);
       });
   };
 
@@ -102,10 +100,6 @@ export function PostProvider({ children }) {
         console.error("Error updating document: ", error);
       });
   };
-
-  // if (loading) {
-  //   return <h1>Loading...</h1>;
-  // }
 
   const value = {
     getPostDetailFromDb,
