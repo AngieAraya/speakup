@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { firestore } from "../../firebase";
@@ -10,7 +9,6 @@ import styled from "styled-components";
 export default function Dashboard() {
   const { currentUser } = useAuth();
   const { posts, setPosts } = usePost();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -31,7 +29,6 @@ export default function Dashboard() {
 
   return (
     <DashboardContainer>
-      {error && <Alert variant="danger">{error}</Alert>}
       <div>
         <CreatePostLink to="/create-post">Skapa inlägg</CreatePostLink>
       </div>

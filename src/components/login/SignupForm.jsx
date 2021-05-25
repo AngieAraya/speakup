@@ -1,15 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import {
-  Form,
-  Container,
-  Input,
-  Button,
-  Header,
-  TextCenter,
-} from "../styles/FormStyle";
-import styled from "styled-components";
+import * as S from "../styles/FormStyle";
 
 export default function SignupForm() {
   const [firstName, setFirstName] = useState("");
@@ -50,55 +42,50 @@ export default function SignupForm() {
 
   return (
     <>
-      <Container>
-        <Header>Skapa konto</Header>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Input
+      <S.Container>
+        <S.Header>Skapa konto</S.Header>
+        {error && <S.Alert variant="danger">{error}</S.Alert>}
+        <S.Form onSubmit={handleSubmit}>
+          <S.Input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
             placeholder="Förnamn"
           />
-          <Input
+          <S.Input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
             placeholder="Efternamn"
           />
-          <Input
+          <S.Input
             type="email"
             ref={emailRef}
             required
             placeholder="E-postadress"
           />
-          <Input
+          <S.Input
             type="password"
             ref={passwordRef}
             required
             placeholder="Lösenord"
           />
-          <Input
+          <S.Input
             type="password"
             ref={passwordConfirmRef}
             required
             placeholder="Upprepa lösenord"
           />
-          <Button disabled={loading} type="submit">
+          <S.Button disabled={loading} type="submit">
             Skapa ett konto
-          </Button>
-        </Form>
-        <TextCenter>
+          </S.Button>
+        </S.Form>
+        <S.TextCenter>
           Har du redan ett konto? <Link to="/login">Logga in</Link>
-        </TextCenter>
-      </Container>
+        </S.TextCenter>
+      </S.Container>
     </>
   );
 }
-
-const Alert = styled.div`
-  text-align: center;
-  color: #e40a0a;
-`;

@@ -40,6 +40,7 @@ export default function ProfilePost({ post }) {
     </div>
   );
 }
+
 export const PostContainer = styled.div`
   display: flex;
 `;
@@ -49,14 +50,13 @@ export const Postwrapper = styled.div`
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid purple;
-  margin: 30px 5px; 
-}
+  margin: 30px 5px;
 `;
 
 export const Right = styled.div`
   text-align: right;
-  }
 `;
+
 export const BtnDeleteNoStyle = styled.button`
   border-block-end-style: none;
   background: none;
@@ -77,14 +77,15 @@ export const UpdateLink = styled(Link)`
     color: #1d89c9;
   }
 `;
+
 export const ItemRight = styled.p`
   text-align: right;
   font-family: cursive;
-    font-style: oblique;
-    font-size: 13px;
-    color: #625f5f;
-  }
+  font-style: oblique;
+  font-size: 13px;
+  color: #625f5f;
 `;
+
 export const LinkToDetail = styled(Link)`
   text-decoration: none;
   border: 1px solid #b78db7;
@@ -92,18 +93,17 @@ export const LinkToDetail = styled(Link)`
   border-radius: 3px;
   color: black;
   font-size: 12px;
-  &:hover{
+  &:hover {
     background-color: #b78db7;
     color: white;
   }
-}
 `;
+
 export const FlexSpaceBetween = styled.div`
-display: flex;
-justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
 `;
+
 export const Text = styled.p`
   margin: 10px 0 18px;
-  }
 `;

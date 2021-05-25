@@ -46,10 +46,7 @@ export default function Post({ post }) {
             )}
           </h5>
         </PostedBy>
-        {/* {<p>{comments.length} kommentarer</p>} */}
         <LinkToDetail to={`/detail/${post.docId}`}>Läs mer</LinkToDetail>
-        <div>
-        </div>
         {checkUserDetail()}
         {showDeleteModal ? (
           <DeleteModal
@@ -76,7 +73,7 @@ export const DateContainer = styled.div`
   justify-content: space-between;
 `;
 export const DeleteWrapper = styled.div`
-text-align: right;
+  text-align: right;
 `;
 export const TextWrapper = styled.div`
   text-align: center;

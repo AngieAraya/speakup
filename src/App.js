@@ -12,25 +12,26 @@ import ProfilePage from "./Page/ProfilePage";
 import UpdatePostPage from "./Page/UpdatePostPage";
 import moment from "moment/locale/sv";
 
-
-
 function App() {
   return (
-      <div>
-        <Navbar/>
-        <Switch>
-          {/* <PrivateRoute exact path="/" component={Dashboard} /> */}
-          <PrivateRoute exact path="/update-post/:id" component={UpdatePostPage} />
-          <PrivateRoute exact path="/create-post" component={CreatePostPage} />
-          <PrivateRoute exact path="/profile" component={ProfilePage} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/detail/:id" component={DetailPostPage} />
-          <Route path="/signup" component={SignupPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/start" component={StartPage} />
-          <Route path="/forgot-password" component={ForgotPasswordPage} />
-        </Switch>
-      </div>
+    <div>
+      <Navbar />
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/update-post/:id"
+          component={UpdatePostPage}
+        />
+        <PrivateRoute exact path="/create-post" component={CreatePostPage} />
+        <PrivateRoute exact path="/profile" component={ProfilePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/detail/:id" component={DetailPostPage} />
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/start" component={StartPage} />
+        <Route path="/forgot-password" component={ForgotPasswordPage} />
+      </Switch>
+    </div>
   );
 }
 

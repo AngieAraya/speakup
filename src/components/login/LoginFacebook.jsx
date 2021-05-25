@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FbBtn, SocialText } from "../styles/GeneralStyle";
-// import FacebookLogin from 'react-facebook-login'
 import firebase from "firebase/app";
 import { useAuth } from "../../contexts/AuthContext";
-import FacebookIcon from "@material-ui/icons/Facebook";
 import { FaFacebook } from "react-icons/fa";
-
 import { useHistory } from "react-router-dom";
 
 export default function LoginFacebook() {
   const { loginWithFacebook } = useAuth();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();

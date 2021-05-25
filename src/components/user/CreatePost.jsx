@@ -1,18 +1,4 @@
 import React, { useRef, useState } from "react";
-// import {
-//   Form,
-//   Header,
-//   TextWrapper,
-//   Wrapper,
-//   TextInput,
-//   BtnAndInputWrapper,
-//   TitleWrapper,
-//   AnonymousCheck,
-//   AnonymousLabel,
-//   Input,
-//   Button,
-//   ButtonWrapper,
-// } from "../styles/forms/CreatePostForm";
 import * as S from "../styles/forms/CreatePostForm";
 import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
 import { useCategory } from "../../contexts/CategoryContext";

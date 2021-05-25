@@ -18,14 +18,15 @@ export default function ProfilePage() {
     }
   };
 
-
   return (
     <Container>
-      {userDetail ? <><UserDetails /> {checkUserDetail()} </>: <h1>Loading...</h1>}
-      {/* <UserDetails />
-      {checkUserDetail()} */}
-      
-      {/* <Dashboard /> */}
+      {userDetail ? (
+        <>
+          <UserDetails /> {checkUserDetail()}{" "}
+        </>
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </Container>
   );
 }

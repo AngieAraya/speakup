@@ -2,12 +2,10 @@ import React, { useRef, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Container, Input, Button, Header, TextCenter } from "../styles/FormStyle";
-import {
-  SocialBtnContainer
- } from "../styles/GeneralStyle";
-import LoginFacebook from './LoginFacebook'
-import LoginGoogle from './LoginGoogle'
+import * as S from "../styles/FormStyle";
+import { SocialBtnContainer } from "../styles/GeneralStyle";
+import LoginFacebook from "./LoginFacebook";
+import LoginGoogle from "./LoginGoogle";
 
 export default function Login() {
   const emailRef = useRef();
@@ -34,32 +32,32 @@ export default function Login() {
 
   return (
     <>
-      <Container>
-        <Header >Logga in</Header>
+      <S.Container>
+        <S.Header>Logga in</S.Header>
         {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Input type="email" ref={emailRef} required placeholder="Email" />
-          <Input
+        <S.Form onSubmit={handleSubmit}>
+          <S.Input type="email" ref={emailRef} required placeholder="Email" />
+          <S.Input
             type="password"
             ref={passwordRef}
             required
             placeholder="Lösenord"
           />
-          <Button disabled={loading} type="submit">
+          <S.Button disabled={loading} type="submit">
             Logga in
-          </Button>
-        </Form>
-        <TextCenter>
-        <Link to="/forgot-password">Glömt Lösenord?</Link>
-      </TextCenter>
+          </S.Button>
+        </S.Form>
+        <S.TextCenter>
+          <Link to="/forgot-password">Glömt Lösenord?</Link>
+        </S.TextCenter>
         <SocialBtnContainer>
-        <LoginGoogle/>
-        <LoginFacebook/>
+          <LoginGoogle />
+          <LoginFacebook />
         </SocialBtnContainer>
-      <TextCenter>
-        Har du inget konto? <Link to="/signup">Skapa konto</Link>
-      </TextCenter>
-      </Container>
+        <S.TextCenter>
+          Har du inget konto? <Link to="/signup">Skapa konto</Link>
+        </S.TextCenter>
+      </S.Container>
     </>
   );
 }

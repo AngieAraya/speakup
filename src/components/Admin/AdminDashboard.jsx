@@ -34,6 +34,7 @@ export default function AdminDashboard() {
     </CategoryContainer>
   );
 }
+
 const fadeIn = keyframes`
 from {
   opacity: 0;

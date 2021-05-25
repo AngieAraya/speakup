@@ -20,7 +20,6 @@ export default function CategoryItem({ category, id }) {
     <LiWrapper>
       <li>{category.category}</li>
       <BtnDeleteNoStyle onClick={() => handleDeleteCategory()}>
-        {" "}
         <FaTrashAlt />
       </BtnDeleteNoStyle>
     </LiWrapper>

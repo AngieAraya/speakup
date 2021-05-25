@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import GoogleLogin from 'react-google-login';
-// import firebase from "../firebase";
 import { GoogleBtn, SocialGoogleText } from "../styles/GeneralStyle";
 import { FcGoogle } from "react-icons/fc";
 import firebase from "firebase/app";

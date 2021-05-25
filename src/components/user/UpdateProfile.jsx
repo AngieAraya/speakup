@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { AiOutlineClose } from "react-icons/ai";
 import * as S from "../styles/ModalStyle";
 import { UpdBtn, CanselBtn } from "../styles/Buttons";
-// import { Form, Input, Button, Header, Modal, ModalContainer } from "../styles/FormStyle";
 import { LinkDiv } from "../styles/ProfilePageStyle";
 import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";

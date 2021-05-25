@@ -63,3 +63,8 @@ export const Button = styled.button`
     color: white;
   }
 `;
+
+export const Alert = styled.div`
+  text-align: center;
+  color: #e40a0a;
+`;

@@ -5,41 +5,66 @@ export const Container = styled.div`
   min-height: 100vh;
   padding-top: 7%;
 `;
+
+export const CategoryMark = styled.div`
+  background: #566180;
+  padding: 0px 12px;
+  border: 1px solid #565558;
+  border-radius: 29px;
+  color: white;
+`;
+
+export const DateContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
 export const PostWrapper = styled.div`
   background: #908b8321;
   max-width: 60%;
-  padding: 60px;
+  padding: 30px 60px 62px;
   border-radius: 14px;
+  margin: auto;
 `;
+
 export const Headline = styled.h1`
   text-align: center;
-  margin: 15px 0 30px;
+  margin: 30px 0 21px;
 `;
 
-export const Category = styled.h3`
-  font-size: 15px;
-`;
-
-export const CommentContainer = styled.div`
-  max-width: 60%;
-  min-width: 50%;
-  padding: 10px;
-  margin: 70px auto 60px;
-`;
-
-export const Left = styled.div`
+export const PostedBy = styled.div`
   text-align: right;
+  margin-top: 30px;
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
-  padding: 10px;
-`;
-export const CommentedBy = styled.span`
-  margin: 10px 40px;
+export const PostedTime = styled.div`
+  margin-top: 20px;
+  font-style: oblique;
+  font-size: 13px;
+  color: #625f5f;
 `;
 
-export const CommentWrapper = styled.div`
-  border-bottom: 1px solid black;
-  padding: 10px;
+export const Date = styled.p`
+  font-family: cursive;
+    font-style: oblique;
+    font-size: 13px;
+    color: #625f5f;
+  }
+`;
+
+export const BtnDeleteNoStyle = styled.button`
+  border-block-end-style: none;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  &:hover {
+    color: #ce2c2ce6;
+  }
+`;
+
+export const DeleteWrapper = styled.div`
+  text-align: right;
 `;

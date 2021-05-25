@@ -1,7 +1,7 @@
 import React from "react";
 import { useCategory } from "../../contexts/CategoryContext";
 import styled from "styled-components";
-import { CreateCategoryBtn } from "../styles/Buttons"
+import { CreateCategoryBtn } from "../styles/Buttons";
 
 export default function CreateCategory() {
   const { createCategory, setCreateCategory, createCategoryToDB } =
@@ -38,4 +38,3 @@ export const Input = styled.input`
   padding: 5px;
   border: 1px solid purple;
 `;
-

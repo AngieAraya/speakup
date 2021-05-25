@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { firestore } from "../firebase";
 import { Container } from "../components/styles/DetailPageStyle";
 import PostDetailItem from "../components/postDetails/PostDetailItem";

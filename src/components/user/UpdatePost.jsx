@@ -1,21 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-// import {
-//   Form,
-//   Header,
-//   TextWrapper,
-//   Wrapper,
-//   TextInput,
-//   BtnAndInputWrapper,
-//   TitleWrapper,
-//   AnonymousCheck,
-//   AnonymousLabel,
-//   Input,
-//   Button,
-//   ButtonWrapper,
-// } from "../styles/forms/CreatePostForm";
 import * as S from "../styles/forms/CreatePostForm";
 import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
-import { Alert } from "react-bootstrap";
 import { usePost } from "../../contexts/PostContext";
 import { useCategory } from "../../contexts/CategoryContext";
 
@@ -26,7 +11,6 @@ export default function UpdatePost({ id }) {
   const [checkbox, setCheckBox] = useState(false);
   const titleRef = useRef();
   const textRef = useRef();
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -50,7 +34,6 @@ export default function UpdatePost({ id }) {
 
   return (
     <div>
-      {error && <Alert variant="danger">{error}</Alert>}
       {postDetail && (
         <S.Form onSubmit={handlePostUpdate}>
           <S.Header>Uppdatera inlägg</S.Header>

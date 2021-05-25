@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { firestore } from "../../../firebase";
 import { useAuth } from "../../../contexts/AuthContext";
 import styled from "styled-components";
-import { CreateCommentBtn } from "../../styles/Buttons"
+import { CreateCommentBtn } from "../../styles/Buttons";
 
 export default function CreateComment({ postId }) {
   const { currentUser, userDetail } = useAuth();
-  //loading?
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
   const [checkbox, setCheckBox] = useState(false);

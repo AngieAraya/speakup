@@ -7,7 +7,7 @@ import UpdateProfile from "../user/UpdateProfile";
 import UserAvatar from "react-user-avatar";
 import styled from "styled-components";
 import * as S from "../styles/ModalStyle";
-import { Button, DeleteBtn }from "../styles/Buttons";
+import { Button, DeleteBtn } from "../styles/Buttons";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function UserDetails() {
@@ -63,7 +63,6 @@ export default function UserDetails() {
       {userDetail ? (
         <div>
           <UserDetailWrapper>
-            {/* <ProfileImg src={userImg} alt="no user img" /> */}
             {ImgChecker(userDetail)}
             <div>
               <UserName>{userDetail.name}</UserName>
