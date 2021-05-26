@@ -32,6 +32,7 @@ export const PostWrapper = styled.div`
 export const Headline = styled.h1`
   text-align: center;
   margin: 30px 0 21px;
+  font-weight: 500;
 `;
 
 export const PostedBy = styled.div`
@@ -42,7 +43,7 @@ export const PostedBy = styled.div`
 export const PostedTime = styled.div`
   margin-top: 20px;
   font-style: oblique;
-  font-size: 13px;
+  font-size: 14px;
   color: #625f5f;
 `;
 

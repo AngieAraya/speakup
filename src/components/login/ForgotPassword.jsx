@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import resetImg from "../../img/forgot_password.png";
 import styled from "styled-components";
+import { UpdPasswordBtn } from "../styles/Buttons"
 
 export default function ForgotPassword() {
   const emailRef = useRef();
@@ -34,9 +35,9 @@ export default function ForgotPassword() {
           placeholder="E-postadress"
           required
         />
-        <button disabled={loading} type="submit">
+        <UpdPasswordBtn disabled={loading} type="submit">
           Återställ lösenord
-        </button>
+        </UpdPasswordBtn>
       </form>
       {message && <Alert>{message}</Alert>}
     </Container>

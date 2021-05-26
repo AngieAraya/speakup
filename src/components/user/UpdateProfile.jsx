@@ -4,7 +4,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import * as S from "../styles/ModalStyle";
 import { UpdBtn, CanselBtn } from "../styles/Buttons";
 import { LinkDiv } from "../styles/ProfilePageStyle";
-import { Alert } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { firestore } from "../../firebase";
@@ -67,7 +66,7 @@ export default function UpdateProfile({ setShowModal }) {
       })
       .catch(() => {
         setLoading(false);
-        setError("Failed to update account");
+        setError("E-post finns redan");
       });
     // .finally(() => {
     // })
@@ -142,7 +141,6 @@ export const Container = styled.div`
 
 export const ModalContainer = styled(Container)`
   background: #eeeeee;
-  // max-width: 365px;
   width: 370px;
   height: 400px;
   margin: auto;
@@ -171,4 +169,9 @@ export const Form = styled.form`
   justify-content: center;
   width: 75%;
   margin: 10px auto 32px;
+`;
+
+export const Alert = styled.div`
+  text-align: center;
+  color: #e40a0a;
 `;

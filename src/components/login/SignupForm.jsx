@@ -35,7 +35,7 @@ export default function SignupForm() {
       setLoading(false);
       history.push("/profile");
     } catch {
-      setError("Failed to create an account");
+      setError("E-posten används redan");
       setLoading(false);
     }
   };

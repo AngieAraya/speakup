@@ -116,3 +116,12 @@ export const CancelLink = styled(CreateNewPostLink)`
     background-color: #95adbe;
   }
 `;
+
+export const CancelBtnLink = styled(CreateNewPostLink)`
+  background-color: #597f9b;
+  padding: 3px 37px;
+  margin-left: 15px;
+  &:hover {
+    background-color: #95adbe;
+  }
+`;

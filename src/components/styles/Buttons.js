@@ -82,3 +82,14 @@ export const UpdBtn = styled(Button)`
     color: white;
   }
 `;
+
+export const UpdPasswordBtn = styled(Button)`
+  background-color: rgb(94 60 128);
+  margin-top: 20px;
+  padding: 5px 20px;
+  width: 164px;
+  &:hover {
+    background-color: rgb(127 97 157);
+    color: white;
+  }
+`;

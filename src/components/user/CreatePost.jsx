@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import * as S from "../styles/forms/CreatePostForm";
-import { LinkDiv, CancelLink } from "../styles/ProfilePageStyle";
+import { LinkDiv, CancelBtnLink } from "../styles/ProfilePageStyle";
 import { useCategory } from "../../contexts/CategoryContext";
 import { usePost } from "../../contexts/PostContext";
 
@@ -66,7 +66,7 @@ export default function CreatePost() {
           <S.ButtonWrapper>
             <S.Button type="submit">Publicera</S.Button>
             <LinkDiv>
-              <CancelLink to="/profile">Avbryt</CancelLink>
+              <CancelBtnLink to="/profile">Avbryt</CancelBtnLink>
             </LinkDiv>
           </S.ButtonWrapper>
         </S.BtnAndInputWrapper>
